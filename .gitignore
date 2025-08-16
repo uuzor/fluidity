@@ -11,3 +11,4 @@ target
 *types/*
 *contracts.json
 deploy-scripts/vesting/**/*.csv
+.env
