@@ -164,88 +164,9 @@ async function main() {
   console.log("📄 Deployment info saved to deployment-info.json");
   
   console.log("\n📋 Contract Addresses:");
-    liquidationBonus: ethers.parseEther("0.05"), // 5% liquidation bonus
-    volatilityFactor: ethers.parseEther("0.1"),  // Low volatility for stablecoin
-    correlationFactor: ethers.parseEther("0.1"), // Low correlation
-    liquidityFactor: ethers.parseEther("1.0")    // High liquidity
-  };
-
-  await riskEngine.setRiskParameters(await usdf.getAddress(), initialRiskParams);
-  console.log("Set initial risk parameters for USDF");
-
-  // Setup interest rate model for USDF
-  await liquidityPool.setInterestRateModel(
-    await usdf.getAddress(),
-    ethers.parseEther("0.02"),  // 2% base rate
-    ethers.parseEther("0.1"),   // 10% multiplier
-    ethers.parseEther("2.0"),   // 200% jump multiplier
-    ethers.parseEther("0.8")    // 80% kink
-  );
-  console.log("Set interest rate model for USDF");
-
-  // Distribute FluidToken
-  console.log("\n=== Token Distribution ===");
-  
-  // For demo purposes, we'll set up some addresses
-  const teamAddress = deployer.address;
-  const communityAddress = deployer.address;
-  const liquidityMiningAddress = deployer.address;
-  const treasuryAddress = deployer.address;
-
-  await fluidToken.distributeTokens(
-    teamAddress,
-    communityAddress,
-    liquidityMiningAddress,
-    treasuryAddress
-  );
-  console.log("Distributed FluidToken to initial allocations");
-
-  // Create initial AMM pool (USDF/FluidToken)
-  console.log("\n=== Creating Initial AMM Pool ===");
-  
-  const poolFee = ethers.parseEther("0.003"); // 0.3% fee
-  await fluidAMM.createPool(
-    await usdf.getAddress(),
-    await fluidToken.getAddress(),
-    poolFee
-  );
-  console.log("Created USDF/FLUID AMM pool");
-
-  // Summary
-  console.log("\n=== Deployment Summary ===");
-  console.log("USDF:", await usdf.getAddress());
-  console.log("FluidToken:", await fluidToken.getAddress());
-  console.log("RiskEngine:", await riskEngine.getAddress());
-  console.log("UnifiedLiquidityPool:", await liquidityPool.getAddress());
-  console.log("FluidAMM:", await fluidAMM.getAddress());
-  console.log("VaultManager:", await vaultManager.getAddress());
-
-  // Save deployment addresses
-  const deploymentInfo = {
-    network: "core",
-    timestamp: new Date().toISOString(),
-    deployer: deployer.address,
-    contracts: {
-      USDF: await usdf.getAddress(),
-      FluidToken: await fluidToken.getAddress(),
-      RiskEngine: await riskEngine.getAddress(),
-      UnifiedLiquidityPool: await liquidityPool.getAddress(),
-      FluidAMM: await fluidAMM.getAddress(),
-      VaultManager: await vaultManager.getAddress()
-    }
-  };
-
-  console.log("\n=== Deployment Info ===");
-  console.log(JSON.stringify(deploymentInfo, null, 2));
-
-  console.log("\n✅ Deployment completed successfully!");
-  console.log("\nNext steps:");
-  console.log("1. Verify contracts on Core blockchain explorer");
-  console.log("2. Set up price oracles for supported assets");
-  console.log("3. Create additional AMM pools for major assets");
-  console.log("4. Deploy yield strategies for vault system");
-  console.log("5. Set up governance system");
-  console.log("6. Configure protocol parameters");
+  Object.entries(deploymentInfo.contracts).forEach(([name, address]) => {
+    console.log(`${name}: ${address}`);
+  });
 }
 
 main()

@@ -25,7 +25,7 @@ interface IBorrowerOperations {
     function closeTrove(address asset) external;
 
     // View functions
-    function getCompositeDebt(address asset, uint256 debt) external pure returns (uint256);
+    function getCompositeDebt(address asset, uint256 debt) external view returns (uint256);
     function getBorrowingFee(address asset, uint256 usdfDebt) external view returns (uint256);
     function getBorrowingFeeWithDecay(address asset, uint256 usdfDebt) external view returns (uint256);
 }

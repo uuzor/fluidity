@@ -88,7 +88,7 @@ contract PriceOracle is Ownable, ReentrancyGuard, Pausable {
         address chainlinkFeed,
         uint256 heartbeat
     ) external onlyOwner {
-        require(asset != address(0), "Invalid asset address");
+        // Allow address(0) for ETH - asset can be address(0) for native ETH
         require(chainlinkFeed != address(0), "Invalid feed address");
         require(heartbeat > 0, "Invalid heartbeat");
         
@@ -325,6 +325,11 @@ contract PriceOracle is Ownable, ReentrancyGuard, Pausable {
     // View functions
     function getRegisteredAssets() external view returns (address[] memory) {
         return registeredAssets;
+    }
+    
+    function getLastUpdateTime(address asset) external view returns (uint256) {
+        require(oracles[asset].isActive, "Oracle not active");
+        return oracles[asset].lastUpdateTime;
     }
     
     function getOracleInfo(address asset) external view returns (
