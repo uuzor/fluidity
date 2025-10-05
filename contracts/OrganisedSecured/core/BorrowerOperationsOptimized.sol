@@ -8,6 +8,7 @@ import "../interfaces/IBorrowerOperations.sol";
 import "../interfaces/ILiquidityCore.sol";
 import "../interfaces/ISortedTroves.sol";
 import "../interfaces/IUSDF.sol";
+import "../interfaces/IPriceOracle.sol";
 import "../libraries/TransientStorage.sol";
 import "../libraries/PackedTrove.sol";
 import "../libraries/GasOptimizedMath.sol";
@@ -87,8 +88,8 @@ contract BorrowerOperationsOptimized is OptimizedSecurityBase, IBorrowerOperatio
     /// @notice USDF stablecoin contract
     IUSDF public immutable usdfToken;
 
-    /// @notice Price oracle contract address
-    address public immutable priceOracle;
+    /// @notice Price oracle contract
+    IPriceOracle public immutable priceOracle;
 
     // ============ Transient Storage Slots (EIP-1153) ============
 
@@ -147,7 +148,7 @@ contract BorrowerOperationsOptimized is OptimizedSecurityBase, IBorrowerOperatio
         liquidityCore = ILiquidityCore(_liquidityCore);
         sortedTroves = ISortedTroves(_sortedTroves);
         usdfToken = IUSDF(_usdfToken);
-        priceOracle = _priceOracle;
+        priceOracle = IPriceOracle(_priceOracle);
 
         // Start asset IDs from 1 (0 = unassigned)
         _nextAssetId = 0;
@@ -518,12 +519,8 @@ struct AdjustVars {
             return price;
         }
 
-        // Call oracle
-        (bool success, bytes memory data) = priceOracle.staticcall(
-            abi.encodeWithSignature("getPrice(address)", asset)
-        );
-        require(success, "BO: Oracle call failed");
-        price = abi.decode(data, (uint256));
+        // Call oracle using interface
+        price = priceOracle.getPrice(asset);
 
         // Cache in transient storage
         PRICE_CACHE_SLOT.tstore(price);
