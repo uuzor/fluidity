@@ -7,11 +7,8 @@
     "compile": "npx hardhat compile",
     "test": "npx hardhat test",
     "test:coverage": "npx hardhat coverage",
-    "deploy:testnet": "npx hardhat run scripts/deploy.ts --network core-testnet",
-    "deploy:mainnet": "npx hardhat run scripts/deploy.ts --network core-mainnet",
-    "deploy:proxy": "npx hardhat run scripts/deploy-proxy.ts",
-    "deploy:proxy:testnet": "npx hardhat run scripts/deploy-proxy.ts --network core-testnet",
-    "deploy:proxy:mainnet": "npx hardhat run scripts/deploy-proxy.ts --network core-mainnet",
+    "deploy:testnet": "npx hardhat run scripts/deploy-secure-contracts.ts --network nebulas",
+    "deploy:verify": "npx hardhat run scripts/deploy-secure-contracts-verified.ts --network sonic-testnet",
     "verify": "npx hardhat verify",
     "lint": "solhint 'contracts/**/*.sol'",
     "lint:fix": "solhint 'contracts/**/*.sol' --fix",
@@ -56,10 +53,11 @@
     "typescript": ">=4.5.0"
   },
   "dependencies": {
+    "@chainlink/contracts": "^0.8.0",
     "@openzeppelin/contracts": "^5.0.0",
     "@openzeppelin/contracts-upgradeable": "^5.0.0",
-    "@chainlink/contracts": "^0.8.0",
     "@uniswap/v3-core": "^1.0.0",
-    "@uniswap/v3-periphery": "^1.0.0"
+    "@uniswap/v3-periphery": "^1.0.0",
+    "dotenv": "^17.2.2"
   }
 }

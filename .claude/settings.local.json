@@ -3,7 +3,16 @@
     "allow": [
       "Bash(npm test)",
       "Bash(npx hardhat test:*)",
-      "Bash(npx hardhat:*)"
+      "Bash(npx hardhat:*)",
+      "Bash(grep:*)",
+      "Bash(timeout 30 npx hardhat test test/SecureStabilityPool.test.ts --grep \"Should set correct initial values\")",
+      "Read(/C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\core/**)",
+      "Read(/C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\test/**)",
+      "Read(/C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\test/**)",
+      "Read(/C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\test/**)",
+      "Read(/C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\scripts/**)",
+      "Read(/C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\scripts/**)",
+      "Bash(touch:*)"
     ],
     "deny": [],
     "ask": []

@@ -1,0 +1,203 @@
+
+
+  SecureBorrowerOperations
+    openTrove
+      1) Should successfully open a trove with valid parameters
+      2) Should revert if collateral ratio is too low
+      3) Should revert if net debt is too small
+      4) Should revert if borrowing fee exceeds maximum
+      5) Should revert if trove already exists
+      6) Should revert if ETH amount mismatch
+      - Should prevent MEV attacks (one action per block) - MEV protection works but test has Hardhat block mining issues
+      7) Should enforce minimum adjustment amounts
+      ✔ Should validate maximum fee percentage bounds
+      ✔ Should validate zero amounts appropriately
+    closeTrove
+      8) "before each" hook for "Should successfully close a trove"
+    addColl
+      9) "before each" hook for "Should successfully add collateral to existing trove"
+    withdrawColl
+      10) "before each" hook for "Should successfully withdraw collateral while maintaining ICR"
+    withdrawUSDF
+      11) "before each" hook for "Should successfully withdraw additional USDF"
+    Security Features
+      12) Should validate price freshness
+      ✔ Should enforce maximum collateral and debt amounts
+      - Should respect maximum troves per user
+      ✔ Should test contract pause functionality (45ms)
+      13) Should validate security modifiers are applied
+      - Should prevent re-entrancy attacks
+    Gas Optimization
+      14) Should complete trove operations within reasonable gas limits
+      15) Should handle batch operations efficiently
+      16) Should track gas usage in event emissions
+
+
+  4 passing (6s)
+  3 pending
+  16 failing
+
+  1) SecureBorrowerOperations
+       openTrove
+         Should successfully open a trove with valid parameters:
+     Error: VM Exception while processing transaction: reverted with reason string 'Max fee too high'
+    at SecureBorrowerOperations.openTrove (contracts/core/SecureBorrowerOperations.sol:129)
+    at EdrProviderWrapper.request (node_modules\hardhat\src\internal\hardhat-network\provider\provider.ts:359:41)
+    at async HardhatEthersSigner.sendTransaction (node_modules\@nomicfoundation\hardhat-ethers\src\signers.ts:181:18)
+    at async send (node_modules\ethers\src.ts\contract\contract.ts:313:20)
+    at async Proxy.openTrove (node_modules\ethers\src.ts\contract\contract.ts:352:16)
+    at async waitForPendingTransaction (node_modules\@nomicfoundation\hardhat-chai-matchers\src\internal\emit.ts:28:17)
+    at async Context.<anonymous> (test\SecureBorrowerOperations.test.ts:169:7)
+
+
+  2) SecureBorrowerOperations
+       openTrove
+         Should revert if collateral ratio is too low:
+     AssertionError: Expected transaction to be reverted with reason 'ICR below minimum', but it reverted with reason 'Max fee too high'
+      at async Context.<anonymous> (test\SecureBorrowerOperations.test.ts:208:7)
+
+  3) SecureBorrowerOperations
+       openTrove
+         Should revert if net debt is too small:
+     AssertionError: Expected transaction to be reverted with reason 'Net debt too small', but it reverted with reason 'Max fee too high'
+      at async Context.<anonymous> (test\SecureBorrowerOperations.test.ts:226:7)
+
+  4) SecureBorrowerOperations
+       openTrove
+         Should revert if borrowing fee exceeds maximum:
+     AssertionError: Expected transaction to be reverted with reason 'Fee exceeds maximum', but it didn't revert
+      at async Context.<anonymous> (test\SecureBorrowerOperations.test.ts:244:7)
+
+  5) SecureBorrowerOperations
+       openTrove
+         Should revert if trove already exists:
+     Error: VM Exception while processing transaction: reverted with reason string 'Max fee too high'
+    at SecureBorrowerOperations.openTrove (contracts/core/SecureBorrowerOperations.sol:129)
+    at EdrProviderWrapper.request (node_modules\hardhat\src\internal\hardhat-network\provider\provider.ts:359:41)
+    at async HardhatEthersSigner.sendTransaction (node_modules\@nomicfoundation\hardhat-ethers\src\signers.ts:181:18)
+    at async send (node_modules\ethers\src.ts\contract\contract.ts:313:20)
+    at async Proxy.openTrove (node_modules\ethers\src.ts\contract\contract.ts:352:16)
+    at async Context.<anonymous> (test\SecureBorrowerOperations.test.ts:263:7)
+
+
+  6) SecureBorrowerOperations
+       openTrove
+         Should revert if ETH amount mismatch:
+     AssertionError: Expected transaction to be reverted with reason 'Incorrect ETH amount', but it reverted with reason 'Max fee too high'
+      at async Context.<anonymous> (test\SecureBorrowerOperations.test.ts:292:7)
+
+  7) SecureBorrowerOperations
+       openTrove
+         Should enforce minimum adjustment amounts:
+     AssertionError: Expected transaction to be reverted with reason 'Collateral amount too small', but it reverted with reason 'Max fee too high'
+      at async Context.<anonymous> (test\SecureBorrowerOperations.test.ts:330:7)
+
+  8) SecureBorrowerOperations
+       closeTrove
+         "before each" hook for "Should successfully close a trove":
+     Error: VM Exception while processing transaction: reverted with reason string 'Max fee too high'
+    at SecureBorrowerOperations.openTrove (contracts/core/SecureBorrowerOperations.sol:129)
+    at EdrProviderWrapper.request (node_modules\hardhat\src\internal\hardhat-network\provider\provider.ts:359:41)
+    at async HardhatEthersSigner.sendTransaction (node_modules\@nomicfoundation\hardhat-ethers\src\signers.ts:181:18)
+    at async send (node_modules\ethers\src.ts\contract\contract.ts:313:20)
+    at async Proxy.openTrove (node_modules\ethers\src.ts\contract\contract.ts:352:16)
+    at async Context.<anonymous> (test\SecureBorrowerOperations.test.ts:399:7)
+
+
+  9) SecureBorrowerOperations
+       addColl
+         "before each" hook for "Should successfully add collateral to existing trove":
+     Error: VM Exception while processing transaction: reverted with reason string 'Max fee too high'
+    at SecureBorrowerOperations.openTrove (contracts/core/SecureBorrowerOperations.sol:129)
+    at EdrProviderWrapper.request (node_modules\hardhat\src\internal\hardhat-network\provider\provider.ts:359:41)
+    at async HardhatEthersSigner.sendTransaction (node_modules\@nomicfoundation\hardhat-ethers\src\signers.ts:181:18)
+    at async send (node_modules\ethers\src.ts\contract\contract.ts:313:20)
+    at async Proxy.openTrove (node_modules\ethers\src.ts\contract\contract.ts:352:16)
+    at async Context.<anonymous> (test\SecureBorrowerOperations.test.ts:451:7)
+
+
+  10) SecureBorrowerOperations
+       withdrawColl
+         "before each" hook for "Should successfully withdraw collateral while maintaining ICR":
+     Error: VM Exception while processing transaction: reverted with reason string 'Max fee too high'
+    at SecureBorrowerOperations.openTrove (contracts/core/SecureBorrowerOperations.sol:129)
+    at EdrProviderWrapper.request (node_modules\hardhat\src\internal\hardhat-network\provider\provider.ts:359:41)
+    at async HardhatEthersSigner.sendTransaction (node_modules\@nomicfoundation\hardhat-ethers\src\signers.ts:181:18)
+    at async send (node_modules\ethers\src.ts\contract\contract.ts:313:20)
+    at async Proxy.openTrove (node_modules\ethers\src.ts\contract\contract.ts:352:16)
+    at async Context.<anonymous> (test\SecureBorrowerOperations.test.ts:523:7)
+
+
+  11) SecureBorrowerOperations
+       withdrawUSDF
+         "before each" hook for "Should successfully withdraw additional USDF":
+     Error: VM Exception while processing transaction: reverted with reason string 'Max fee too high'
+    at SecureBorrowerOperations.openTrove (contracts/core/SecureBorrowerOperations.sol:129)
+    at EdrProviderWrapper.request (node_modules\hardhat\src\internal\hardhat-network\provider\provider.ts:359:41)
+    at async HardhatEthersSigner.sendTransaction (node_modules\@nomicfoundation\hardhat-ethers\src\signers.ts:181:18)
+    at async send (node_modules\ethers\src.ts\contract\contract.ts:313:20)
+    at async Proxy.openTrove (node_modules\ethers\src.ts\contract\contract.ts:352:16)
+    at async Context.<anonymous> (test\SecureBorrowerOperations.test.ts:586:7)
+
+
+  12) SecureBorrowerOperations
+       Security Features
+         Should validate price freshness:
+     AssertionError: Expected transaction to be reverted with reason 'Price too stale', but it reverted with reason 'Max fee too high'
+      at async Context.<anonymous> (test\SecureBorrowerOperations.test.ts:657:7)
+
+  13) SecureBorrowerOperations
+       Security Features
+         Should validate security modifiers are applied:
+     Error: VM Exception while processing transaction: reverted with reason string 'Max fee too high'
+    at SecureBorrowerOperations.openTrove (contracts/core/SecureBorrowerOperations.sol:129)
+    at EdrProviderWrapper.request (node_modules\hardhat\src\internal\hardhat-network\provider\provider.ts:359:41)
+    at async HardhatEthersSigner.sendTransaction (node_modules\@nomicfoundation\hardhat-ethers\src\signers.ts:181:18)
+    at async send (node_modules\ethers\src.ts\contract\contract.ts:313:20)
+    at async Proxy.openTrove (node_modules\ethers\src.ts\contract\contract.ts:352:16)
+    at async Context.<anonymous> (test\SecureBorrowerOperations.test.ts:731:7)
+
+
+  14) SecureBorrowerOperations
+       Gas Optimization
+         Should complete trove operations within reasonable gas limits:
+     Error: VM Exception while processing transaction: reverted with reason string 'Max fee too high'
+    at SecureBorrowerOperations.openTrove (contracts/core/SecureBorrowerOperations.sol:129)
+    at EdrProviderWrapper.request (node_modules\hardhat\src\internal\hardhat-network\provider\provider.ts:359:41)
+    at async HardhatEthersSigner.sendTransaction (node_modules\@nomicfoundation\hardhat-ethers\src\signers.ts:181:18)
+    at async send (node_modules\ethers\src.ts\contract\contract.ts:313:20)
+    at async Proxy.openTrove (node_modules\ethers\src.ts\contract\contract.ts:352:16)
+    at async Context.<anonymous> (test\SecureBorrowerOperations.test.ts:764:18)
+
+
+  15) SecureBorrowerOperations
+       Gas Optimization
+         Should handle batch operations efficiently:
+     Error: VM Exception while processing transaction: reverted with reason string 'Max fee too high'
+    at SecureBorrowerOperations.openTrove (contracts/core/SecureBorrowerOperations.sol:129)
+    at EdrProviderWrapper.request (node_modules\hardhat\src\internal\hardhat-network\provider\provider.ts:359:41)
+    at async HardhatEthersSigner.sendTransaction (node_modules\@nomicfoundation\hardhat-ethers\src\signers.ts:181:18)
+    at async send (node_modules\ethers\src.ts\contract\contract.ts:313:20)
+    at async Proxy.openTrove (node_modules\ethers\src.ts\contract\contract.ts:352:16)
+    at async Context.<anonymous> (test\SecureBorrowerOperations.test.ts:785:22)
+
+
+  16) SecureBorrowerOperations
+       Gas Optimization
+         Should track gas usage in event emissions:
+     Error: VM Exception while processing transaction: reverted with reason string 'Max fee too high'
+    at SecureBorrowerOperations.openTrove (contracts/core/SecureBorrowerOperations.sol:129)
+    at EdrProviderWrapper.request (node_modules\hardhat\src\internal\hardhat-network\provider\provider.ts:359:41)
+    at async HardhatEthersSigner.sendTransaction (node_modules\@nomicfoundation\hardhat-ethers\src\signers.ts:181:18)
+    at async send (node_modules\ethers\src.ts\contract\contract.ts:313:20)
+    at async Proxy.openTrove (node_modules\ethers\src.ts\contract\contract.ts:352:16)
+    at async waitForPendingTransaction (node_modules\@nomicfoundation\hardhat-chai-matchers\src\internal\emit.ts:28:17)
+    at async Context.<anonymous> (test\SecureBorrowerOperations.test.ts:828:7)
+
+
+
+
+
+Your solidity settings have viaIR enabled, which is not fully supported yet. You can still use Hardhat, but some features, like stack traces, might not work correctly.
+
+Learn more at https://hardhat.org/solc-viair

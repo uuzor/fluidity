@@ -1,0 +1,39 @@
+{
+  "network": {
+    "name": "nebulas",
+    "chainId": "2484"
+  },
+  "deployer": "0x8d92fe104CCa6dcF0C448dEb531dfDD06236e22d",
+  "timestamp": "2025-09-30T12:41:41.243Z",
+  "deploymentType": "tested-secure-contracts",
+  "addresses": {
+    "accessControlManager": "0x1e9ee3e461B0F21C420eF24d8b8FDE0EcdfeD80E",
+    "usdf": "0x260054AFcc04c42eAa7439be02Ef6475D90c6Ecc",
+    "fluidToken": "0x642E70B2AC2C7FC7323c18ad7Bb699457f321d0e",
+    "mockChainlinkFeed": "0x1381C61F9cDc39cbD5a86D1bec34A22bCAEf0A6b",
+    "priceOracle": "0x421A76f9b9b773d39C9893A7390Dce758C87B3ae",
+    "sortedTroves": "0xB572d7c107fb1B51F463953C3Ed672A8cFcDACa3",
+    "liquidationHelpers": "0xd0f6E35Ed4941F481d2fbe0682c6707f73e558aA",
+    "activePool": "0x9f707Df0DD8622377bAC644D019514780e51F911",
+    "defaultPool": "0x6e8D1bf87da4B8E4a897B2c3D2096066C6e8E5eE",
+    "collSurplusPool": "0x18c0cAc92a13E4d0d40bedf83AeC5ba196c36cB4",
+    "gasPool": "0x2c398FeEd8ee796B703C669Ab1b7fF381aFE4EBd",
+    "unifiedLiquidityPool": "0xb7B6405a4B6dE57d4acb3a5067d944d94283dA22",
+    "fluidAMM": "0xA7297098c8294503C4228D4D06FDdEc3ADF2d8Dc",
+    "secureStabilityPool": "0x1329d8C7Bf6D4F50a37c991FD494d5aE46d78089",
+    "secureTroveManager": "0x48F10938Bfb87b8a9961d7C38E36F81694396315",
+    "secureBorrowerOperations": "0x78edC46846026CA5D6053dE5730eB6800DF809Da"
+  },
+  "advantages": {
+    "tested": "All contracts match your test suite",
+    "noProxy": "No proxy complexity or upgrade issues",
+    "constants": "MIN_NET_DEBT = 200 USDF (tested and working)",
+    "noRoles": "No BORROWER_ROLE restrictions",
+    "proven": "These exact contracts pass all your tests"
+  },
+  "contractInfo": {
+    "note": "Using tested SecureBorrowerOperations, SecureTroveManager, and SecureStabilityPool",
+    "upgradeability": "Direct contracts - no proxy pattern",
+    "dependencies": "All circular dependencies resolved through constructor parameters"
+  }
+}

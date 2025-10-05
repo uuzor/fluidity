@@ -1,10 +1,10 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\interfaces\\IBorrowerOperations.sol": {
-      "lastModificationDate": 1755332649191,
-      "contentHash": "9a6a8b547c882b02e5a63fc389715ae1",
-      "sourceName": "contracts/interfaces/IBorrowerOperations.sol",
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\core\\BorrowerOperationsOptimized.sol": {
+      "lastModificationDate": 1759601696913,
+      "contentHash": "309a00c1e6dc14c16dd6b0bf69a18139",
+      "sourceName": "contracts/OrganisedSecured/core/BorrowerOperationsOptimized.sol",
       "solcConfig": {
         "version": "0.8.24",
         "settings": {
@@ -12,8 +12,97 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "../utils/OptimizedSecurityBase.sol",
+        "../interfaces/IBorrowerOperations.sol",
+        "../interfaces/ILiquidityCore.sol",
+        "../interfaces/ISortedTroves.sol",
+        "../interfaces/IUSDF.sol",
+        "../libraries/TransientStorage.sol",
+        "../libraries/PackedTrove.sol",
+        "../libraries/GasOptimizedMath.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "BorrowerOperationsOptimized"
+      ]
+    },
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol": {
+      "lastModificationDate": 1759529660235,
+      "contentHash": "ce7e288ef80f5d68b794a6ae66bcd7dc",
+      "sourceName": "contracts/OrganisedSecured/utils/OptimizedSecurityBase.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/utils/Pausable.sol",
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "../libraries/TransientStorage.sol",
+        "./AccessControlManager.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "OptimizedSecurityBase"
+      ]
+    },
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\interfaces\\IBorrowerOperations.sol": {
+      "lastModificationDate": 1759572395672,
+      "contentHash": "a7111ebc84760a2123ca37d6eabc3328",
+      "sourceName": "contracts/OrganisedSecured/interfaces/IBorrowerOperations.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -39,10 +128,10 @@
         "IBorrowerOperations"
       ]
     },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\interfaces\\ITroveManager.sol": {
-      "lastModificationDate": 1755175267605,
-      "contentHash": "ff48dbed7afd55a09abce7006e5f0d75",
-      "sourceName": "contracts/interfaces/ITroveManager.sol",
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\interfaces\\ILiquidityCore.sol": {
+      "lastModificationDate": 1759601794628,
+      "contentHash": "3823626c24232c18360e54167472dd4a",
+      "sourceName": "contracts/OrganisedSecured/interfaces/ILiquidityCore.sol",
       "solcConfig": {
         "version": "0.8.24",
         "settings": {
@@ -50,8 +139,7 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -74,13 +162,13 @@
         "^0.8.24"
       ],
       "artifacts": [
-        "ITroveManager"
+        "ILiquidityCore"
       ]
     },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\tokens\\USDF.sol": {
-      "lastModificationDate": 1755174742937,
-      "contentHash": "e61aaea97082bbb708559c84b64a1d27",
-      "sourceName": "contracts/tokens/USDF.sol",
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\interfaces\\ISortedTroves.sol": {
+      "lastModificationDate": 1759571013277,
+      "contentHash": "2a3a207653b1ba9e2b02a813ffe8653a",
+      "sourceName": "contracts/OrganisedSecured/interfaces/ISortedTroves.sol",
       "solcConfig": {
         "version": "0.8.24",
         "settings": {
@@ -88,8 +176,44 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "ISortedTroves"
+      ]
+    },
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\interfaces\\IUSDF.sol": {
+      "lastModificationDate": 1759571725869,
+      "contentHash": "49961de7a25cc981b9343140bf6d759c",
+      "sourceName": "contracts/OrganisedSecured/interfaces/IUSDF.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -108,23 +232,19 @@
         }
       },
       "imports": [
-        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol",
-        "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol",
-        "@openzeppelin/contracts/access/AccessControl.sol",
-        "@openzeppelin/contracts/utils/Pausable.sol"
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol"
       ],
       "versionPragmas": [
         "^0.8.24"
       ],
       "artifacts": [
-        "USDF"
+        "IUSDF"
       ]
     },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\libraries\\Math.sol": {
-      "lastModificationDate": 1755174050218,
-      "contentHash": "d550656c6e77c0e9b52d5f7bfa116a72",
-      "sourceName": "contracts/libraries/Math.sol",
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\libraries\\TransientStorage.sol": {
+      "lastModificationDate": 1759445265006,
+      "contentHash": "e04aa09bec66b8bef61b85873bcb5106",
+      "sourceName": "contracts/OrganisedSecured/libraries/TransientStorage.sol",
       "solcConfig": {
         "version": "0.8.24",
         "settings": {
@@ -132,8 +252,7 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -156,13 +275,15 @@
         "^0.8.24"
       ],
       "artifacts": [
-        "Math"
+        "TransientCache",
+        "TransientReentrancyGuard",
+        "TransientStorage"
       ]
     },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\access\\Ownable.sol": {
-      "lastModificationDate": 1755176585482,
-      "contentHash": "d3c790edc9ccf808a17c5a6cd13614fd",
-      "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\libraries\\PackedTrove.sol": {
+      "lastModificationDate": 1759445801433,
+      "contentHash": "90837a459fb38c6bb578c54cb6be42c0",
+      "sourceName": "contracts/OrganisedSecured/libraries/PackedTrove.sol",
       "solcConfig": {
         "version": "0.8.24",
         "settings": {
@@ -170,48 +291,7 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../utils/Context.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "Ownable"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\utils\\ReentrancyGuard.sol": {
-      "lastModificationDate": 1755176585540,
-      "contentHash": "190613e556d509d9e9a0ea43dc5d891d",
-      "sourceName": "@openzeppelin/contracts/utils/ReentrancyGuard.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -231,10 +311,47 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.8.20"
+        "^0.8.24"
       ],
       "artifacts": [
-        "ReentrancyGuard"
+        "PackedTrove"
+      ]
+    },
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\libraries\\GasOptimizedMath.sol": {
+      "lastModificationDate": 1759488944456,
+      "contentHash": "f4e9863f0186cfd1048c25b3d074a09a",
+      "sourceName": "contracts/OrganisedSecured/libraries/GasOptimizedMath.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "GasOptimizedMath"
       ]
     },
     "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\IERC20.sol": {
@@ -248,8 +365,7 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -286,8 +402,7 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -316,6 +431,47 @@
         "SafeERC20"
       ]
     },
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\utils\\AccessControlManager.sol": {
+      "lastModificationDate": 1759513860807,
+      "contentHash": "6f4bb1275f67ce1a04b67a557f810ede",
+      "sourceName": "contracts/OrganisedSecured/utils/AccessControlManager.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/AccessControl.sol",
+        "@openzeppelin/contracts/utils/Pausable.sol",
+        "@openzeppelin/contracts/utils/ReentrancyGuard.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "AccessControlManager"
+      ]
+    },
     "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\utils\\Pausable.sol": {
       "lastModificationDate": 1755176585526,
       "contentHash": "0d47b53e10b1985efbb396f937626279",
@@ -327,8 +483,7 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -356,6 +511,43 @@
         "Pausable"
       ]
     },
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\utils\\ReentrancyGuard.sol": {
+      "lastModificationDate": 1755176585540,
+      "contentHash": "190613e556d509d9e9a0ea43dc5d891d",
+      "sourceName": "@openzeppelin/contracts/utils/ReentrancyGuard.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "ReentrancyGuard"
+      ]
+    },
     "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\access\\AccessControl.sol": {
       "lastModificationDate": 1755176583935,
       "contentHash": "d0e2c05f09a3aea7cd299bbd4a435ee2",
@@ -367,8 +559,7 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -398,134 +589,6 @@
         "AccessControl"
       ]
     },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\ERC20.sol": {
-      "lastModificationDate": 1755176584556,
-      "contentHash": "59dfce11284f2636db261df9b6a18f81",
-      "sourceName": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./IERC20.sol",
-        "./extensions/IERC20Metadata.sol",
-        "../../utils/Context.sol",
-        "../../interfaces/draft-IERC6093.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "ERC20"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\extensions\\ERC20Burnable.sol": {
-      "lastModificationDate": 1755176584559,
-      "contentHash": "273d8d24b06f67207dd5f35c3a0c1086",
-      "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../ERC20.sol",
-        "../../../utils/Context.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "ERC20Burnable"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\extensions\\ERC20Permit.sol": {
-      "lastModificationDate": 1755176584580,
-      "contentHash": "2343c0c3b51267f4f2639ec3f99cd63e",
-      "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./IERC20Permit.sol",
-        "../ERC20.sol",
-        "../../../utils/cryptography/ECDSA.sol",
-        "../../../utils/cryptography/EIP712.sol",
-        "../../../utils/Nonces.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "ERC20Permit"
-      ]
-    },
     "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\utils\\Context.sol": {
       "lastModificationDate": 1755176584201,
       "contentHash": "67bfbc07588eb8683b3fd8f6f909563e",
@@ -537,8 +600,7 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -575,8 +637,7 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -615,8 +676,7 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -653,8 +713,7 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -680,6 +739,202 @@
         "IERC165"
       ]
     },
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC1363.sol": {
+      "lastModificationDate": 1755176585089,
+      "contentHash": "a7fd0f05e36b0d0a21c75340c9c639ec",
+      "sourceName": "@openzeppelin/contracts/interfaces/IERC1363.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IERC20.sol",
+        "./IERC165.sol"
+      ],
+      "versionPragmas": [
+        ">=0.6.2"
+      ],
+      "artifacts": [
+        "IERC1363"
+      ]
+    },
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC20.sol": {
+      "lastModificationDate": 1755176585130,
+      "contentHash": "68620db2da7583d9a4919096ac77f577",
+      "sourceName": "@openzeppelin/contracts/interfaces/IERC20.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../token/ERC20/IERC20.sol"
+      ],
+      "versionPragmas": [
+        ">=0.4.16"
+      ],
+      "artifacts": []
+    },
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC165.sol": {
+      "lastModificationDate": 1755176585100,
+      "contentHash": "947853028399b7de34bcc3704ee06e99",
+      "sourceName": "@openzeppelin/contracts/interfaces/IERC165.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../utils/introspection/IERC165.sol"
+      ],
+      "versionPragmas": [
+        ">=0.4.16"
+      ],
+      "artifacts": []
+    },
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\extensions\\ERC20Burnable.sol": {
+      "lastModificationDate": 1755176584559,
+      "contentHash": "273d8d24b06f67207dd5f35c3a0c1086",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../ERC20.sol",
+        "../../../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "ERC20Burnable"
+      ]
+    },
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\ERC20.sol": {
+      "lastModificationDate": 1755176584556,
+      "contentHash": "59dfce11284f2636db261df9b6a18f81",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IERC20.sol",
+        "./extensions/IERC20Metadata.sol",
+        "../../utils/Context.sol",
+        "../../interfaces/draft-IERC6093.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "ERC20"
+      ]
+    },
     "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\interfaces\\draft-IERC6093.sol": {
       "lastModificationDate": 1755176584384,
       "contentHash": "5041977bbe908de2e6ed0270447f79ad",
@@ -691,8 +946,7 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -731,8 +985,7 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -760,10 +1013,10 @@
         "IERC20Metadata"
       ]
     },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\utils\\Nonces.sol": {
-      "lastModificationDate": 1755176585472,
-      "contentHash": "c32d108058718efb9061b88e83a83f79",
-      "sourceName": "@openzeppelin/contracts/utils/Nonces.sol",
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\utils\\TestContracts.sol": {
+      "lastModificationDate": 1759486042974,
+      "contentHash": "d5aee1f124f2bdd98109878b27a98bdd",
+      "sourceName": "contracts/OrganisedSecured/utils/TestContracts.sol",
       "solcConfig": {
         "version": "0.8.24",
         "settings": {
@@ -771,84 +1024,7 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "Nonces"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\utils\\cryptography\\ECDSA.sol": {
-      "lastModificationDate": 1755176584421,
-      "contentHash": "81de029d56aa803972be03c5d277cb6c",
-      "sourceName": "@openzeppelin/contracts/utils/cryptography/ECDSA.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "ECDSA"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\utils\\cryptography\\EIP712.sol": {
-      "lastModificationDate": 1755176584426,
-      "contentHash": "d67dfba302ed2489324d7584625c3bde",
-      "sourceName": "@openzeppelin/contracts/utils/cryptography/EIP712.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -867,863 +1043,31 @@
         }
       },
       "imports": [
-        "./MessageHashUtils.sol",
-        "../ShortStrings.sol",
-        "../../interfaces/IERC5267.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "EIP712"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\extensions\\IERC20Permit.sol": {
-      "lastModificationDate": 1755176585155,
-      "contentHash": "b01905745d47df90c7bd5dd70d498cb7",
-      "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/IERC20Permit.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.4.16"
-      ],
-      "artifacts": [
-        "IERC20Permit"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\utils\\ShortStrings.sol": {
-      "lastModificationDate": 1755176585568,
-      "contentHash": "c1be9487e5a64acf23b5d8028482e748",
-      "sourceName": "@openzeppelin/contracts/utils/ShortStrings.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./StorageSlot.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "ShortStrings"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC5267.sol": {
-      "lastModificationDate": 1755176585222,
-      "contentHash": "6e00d2fe4bc0d5f1add753824498bb35",
-      "sourceName": "@openzeppelin/contracts/interfaces/IERC5267.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.4.16"
-      ],
-      "artifacts": [
-        "IERC5267"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\utils\\cryptography\\MessageHashUtils.sol": {
-      "lastModificationDate": 1755176585454,
-      "contentHash": "260f3968eefa3bbd30520cff5384cd93",
-      "sourceName": "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../Strings.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "MessageHashUtils"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\utils\\StorageSlot.sol": {
-      "lastModificationDate": 1755176585607,
-      "contentHash": "e656d64c4ce918f3d13030b91c935134",
-      "sourceName": "@openzeppelin/contracts/utils/StorageSlot.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "StorageSlot"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\utils\\Strings.sol": {
-      "lastModificationDate": 1755176585617,
-      "contentHash": "d8f70caf0e0c77dc908176ed44812fb7",
-      "sourceName": "@openzeppelin/contracts/utils/Strings.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./math/Math.sol",
-        "./math/SafeCast.sol",
-        "./math/SignedMath.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "Strings"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\utils\\math\\Math.sol": {
-      "lastModificationDate": 1755176585437,
-      "contentHash": "5ec781e33d3a9ac91ffdc83d94420412",
-      "sourceName": "@openzeppelin/contracts/utils/math/Math.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../Panic.sol",
-        "./SafeCast.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "Math"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\utils\\math\\SafeCast.sol": {
-      "lastModificationDate": 1755176585560,
-      "contentHash": "2adca1150f58fc6f3d1f0a0f22ee7cca",
-      "sourceName": "@openzeppelin/contracts/utils/math/SafeCast.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "SafeCast"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\utils\\math\\SignedMath.sol": {
-      "lastModificationDate": 1755176585575,
-      "contentHash": "ae3528afb8bdb0a7dcfba5b115ee8074",
-      "sourceName": "@openzeppelin/contracts/utils/math/SignedMath.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./SafeCast.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "SignedMath"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\utils\\Panic.sol": {
-      "lastModificationDate": 1755176585521,
-      "contentHash": "2133dc13536b4a6a98131e431fac59e1",
-      "sourceName": "@openzeppelin/contracts/utils/Panic.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "Panic"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC1363.sol": {
-      "lastModificationDate": 1755176585089,
-      "contentHash": "a7fd0f05e36b0d0a21c75340c9c639ec",
-      "sourceName": "@openzeppelin/contracts/interfaces/IERC1363.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./IERC20.sol",
-        "./IERC165.sol"
-      ],
-      "versionPragmas": [
-        ">=0.6.2"
-      ],
-      "artifacts": [
-        "IERC1363"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC165.sol": {
-      "lastModificationDate": 1755176585100,
-      "contentHash": "947853028399b7de34bcc3704ee06e99",
-      "sourceName": "@openzeppelin/contracts/interfaces/IERC165.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../utils/introspection/IERC165.sol"
-      ],
-      "versionPragmas": [
-        ">=0.4.16"
-      ],
-      "artifacts": []
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC20.sol": {
-      "lastModificationDate": 1755176585130,
-      "contentHash": "68620db2da7583d9a4919096ac77f577",
-      "sourceName": "@openzeppelin/contracts/interfaces/IERC20.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../token/ERC20/IERC20.sol"
-      ],
-      "versionPragmas": [
-        ">=0.4.16"
-      ],
-      "artifacts": []
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\utils\\types\\Time.sol": {
-      "lastModificationDate": 1755176585623,
-      "contentHash": "d83e7814a059fc1287fd765f424ce004",
-      "sourceName": "@openzeppelin/contracts/utils/types/Time.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../math/Math.sol",
-        "../math/SafeCast.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "Time"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\governance\\utils\\Votes.sol": {
-      "lastModificationDate": 1755176585687,
-      "contentHash": "95aceafdc639babdd22576e5e3774d64",
-      "sourceName": "@openzeppelin/contracts/governance/utils/Votes.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../../interfaces/IERC5805.sol",
-        "../../utils/Context.sol",
-        "../../utils/Nonces.sol",
-        "../../utils/cryptography/EIP712.sol",
-        "../../utils/structs/Checkpoints.sol",
-        "../../utils/math/SafeCast.sol",
-        "../../utils/cryptography/ECDSA.sol",
-        "../../utils/types/Time.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "Votes"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC5805.sol": {
-      "lastModificationDate": 1755176585244,
-      "contentHash": "4ca519ef7ae252e5aaff422172d4e8a9",
-      "sourceName": "@openzeppelin/contracts/interfaces/IERC5805.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../governance/utils/IVotes.sol",
-        "./IERC6372.sol"
-      ],
-      "versionPragmas": [
-        ">=0.8.4"
-      ],
-      "artifacts": [
-        "IERC5805"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\utils\\structs\\Checkpoints.sol": {
-      "lastModificationDate": 1755176584162,
-      "contentHash": "7e3b3e7a04ea9d446b39835a2f6a58cd",
-      "sourceName": "@openzeppelin/contracts/utils/structs/Checkpoints.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../math/Math.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "Checkpoints"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\governance\\utils\\IVotes.sol": {
-      "lastModificationDate": 1755176585391,
-      "contentHash": "61c6e9b90081d85a755a3107dcaacc26",
-      "sourceName": "@openzeppelin/contracts/governance/utils/IVotes.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.8.4"
-      ],
-      "artifacts": [
-        "IVotes"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC6372.sol": {
-      "lastModificationDate": 1755176585247,
-      "contentHash": "af8cb4a1b941a8230c36de0b4aacf653",
-      "sourceName": "@openzeppelin/contracts/interfaces/IERC6372.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.4.16"
-      ],
-      "artifacts": [
-        "IERC6372"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\extensions\\ERC20Votes.sol": {
-      "lastModificationDate": 1755176584583,
-      "contentHash": "51c2083b160453420aaa0a046c16d5ca",
-      "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../ERC20.sol",
-        "../../../governance/utils/Votes.sol",
-        "../../../utils/structs/Checkpoints.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "ERC20Votes"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\tokens\\FluidToken.sol": {
-      "lastModificationDate": 1755174782010,
-      "contentHash": "4ca1d312fb4e1938a981e7ff9f92faca",
-      "sourceName": "contracts/tokens/FluidToken.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
+        "../libraries/PackedTrove.sol",
+        "../libraries/TransientStorage.sol",
+        "../libraries/BatchOperations.sol",
+        "../libraries/CalldataDecoder.sol",
+        "../libraries/GasOptimizedMath.sol",
         "@openzeppelin/contracts/token/ERC20/ERC20.sol",
         "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol",
-        "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol",
-        "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol",
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "@openzeppelin/contracts/utils/Pausable.sol"
+        "@openzeppelin/contracts/access/AccessControl.sol"
       ],
       "versionPragmas": [
         "^0.8.24"
       ],
       "artifacts": [
-        "FluidToken"
+        "BatchOperationsTest",
+        "CalldataDecoderTest",
+        "GasOptimizedMathTest",
+        "MockERC20Mintable",
+        "PackedTroveTest",
+        "TransientStorageTest"
       ]
     },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\vaults\\VaultManager.sol": {
-      "lastModificationDate": 1755189526736,
-      "contentHash": "a554252cc7d43d5856d94f4e500ddd9e",
-      "sourceName": "contracts/vaults/VaultManager.sol",
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\libraries\\BatchOperations.sol": {
+      "lastModificationDate": 1759586771800,
+      "contentHash": "40c5f864062404f18fadab215aaaca85",
+      "sourceName": "contracts/OrganisedSecured/libraries/BatchOperations.sol",
       "solcConfig": {
         "version": "0.8.24",
         "settings": {
@@ -1731,8 +1075,83 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "BatchOperations"
+      ]
+    },
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\libraries\\CalldataDecoder.sol": {
+      "lastModificationDate": 1759487882060,
+      "contentHash": "2a19533b3ea92b5f96c368418712b816",
+      "sourceName": "contracts/OrganisedSecured/libraries/CalldataDecoder.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "CalldataDecoder"
+      ]
+    },
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\core\\UnifiedLiquidityPool.sol": {
+      "lastModificationDate": 1759588010414,
+      "contentHash": "6633c20dfb8ff0714e1203b731446516",
+      "sourceName": "contracts/OrganisedSecured/core/UnifiedLiquidityPool.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -1753,26 +1172,20 @@
       "imports": [
         "@openzeppelin/contracts/token/ERC20/IERC20.sol",
         "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "@openzeppelin/contracts/utils/ReentrancyGuard.sol",
-        "@openzeppelin/contracts/utils/Pausable.sol",
-        "../interfaces/IVaultManager.sol",
-        "../interfaces/IUnifiedLiquidityPool.sol",
-        "../interfaces/IYieldStrategy.sol",
-        "../libraries/Math.sol",
-        "./FluidVault.sol"
+        "../utils/OptimizedSecurityBase.sol",
+        "../interfaces/IUnifiedLiquidityPool.sol"
       ],
       "versionPragmas": [
         "^0.8.24"
       ],
       "artifacts": [
-        "VaultManager"
+        "UnifiedLiquidityPool"
       ]
     },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\interfaces\\IVaultManager.sol": {
-      "lastModificationDate": 1755174617564,
-      "contentHash": "dbf7a2ed0185b0a87f60715d2bae9a2f",
-      "sourceName": "contracts/interfaces/IVaultManager.sol",
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\interfaces\\IUnifiedLiquidityPool.sol": {
+      "lastModificationDate": 1757910333468,
+      "contentHash": "1cab5dc7ab9b5b8e2f31f7275648d603",
+      "sourceName": "contracts/OrganisedSecured/interfaces/IUnifiedLiquidityPool.sol",
       "solcConfig": {
         "version": "0.8.24",
         "settings": {
@@ -1780,46 +1193,7 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "IVaultManager"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\interfaces\\IUnifiedLiquidityPool.sol": {
-      "lastModificationDate": 1755173868600,
-      "contentHash": "20e3bed01c00cfbb9640fbd0ac522c82",
-      "sourceName": "contracts/interfaces/IUnifiedLiquidityPool.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -1845,10 +1219,10 @@
         "IUnifiedLiquidityPool"
       ]
     },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\interfaces\\IYieldStrategy.sol": {
-      "lastModificationDate": 1755174710055,
-      "contentHash": "1cc744bfdef1a60b1b6f069a09fb9351",
-      "sourceName": "contracts/interfaces/IYieldStrategy.sol",
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\core\\LiquidityCore.sol": {
+      "lastModificationDate": 1759601655214,
+      "contentHash": "bb7a2296a998ba7850cd9ac9beef786c",
+      "sourceName": "contracts/OrganisedSecured/core/LiquidityCore.sol",
       "solcConfig": {
         "version": "0.8.24",
         "settings": {
@@ -1856,8 +1230,129 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "../utils/OptimizedSecurityBase.sol",
+        "../interfaces/ILiquidityCore.sol",
+        "../interfaces/IUnifiedLiquidityPool.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "LiquidityCore"
+      ]
+    },
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\core\\SortedTroves.sol": {
+      "lastModificationDate": 1759571061113,
+      "contentHash": "3a429aeb7eac0ec3996cf173e9fdcafd",
+      "sourceName": "contracts/OrganisedSecured/core/SortedTroves.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../interfaces/ISortedTroves.sol",
+        "../utils/OptimizedSecurityBase.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "SortedTroves"
+      ]
+    },
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\mocks\\MockERC20.sol": {
+      "lastModificationDate": 1759601525255,
+      "contentHash": "487276de9328a2df1627e306620d5c29",
+      "sourceName": "contracts/OrganisedSecured/mocks/MockERC20.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "MockERC20"
+      ]
+    },
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\mocks\\MockPriceOracle.sol": {
+      "lastModificationDate": 1759571076375,
+      "contentHash": "0611c5ae921a0af8be85836a132ee5b0",
+      "sourceName": "contracts/OrganisedSecured/mocks/MockPriceOracle.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -1880,13 +1375,13 @@
         "^0.8.24"
       ],
       "artifacts": [
-        "IYieldStrategy"
+        "MockPriceOracle"
       ]
     },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\vaults\\FluidVault.sol": {
-      "lastModificationDate": 1755189497940,
-      "contentHash": "b684ce2fb309cd6cdb2bbf2d7ff68d0b",
-      "sourceName": "contracts/vaults/FluidVault.sol",
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\core\\PriceOracle.sol": {
+      "lastModificationDate": 1759605755789,
+      "contentHash": "731e713f87e87b86821a199dc5444965",
+      "sourceName": "contracts/OrganisedSecured/core/PriceOracle.sol",
       "solcConfig": {
         "version": "0.8.24",
         "settings": {
@@ -1894,8 +1389,7 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -1914,342 +1408,9 @@
         }
       },
       "imports": [
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
-        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
-        "@openzeppelin/contracts/access/Ownable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "FluidVault"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\vaults\\strategies\\LiquidStakingStrategy.sol": {
-      "lastModificationDate": 1755189585119,
-      "contentHash": "1905833dc752d6d037c5751fbf358d38",
-      "sourceName": "contracts/vaults/strategies/LiquidStakingStrategy.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
-        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "@openzeppelin/contracts/utils/ReentrancyGuard.sol",
-        "../../interfaces/IYieldStrategy.sol",
-        "../../libraries/Math.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "LiquidStakingStrategy"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\dex\\FluidAMM.sol": {
-      "lastModificationDate": 1755175017228,
-      "contentHash": "73d7d468d465e88d0b556e55d13c9694",
-      "sourceName": "contracts/dex/FluidAMM.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
-        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "@openzeppelin/contracts/utils/ReentrancyGuard.sol",
-        "@openzeppelin/contracts/utils/Pausable.sol",
-        "../interfaces/IFluidAMM.sol",
-        "../interfaces/IUnifiedLiquidityPool.sol",
-        "../libraries/Math.sol",
-        "./FluidLPToken.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "FluidAMM",
-        "IFlashLoanReceiver"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\interfaces\\IFluidAMM.sol": {
-      "lastModificationDate": 1755173895587,
-      "contentHash": "e85181eb4f3d706113800e86860270d1",
-      "sourceName": "contracts/interfaces/IFluidAMM.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "IFluidAMM"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\dex\\FluidLPToken.sol": {
-      "lastModificationDate": 1755174599299,
-      "contentHash": "e9c5dcbe69c446f9e6444e358932f9da",
-      "sourceName": "contracts/dex/FluidLPToken.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        "@openzeppelin/contracts/access/Ownable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "FluidLPToken"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\interfaces\\IRiskEngine.sol": {
-      "lastModificationDate": 1755210362891,
-      "contentHash": "c7748959f861a76c679b1b923ab41ada",
-      "sourceName": "contracts/interfaces/IRiskEngine.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "IRiskEngine"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\interfaces\\IStabilityPool.sol": {
-      "lastModificationDate": 1755175413475,
-      "contentHash": "48143f20a94a676f33664996ab43e1ff",
-      "sourceName": "contracts/interfaces/IStabilityPool.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "IStabilityPool"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\core\\LiquidationHelpers.sol": {
-      "lastModificationDate": 1755213867931,
-      "contentHash": "504d8f7ad414c23b032d1e65e9182ab6",
-      "sourceName": "contracts/core/LiquidationHelpers.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
-        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
-        "../libraries/Math.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "LiquidationHelpers"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\core\\PriceOracle.sol": {
-      "lastModificationDate": 1755433751567,
-      "contentHash": "2bbd9c3c44325793333fadb7addcc563",
-      "sourceName": "contracts/core/PriceOracle.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "@openzeppelin/contracts/utils/ReentrancyGuard.sol",
-        "@openzeppelin/contracts/utils/Pausable.sol"
+        "../interfaces/IPriceOracle.sol",
+        "../utils/AccessControlManager.sol",
+        "../libraries/TransientStorage.sol"
       ],
       "versionPragmas": [
         "^0.8.24"
@@ -2259,10 +1420,10 @@
         "PriceOracle"
       ]
     },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\core\\SortedTroves.sol": {
-      "lastModificationDate": 1755212812336,
-      "contentHash": "5b3236882d854bf8f122ebacf6e78cfc",
-      "sourceName": "contracts/core/SortedTroves.sol",
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\interfaces\\IPriceOracle.sol": {
+      "lastModificationDate": 1759604694376,
+      "contentHash": "ca47a8b9f40ea03d187a2eef4e76be65",
+      "sourceName": "contracts/OrganisedSecured/interfaces/IPriceOracle.sol",
       "solcConfig": {
         "version": "0.8.24",
         "settings": {
@@ -2270,263 +1431,7 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "@openzeppelin/contracts/utils/ReentrancyGuard.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "SortedTroves"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\core\\AdvancedRiskEngine.sol": {
-      "lastModificationDate": 1755285286016,
-      "contentHash": "5d86c090d76d1ec810dae5893ad427cb",
-      "sourceName": "contracts/core/AdvancedRiskEngine.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "@openzeppelin/contracts/utils/ReentrancyGuard.sol",
-        "../libraries/Math.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "AdvancedRiskEngine"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\core\\EnhancedFeeManager.sol": {
-      "lastModificationDate": 1755284548897,
-      "contentHash": "b91739e88a08df27f7d1cb8631f3911a",
-      "sourceName": "contracts/core/EnhancedFeeManager.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "../libraries/Math.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "EnhancedFeeManager"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\security\\SecurityBase.sol": {
-      "lastModificationDate": 1755498589550,
-      "contentHash": "360fb2a074f304147683688eb7820721",
-      "sourceName": "contracts/security/SecurityBase.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/utils/ReentrancyGuard.sol",
-        "@openzeppelin/contracts/utils/Pausable.sol",
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
-        "./AccessControlManager.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "SecurityBase"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\security\\AccessControlManager.sol": {
-      "lastModificationDate": 1755562528914,
-      "contentHash": "c783512e947807a0d5ab00eee87609b6",
-      "sourceName": "contracts/security/AccessControlManager.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/access/AccessControl.sol",
-        "@openzeppelin/contracts/utils/Pausable.sol",
-        "@openzeppelin/contracts/utils/ReentrancyGuard.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "AccessControlManager"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\core\\SecureTroveManager.sol": {
-      "lastModificationDate": 1755944414334,
-      "contentHash": "2b2b6a1dc1cc5b5fa4af23a63abb9ef3",
-      "sourceName": "contracts/core/SecureTroveManager.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../security/SecurityBase.sol",
-        "../libraries/OptimizedDataStructures.sol",
-        "../interfaces/ITroveManager.sol",
-        "../interfaces/IStabilityPool.sol",
-        "../tokens/USDF.sol",
-        "./PriceOracle.sol",
-        "./SortedTroves.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "SecureTroveManager"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\libraries\\OptimizedDataStructures.sol": {
-      "lastModificationDate": 1755327750367,
-      "contentHash": "847df6f133862b33b79d600c3d9260a9",
-      "sourceName": "contracts/libraries/OptimizedDataStructures.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -2549,13 +1454,13 @@
         "^0.8.24"
       ],
       "artifacts": [
-        "OptimizedDataStructures"
+        "IPriceOracle"
       ]
     },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\core\\SecureStabilityPool.sol": {
-      "lastModificationDate": 1755332475676,
-      "contentHash": "13a4128715b1db54c650af63d44924aa",
-      "sourceName": "contracts/core/SecureStabilityPool.sol",
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\mocks\\TestPriceOracleCacher.sol": {
+      "lastModificationDate": 1759605013219,
+      "contentHash": "08d8ccdae3ff19f68620434bdbd33157",
+      "sourceName": "contracts/OrganisedSecured/mocks/TestPriceOracleCacher.sol",
       "solcConfig": {
         "version": "0.8.24",
         "settings": {
@@ -2563,8 +1468,7 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -2583,26 +1487,19 @@
         }
       },
       "imports": [
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
-        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
-        "../security/SecurityBase.sol",
-        "../libraries/OptimizedDataStructures.sol",
-        "../interfaces/IStabilityPool.sol",
-        "../tokens/USDF.sol",
-        "../tokens/FluidToken.sol",
-        "../libraries/Math.sol"
+        "../interfaces/IPriceOracle.sol"
       ],
       "versionPragmas": [
         "^0.8.24"
       ],
       "artifacts": [
-        "SecureStabilityPool"
+        "TestPriceOracleCacher"
       ]
     },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\core\\SecureBorrowerOperations.sol": {
-      "lastModificationDate": 1755562551442,
-      "contentHash": "13ce844851ee3e2824d36b5dc66bc6cf",
-      "sourceName": "contracts/core/SecureBorrowerOperations.sol",
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\mocks\\MockChainlinkFeed.sol": {
+      "lastModificationDate": 1759604996358,
+      "contentHash": "475d9d2fa93799564138b258027f674e",
+      "sourceName": "contracts/OrganisedSecured/mocks/MockChainlinkFeed.sol",
       "solcConfig": {
         "version": "0.8.24",
         "settings": {
@@ -2610,8 +1507,7 @@
             "enabled": true,
             "runs": 200
           },
-          "viaIR": true,
-          "evmVersion": "paris",
+          "evmVersion": "cancun",
           "outputSelection": {
             "*": {
               "*": [
@@ -2629,1122 +1525,12 @@
           }
         }
       },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
-        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
-        "@openzeppelin/contracts/utils/ReentrancyGuard.sol",
-        "../security/SecurityBase.sol",
-        "../libraries/OptimizedDataStructures.sol",
-        "../interfaces/IBorrowerOperations.sol",
-        "../interfaces/ITroveManager.sol",
-        "../tokens/USDF.sol",
-        "../libraries/Math.sol",
-        "./PriceOracle.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "SecureBorrowerOperations"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\mocks\\MockChainlinkFeed.sol": {
-      "lastModificationDate": 1755414897242,
-      "contentHash": "8fcb810b7bbc7cc193f5fff3dc3d70f0",
-      "sourceName": "contracts/mocks/MockChainlinkFeed.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../core/PriceOracle.sol"
-      ],
+      "imports": [],
       "versionPragmas": [
         "^0.8.24"
       ],
       "artifacts": [
         "MockChainlinkFeed"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\mocks\\MockPool.sol": {
-      "lastModificationDate": 1755414824458,
-      "contentHash": "0d34e452880f9010fc980c784b4a62b2",
-      "sourceName": "contracts/mocks/MockPool.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "MockPool"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\core\\ActivePool.sol": {
-      "lastModificationDate": 1755433337528,
-      "contentHash": "df881ca9c554b053e4bbeb65c49fd3ac",
-      "sourceName": "contracts/core/ActivePool.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "@openzeppelin/contracts/utils/ReentrancyGuard.sol",
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
-        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "ActivePool"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\core\\GasPool.sol": {
-      "lastModificationDate": 1755433389365,
-      "contentHash": "50e953d4fa03a5db2656dd850ee0e671",
-      "sourceName": "contracts/core/GasPool.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "../tokens/USDF.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "GasPool"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\core\\DefaultPool.sol": {
-      "lastModificationDate": 1755433355121,
-      "contentHash": "2633e277e48f1a10adbfc1fc209eccd3",
-      "sourceName": "contracts/core/DefaultPool.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "@openzeppelin/contracts/utils/ReentrancyGuard.sol",
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
-        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "DefaultPool"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\core\\CollSurplusPool.sol": {
-      "lastModificationDate": 1755433371213,
-      "contentHash": "76630b3940a6ccd40753b0d70ad00599",
-      "sourceName": "contracts/core/CollSurplusPool.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/access/Ownable.sol",
-        "@openzeppelin/contracts/utils/ReentrancyGuard.sol",
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
-        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "CollSurplusPool"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\legacy\\BorrowerOperations.sol": {
-      "lastModificationDate": 1755957809640,
-      "contentHash": "2be97064244d031531b74d1b19254f1f",
-      "sourceName": "contracts/legacy/BorrowerOperations.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": []
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\legacy\\EnhancedStabilityPool.sol": {
-      "lastModificationDate": 1755957860255,
-      "contentHash": "e8150b69a4db643750d09b96b835df3c",
-      "sourceName": "contracts/legacy/EnhancedStabilityPool.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": []
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\legacy\\TroveManager.sol": {
-      "lastModificationDate": 1755563807903,
-      "contentHash": "075c404f3710c91cca7605e903d16ebb",
-      "sourceName": "contracts/legacy/TroveManager.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [],
-      "artifacts": []
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\mocks\\MockStabilityPool.sol": {
-      "lastModificationDate": 1755564958711,
-      "contentHash": "8902afc61a6a45c73bb4b70bb8fbca4d",
-      "sourceName": "contracts/mocks/MockStabilityPool.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "MockStabilityPool"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\mocks\\MockTroveManager.sol": {
-      "lastModificationDate": 1755565127750,
-      "contentHash": "96684baeb471bb1ffbc70a71d296b99c",
-      "sourceName": "contracts/mocks/MockTroveManager.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "MockTroveManager"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts-upgradeable\\access\\AccessControlUpgradeable.sol": {
-      "lastModificationDate": 1755176580566,
-      "contentHash": "1460918cfe408f7a514ff980f638fecc",
-      "sourceName": "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/access/IAccessControl.sol",
-        "../utils/ContextUpgradeable.sol",
-        "@openzeppelin/contracts/utils/introspection/IERC165.sol",
-        "../utils/introspection/ERC165Upgradeable.sol",
-        "../proxy/utils/Initializable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "AccessControlUpgradeable"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts-upgradeable\\utils\\ContextUpgradeable.sol": {
-      "lastModificationDate": 1755176580715,
-      "contentHash": "c28aaa25d083a9a55bd9ec9e0b785122",
-      "sourceName": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../proxy/utils/Initializable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "ContextUpgradeable"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts-upgradeable\\utils\\introspection\\ERC165Upgradeable.sol": {
-      "lastModificationDate": 1755176581796,
-      "contentHash": "4d250f562322f9c023c5503064ffc12f",
-      "sourceName": "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/utils/introspection/IERC165.sol",
-        "../../proxy/utils/Initializable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "ERC165Upgradeable"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol": {
-      "lastModificationDate": 1755176583216,
-      "contentHash": "2acae54ad209714bca07edf4bae32f72",
-      "sourceName": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "Initializable"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts-upgradeable\\utils\\PausableUpgradeable.sol": {
-      "lastModificationDate": 1755176583360,
-      "contentHash": "a77dad8312dfaddab72fab403ee0c0a6",
-      "sourceName": "@openzeppelin/contracts-upgradeable/utils/PausableUpgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../utils/ContextUpgradeable.sol",
-        "../proxy/utils/Initializable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "PausableUpgradeable"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\proxy\\UpgradeableTroveManager.sol": {
-      "lastModificationDate": 1756181083604,
-      "contentHash": "064932379152c59cf39cb5c723cbf408",
-      "sourceName": "contracts/proxy/UpgradeableTroveManager.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
-        "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/utils/PausableUpgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol",
-        "../interfaces/ITroveManager.sol",
-        "../interfaces/IStabilityPool.sol",
-        "../tokens/USDF.sol",
-        "../core/PriceOracle.sol",
-        "../core/SortedTroves.sol",
-        "../libraries/OptimizedDataStructures.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "UpgradeableTroveManager"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts-upgradeable\\utils\\ReentrancyGuardUpgradeable.sol": {
-      "lastModificationDate": 1755176583399,
-      "contentHash": "24562076b21756e3358ede5e844008ce",
-      "sourceName": "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../proxy/utils/Initializable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "ReentrancyGuardUpgradeable"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\UUPSUpgradeable.sol": {
-      "lastModificationDate": 1755176583500,
-      "contentHash": "08db0b4bea3d52072346c326c5b857b7",
-      "sourceName": "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/interfaces/draft-IERC1822.sol",
-        "@openzeppelin/contracts/proxy/ERC1967/ERC1967Utils.sol",
-        "./Initializable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.22"
-      ],
-      "artifacts": [
-        "UUPSUpgradeable"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\interfaces\\draft-IERC1822.sol": {
-      "lastModificationDate": 1755176584372,
-      "contentHash": "9b2cafd2153b51bcfd7f4cb4cfc975aa",
-      "sourceName": "@openzeppelin/contracts/interfaces/draft-IERC1822.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.4.16"
-      ],
-      "artifacts": [
-        "IERC1822Proxiable"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\proxy\\ERC1967\\ERC1967Utils.sol": {
-      "lastModificationDate": 1755176584547,
-      "contentHash": "2741625b983eb412cfdd8aa55a7671c1",
-      "sourceName": "@openzeppelin/contracts/proxy/ERC1967/ERC1967Utils.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../beacon/IBeacon.sol",
-        "../../interfaces/IERC1967.sol",
-        "../../utils/Address.sol",
-        "../../utils/StorageSlot.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.21"
-      ],
-      "artifacts": [
-        "ERC1967Utils"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\interfaces\\IERC1967.sol": {
-      "lastModificationDate": 1755176585122,
-      "contentHash": "3c9577899f440b0c66e880c96e9250bb",
-      "sourceName": "@openzeppelin/contracts/interfaces/IERC1967.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.4.11"
-      ],
-      "artifacts": [
-        "IERC1967"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\utils\\Address.sol": {
-      "lastModificationDate": 1755176584033,
-      "contentHash": "2a06d82f31f75087bf90231599da4f1c",
-      "sourceName": "@openzeppelin/contracts/utils/Address.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./Errors.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "Address"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\proxy\\beacon\\IBeacon.sol": {
-      "lastModificationDate": 1755176585037,
-      "contentHash": "ee2e46607ed2be58bd554306d068acba",
-      "sourceName": "@openzeppelin/contracts/proxy/beacon/IBeacon.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.4.16"
-      ],
-      "artifacts": [
-        "IBeacon"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\node_modules\\@openzeppelin\\contracts\\utils\\Errors.sol": {
-      "lastModificationDate": 1755176584790,
-      "contentHash": "6b5eac2b85500c3012977849cfd633d8",
-      "sourceName": "@openzeppelin/contracts/utils/Errors.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "Errors"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\proxy\\UpgradeableStabilityPool.sol": {
-      "lastModificationDate": 1756182733699,
-      "contentHash": "c57f4dadf2357b49f40f7b9563f373f7",
-      "sourceName": "contracts/proxy/UpgradeableStabilityPool.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
-        "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol",
-        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
-        "../interfaces/IStabilityPool.sol",
-        "../interfaces/ITroveManager.sol",
-        "../tokens/USDF.sol",
-        "../tokens/FluidToken.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "UpgradeableStabilityPool"
-      ]
-    },
-    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\proxy\\UpgradeableBorrowerOperations.sol": {
-      "lastModificationDate": 1756125225038,
-      "contentHash": "88bd578478dad9d35712749be465d002",
-      "sourceName": "contracts/proxy/UpgradeableBorrowerOperations.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
-        "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol",
-        "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol",
-        "../interfaces/IBorrowerOperations.sol",
-        "../interfaces/ITroveManager.sol",
-        "../interfaces/IStabilityPool.sol",
-        "../tokens/USDF.sol",
-        "../core/PriceOracle.sol",
-        "../core/SortedTroves.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "UpgradeableBorrowerOperations"
       ]
     }
   }

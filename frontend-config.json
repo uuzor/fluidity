@@ -1,0 +1,72 @@
+{
+  "network": {
+    "chainId": 14601,
+    "name": "Custom Network",
+    "rpcUrl": "https://your-rpc-endpoint.com",
+    "blockExplorer": "https://your-block-explorer.com"
+  },
+  "contracts": {
+    "borrowerOperations": {
+      "address": "0x6C3485cbE778D340534857B93eFd569Ef43e5382",
+      "type": "proxy",
+      "implementation": "0x5B170B2B450f84Fa3A1455e9DF50ce4C7B36694e"
+    },
+    "troveManager": {
+      "address": "0x1e4E2d45398d7e634b0958BAEc1c151C313D22e7",
+      "type": "proxy", 
+      "implementation": "0xccb81127006c81770a048433c856Fe141F251Ea1"
+    },
+    "stabilityPool": {
+      "address": "0xA97ceBeF1c04af1aff97C0673255A2E3317127E5",
+      "type": "proxy",
+      "implementation": "0xe80692e824Fc85624371B4EbE1E77048Dc91a62C"
+    },
+    "usdf": {
+      "address": "0xA7297098c8294503C4228D4D06FDdEc3ADF2d8Dc",
+      "type": "token",
+      "symbol": "USDF",
+      "decimals": 18
+    },
+    "fluidToken": {
+      "address": "0x1329d8C7Bf6D4F50a37c991FD494d5aE46d78089",
+      "type": "token",
+      "symbol": "FLUID",
+      "decimals": 18
+    },
+    "priceOracle": {
+      "address": "0x78edC46846026CA5D6053dE5730eB6800DF809Da",
+      "type": "oracle"
+    },
+    "sortedTroves": {
+      "address": "0x9af1a431d275a48Cc5dA5FD4d6E5b3ce528b157b",
+      "type": "utility"
+    },
+    "accessControl": {
+      "address": "0xb7B6405a4B6dE57d4acb3a5067d944d94283dA22",
+      "type": "governance"
+    }
+  },
+  "constants": {
+    "minCollateralRatio": "1.35",
+    "liquidationThreshold": "1.1", 
+    "borrowingFeeFloor": "0.005",
+    "maxBorrowingFee": "0.05",
+    "minNetDebt": "200",
+    "gasCompensation": "200"
+  },
+  "assets": {
+    "ETH": {
+      "address": "0x0000000000000000000000000000000000000000",
+      "symbol": "ETH",
+      "decimals": 18,
+      "isCollateral": true
+    }
+  },
+  "features": {
+    "borrowing": true,
+    "stabilityPool": true,
+    "liquidations": true,
+    "governance": false,
+    "multiAsset": false
+  }
+}

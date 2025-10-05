@@ -1,0 +1,33 @@
+{
+  "network": {
+    "name": "testnet-14601",
+    "chainId": "14601"
+  },
+  "deployer": "0x8d92fe104CCa6dcF0C448dEb531dfDD06236e22d",
+  "timestamp": "2025-09-24T03:52:10.990Z",
+  "deploymentType": "testnet",
+  "addresses": {
+    "accessControlManager": "0x548a7F8eEb4F2aD105F595d923e770529CbdcF02",
+    "usdf": "0x82E9cA42fF286aee794864365c2270238662170C",
+    "fluidToken": "0x5a275Dd337597F2F223e25555B1b8910991cc8d4",
+    "priceOracle": "0xdaB5d98293C6154b61231091c6B3D54de7924696",
+    "sortedTroves": "0xAf5634d4d182b93b69B0dc2e4d816b646E894862",
+    "liquidationHelpers": "0xa5d9a0ced03a91254a663A8Fb9a642fB3f6e5aC9",
+    "activePool": "0xC0fdc9e25f022a3120d40db14761F81470e2EA7F",
+    "defaultPool": "0xC2e2F0CEf2609ecD9632a8f1B2D62211cF959a9e",
+    "collSurplusPool": "0x4a3ca6787a746C5600c046Ca985b1AA6cdff25F2",
+    "gasPool": "0xCbbd06bcafAcd85C4a5773856321a5a2f99F195c",
+    "unifiedLiquidityPool": "0xd8400f9094Ecf7e979a00967A9573caC40377d3b",
+    "fluidAMM": "0xe7d5853F8FB7FF098CfFD4bF7431a1742a181998",
+    "troveManagerProxy": "0xB734b23b748A27f4a03E977D541d243258807329",
+    "troveManagerImplementation": "0xccb81127006c81770a048433c856Fe141F251Ea1",
+    "borrowerOperationsProxy": "0x3f3030BF552b9201be779dc3D712C96B1C7eae4c",
+    "borrowerOperationsImplementation": "0x5B170B2B450f84Fa3A1455e9DF50ce4C7B36694e",
+    "stabilityPoolProxy": "0x313f66C31FcEaa2D5DbBaC1fcd13772F04d21ddf",
+    "stabilityPoolImplementation": "0xe80692e824Fc85624371B4EbE1E77048Dc91a62C"
+  },
+  "oracles": {
+    "type": "mock",
+    "note": "Using mock oracle for testing"
+  }
+}
