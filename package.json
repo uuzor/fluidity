@@ -7,7 +7,7 @@
     "compile": "npx hardhat compile",
     "test": "npx hardhat test",
     "test:coverage": "npx hardhat coverage",
-    "deploy:testnet": "npx hardhat run scripts/deploy-secure-contracts.ts --network nebulas",
+    "deploy:testnet": "npx hardhat run scripts/deploy-organised-secured.ts --network nebulas",
     "deploy:verify": "npx hardhat run scripts/deploy-secure-contracts-verified.ts --network sonic-testnet",
     "verify": "npx hardhat verify",
     "lint": "solhint 'contracts/**/*.sol'",

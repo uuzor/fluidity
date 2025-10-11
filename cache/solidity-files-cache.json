@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\core\\BorrowerOperationsOptimized.sol": {
-      "lastModificationDate": 1759670895185,
-      "contentHash": "d182854ce813452e85039d563b183f0a",
+      "lastModificationDate": 1760098538386,
+      "contentHash": "d6455c35b8417856632952ef7a782b2a",
       "sourceName": "contracts/OrganisedSecured/core/BorrowerOperationsOptimized.sol",
       "solcConfig": {
         "version": "0.8.24",
@@ -2153,6 +2153,192 @@
       ],
       "artifacts": [
         "TestStaticCallOracle"
+      ]
+    },
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\core\\TroveManager.sol": {
+      "lastModificationDate": 1760094999630,
+      "contentHash": "b515d3ab01e76c316e0bac44f958dbc5",
+      "sourceName": "contracts/OrganisedSecured/core/TroveManager.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "../utils/OptimizedSecurityBase.sol",
+        "../interfaces/ITroveManager.sol",
+        "../interfaces/IBorrowerOperations.sol",
+        "../interfaces/ILiquidityCore.sol",
+        "../interfaces/ISortedTroves.sol",
+        "../interfaces/IUSDF.sol",
+        "../interfaces/IPriceOracle.sol",
+        "../libraries/TransientStorage.sol",
+        "../libraries/PackedTrove.sol",
+        "../libraries/GasOptimizedMath.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "TroveManager"
+      ]
+    },
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\interfaces\\ITroveManager.sol": {
+      "lastModificationDate": 1760083052987,
+      "contentHash": "ce35c9dfcf46077e4397e82678673617",
+      "sourceName": "contracts/OrganisedSecured/interfaces/ITroveManager.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "ITroveManager"
+      ]
+    },
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\core\\TroveManagerV2.sol": {
+      "lastModificationDate": 1760099254461,
+      "contentHash": "e44af054ce54e76376945721afc20793",
+      "sourceName": "contracts/OrganisedSecured/core/TroveManagerV2.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "../utils/OptimizedSecurityBase.sol",
+        "../interfaces/ITroveManager.sol",
+        "../interfaces/IBorrowerOperations.sol",
+        "../interfaces/ILiquidityCore.sol",
+        "../interfaces/ISortedTroves.sol",
+        "../interfaces/IUSDF.sol",
+        "../interfaces/IPriceOracle.sol",
+        "../libraries/TransientStorage.sol",
+        "../libraries/PackedTrove.sol",
+        "../libraries/GasOptimizedMath.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "TroveManagerV2"
+      ]
+    },
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\core\\BorrowerOperationsV2.sol": {
+      "lastModificationDate": 1760100765830,
+      "contentHash": "00a43786b8657dec690bd8461167bb0c",
+      "sourceName": "contracts/OrganisedSecured/core/BorrowerOperationsV2.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "../utils/OptimizedSecurityBase.sol",
+        "../interfaces/IBorrowerOperations.sol",
+        "../interfaces/ITroveManager.sol",
+        "../interfaces/ILiquidityCore.sol",
+        "../interfaces/ISortedTroves.sol",
+        "../interfaces/IUSDF.sol",
+        "../interfaces/IPriceOracle.sol",
+        "../libraries/TransientStorage.sol",
+        "../libraries/GasOptimizedMath.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "BorrowerOperationsV2"
       ]
     }
   }

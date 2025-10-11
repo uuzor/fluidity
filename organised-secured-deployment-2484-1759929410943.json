@@ -1,0 +1,26 @@
+{
+  "network": {
+    "name": "nebulas",
+    "chainId": 2484
+  },
+  "deployer": "0x8d92fe104CCa6dcF0C448dEb531dfDD06236e22d",
+  "timestamp": "2025-10-08T13:16:50.942Z",
+  "addresses": {
+    "accessControlManager": "0xF3aA8543f13228f1Fd73E4524dEcF91798B09DFd",
+    "usdf": "0x64C764b7678906A5F13F5d1dB3c5Bd5AeB07AA6b",
+    "mockWETH": "0xA81A3d5B14425182B356B71ddaaE5Bb25b1D44c0",
+    "mockChainlinkFeed": "0xe30D17876021CEbDaDcB7d8a68f69C5A3cCee0E8",
+    "priceOracle": "0x30628A74AE85edD2F8823d3A8eD79cf364ffc92D",
+    "unifiedLiquidityPool": "0x0B9Bb99C5b75061C54028334Ec48Bb5a11bC5Bdf",
+    "liquidityCore": "0x15Bf10D3699DC9421673BDaab6BebC398cE8a63d",
+    "sortedTroves": "0xd80b73C7fedB0D4ebA9f998D9055e40FD6132271",
+    "borrowerOperationsOptimized": "0x2DEcFBcA822Ea42d83F2B4a2B75A8D0B52e37527"
+  },
+  "configuration": {
+    "ethPrice": "2000.0",
+    "MCR": "1.1",
+    "MIN_NET_DEBT": "2000.0",
+    "GAS_COMPENSATION": "200.0",
+    "borrowingFeeRate": "0.5%"
+  }
+}

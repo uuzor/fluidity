@@ -12,7 +12,9 @@
       "Read(/C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\test/**)",
       "Read(/C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\scripts/**)",
       "Read(/C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\scripts/**)",
-      "Bash(touch:*)"
+      "Bash(touch:*)",
+      "Read(//c/Users/ASUS FX95G/Documents/apps/fluid-fork/fluid-frontend/**)",
+      "Bash(awk:*)"
     ],
     "deny": [],
     "ask": []

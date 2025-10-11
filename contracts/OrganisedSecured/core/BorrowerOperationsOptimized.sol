@@ -120,6 +120,14 @@ contract BorrowerOperationsOptimized is OptimizedSecurityBase, IBorrowerOperatio
     /// @notice Next asset ID to assign
     uint8 private _nextAssetId;
 
+    /// @notice User's trove assets enumeration for frontend queries
+    /// @dev mapping(borrower => asset[]) - list of all assets user has troves in
+    mapping(address => address[]) private _userTroveAssets;
+
+    /// @notice Quick lookup for asset index in user's list
+    /// @dev mapping(borrower => mapping(asset => index+1)) - 0 means not in list
+    mapping(address => mapping(address => uint256)) private _userAssetIndex;
+
     // ============ Events ============
     // (Inherited from IBorrowerOperations interface)
 
@@ -231,6 +239,9 @@ contract BorrowerOperationsOptimized is OptimizedSecurityBase, IBorrowerOperatio
 
     _isTroveActive[msg.sender][asset] = true;
 
+    // === Track asset for user enumeration ===
+    _addAssetToUserList(msg.sender, asset);
+
     // === Insert into Sorted List ===
     vars.nominalICR = _calculateNominalICR(collateralAmount, vars.totalDebt);
     sortedTroves.insert(asset, msg.sender, vars.nominalICR, upperHint, lowerHint);
@@ -250,14 +261,14 @@ contract BorrowerOperationsOptimized is OptimizedSecurityBase, IBorrowerOperatio
     emit TroveUpdated(msg.sender, asset, vars.totalDebt, collateralAmount, 0, 0);
 }
 
-// Helper struct to reduce stack variables
-struct LocalVars {
-    uint256 price;
-    uint256 borrowingFee;
-    uint256 totalDebt;
-    uint256 icr;
-    uint256 nominalICR;
-}
+    // Helper struct to reduce stack variables
+    struct LocalVars {
+        uint256 price;
+        uint256 borrowingFee;
+        uint256 totalDebt;
+        uint256 icr;
+        uint256 nominalICR;
+    }
 
     /**
      * @notice Close trove and repay all debt
@@ -305,6 +316,9 @@ struct LocalVars {
         // Delete storage (get gas refund ~15,000 gas)
         delete _packedTroves[msg.sender][asset];
         delete _isTroveActive[msg.sender][asset];
+
+        // Remove asset from user's enumeration list
+        _removeAssetFromUserList(msg.sender, asset);
 
         emit TroveClosed(msg.sender, asset);
     }
@@ -496,13 +510,23 @@ struct AdjustVars {
     /**
      * @notice Check if trove is active
      * @inheritdoc IBorrowerOperations
-     
+
      */
     function isTroveActive(
         address borrower,
         address asset
     ) external view override returns (bool) {
         return _isTroveActive[borrower][asset];
+    }
+
+    /**
+     * @notice Get all assets that a user has troves in
+     * @param user The user address to query
+     * @return assets Array of asset addresses the user has active troves in
+     * @dev Enables frontend to enumerate all user troves without knowing assets in advance
+     */
+    function getUserTroveAssets(address user) external view returns (address[] memory) {
+        return _userTroveAssets[user];
     }
 
     // ============ Internal Functions ============
@@ -624,6 +648,49 @@ struct AdjustVars {
         if (feePercentage > maxFeePercentage) {
             revert FeeExceedsMaximum(actualFee, maxFeePercentage);
         }
+    }
+
+    /**
+     * @dev Add asset to user's trove list (only if not already present)
+     * @param user User address
+     * @param asset Asset address to add
+     */
+    function _addAssetToUserList(address user, address asset) internal {
+        // Check if asset already in list (index is 1-based, 0 means not in list)
+        if (_userAssetIndex[user][asset] == 0) {
+            _userTroveAssets[user].push(asset);
+            // Store 1-based index for O(1) removal later
+            _userAssetIndex[user][asset] = _userTroveAssets[user].length;
+        }
+    }
+
+    /**
+     * @dev Remove asset from user's trove list using swap-and-pop
+     * @param user User address
+     * @param asset Asset address to remove
+     */
+    function _removeAssetFromUserList(address user, address asset) internal {
+        uint256 index = _userAssetIndex[user][asset];
+
+        // If asset not in list, nothing to do
+        if (index == 0) return;
+
+        // Convert to 0-based index
+        uint256 arrayIndex = index - 1;
+        uint256 lastIndex = _userTroveAssets[user].length - 1;
+
+        // If not the last element, swap with last
+        if (arrayIndex != lastIndex) {
+            address lastAsset = _userTroveAssets[user][lastIndex];
+            _userTroveAssets[user][arrayIndex] = lastAsset;
+            // Update the swapped element's index
+            _userAssetIndex[user][lastAsset] = index;
+        }
+
+        // Remove last element
+        _userTroveAssets[user].pop();
+        // Clear the index mapping
+        delete _userAssetIndex[user][asset];
     }
 
     // ============ Admin Functions ============
