@@ -1,6 +1,487 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
+// /**
+//  * @title TransientStorage
+//  * @notice Transient storage pattern using regular storage (Paris EVM compatible)
+//  * @dev Provides tstore/tload operations for temporary cross-function state
+//  *
+//  * IMPORTANT CHANGES FROM ORIGINAL:
+//  * - Uses sstore/sload instead of tstore/tload (Paris EVM compatible)
+//  * - Data is NOT automatically cleared after transaction
+//  * - MUST manually clear storage slots after use to avoid state pollution
+//  * - Gas costs are higher than native transient storage:
+//  *   - First write (cold): ~20,000 gas
+//  *   - Subsequent writes (warm): ~2,900 gas
+//  *   - Reads (warm): ~100 gas
+//  *
+//  * Use Cases:
+//  * - Reentrancy guards with manual cleanup
+//  * - Temporary calculation caching within protected contexts
+//  * - Cross-function communication with explicit cleanup
+//  *
+//  * WARNING: Always clear storage after use to prevent state pollution!
+//  */
+// library TransientStorage {
+
+//     /**
+//      * @dev Store a uint256 value in pseudo-transient storage
+//      * @param slot The storage slot (use keccak256 for named slots)
+//      * @param value The value to store
+//      *
+//      * Cost: ~20,000 gas (cold) / ~2,900 gas (warm)
+//      */
+//     function tstore(bytes32 slot, uint256 value) internal {
+//         assembly {
+//             sstore(slot, value)
+//         }
+//     }
+
+//     /**
+//      * @dev Load a uint256 value from pseudo-transient storage
+//      * @param slot The storage slot to read from
+//      * @return value The stored value (0 if not set)
+//      *
+//      * Cost: ~2,100 gas (cold) / ~100 gas (warm)
+//      */
+//     function tload(bytes32 slot) internal view returns (uint256 value) {
+//         assembly {
+//             value := sload(slot)
+//         }
+//     }
+
+//     /**
+//      * @dev Store an address in pseudo-transient storage
+//      * @param slot The storage slot
+//      * @param addr The address to store
+//      *
+//      * Cost: ~20,000 gas (cold) / ~2,900 gas (warm)
+//      */
+//     function tstoreAddress(bytes32 slot, address addr) internal {
+//         assembly {
+//             sstore(slot, addr)
+//         }
+//     }
+
+//     /**
+//      * @dev Load an address from pseudo-transient storage
+//      * @param slot The storage slot to read from
+//      * @return addr The stored address (address(0) if not set)
+//      *
+//      * Cost: ~2,100 gas (cold) / ~100 gas (warm)
+//      */
+//     function tloadAddress(bytes32 slot) internal view returns (address addr) {
+//         assembly {
+//             addr := sload(slot)
+//         }
+//     }
+
+//     /**
+//      * @dev Store a boolean in pseudo-transient storage
+//      * @param slot The storage slot
+//      * @param value The boolean value to store
+//      *
+//      * Cost: ~20,000 gas (cold) / ~2,900 gas (warm)
+//      */
+//     function tstoreBool(bytes32 slot, bool value) internal {
+//         assembly {
+//             sstore(slot, value)
+//         }
+//     }
+
+//     /**
+//      * @dev Load a boolean from pseudo-transient storage
+//      * @param slot The storage slot to read from
+//      * @return value The stored boolean (false if not set)
+//      *
+//      * Cost: ~2,100 gas (cold) / ~100 gas (warm)
+//      */
+//     function tloadBool(bytes32 slot) internal view returns (bool value) {
+//         assembly {
+//             value := sload(slot)
+//         }
+//     }
+
+//     /**
+//      * @dev Increment a counter in pseudo-transient storage
+//      * @param slot The storage slot
+//      * @return newValue The incremented value
+//      *
+//      * Cost: ~2,200 gas (sload + sstore)
+//      */
+//     function tincrement(bytes32 slot) internal returns (uint256 newValue) {
+//         assembly {
+//             newValue := add(sload(slot), 1)
+//             sstore(slot, newValue)
+//         }
+//     }
+
+//     /**
+//      * @dev Decrement a counter in pseudo-transient storage
+//      * @param slot The storage slot
+//      * @return newValue The decremented value
+//      *
+//      * Cost: ~2,200 gas (sload + sstore)
+//      */
+//     function tdecrement(bytes32 slot) internal returns (uint256 newValue) {
+//         assembly {
+//             newValue := sub(sload(slot), 1)
+//             sstore(slot, newValue)
+//         }
+//     }
+
+//     /**
+//      * @dev Clear a pseudo-transient storage slot (set to 0)
+//      * @param slot The storage slot to clear
+//      *
+//      * Cost: ~2,900 gas (warm sstore to 0)
+//      * IMPORTANT: Must be called to prevent state pollution!
+//      */
+//     function tclear(bytes32 slot) internal {
+//         assembly {
+//             sstore(slot, 0)
+//         }
+//     }
+
+//     /**
+//      * @dev Store multiple values in pseudo-transient storage (batch operation)
+//      * @param slots Array of storage slots
+//      * @param values Array of values to store
+//      *
+//      * Cost: ~20,000 gas per slot (cold) / ~2,900 gas (warm)
+//      */
+//     function tstoreBatch(bytes32[] memory slots, uint256[] memory values) internal {
+//         require(slots.length == values.length, "TransientStorage: length mismatch");
+
+//         assembly {
+//             let len := mload(slots)
+//             let slotsPtr := add(slots, 0x20)
+//             let valuesPtr := add(values, 0x20)
+
+//             for { let i := 0 } lt(i, len) { i := add(i, 1) } {
+//                 let slot := mload(add(slotsPtr, mul(i, 0x20)))
+//                 let value := mload(add(valuesPtr, mul(i, 0x20)))
+//                 sstore(slot, value)
+//             }
+//         }
+//     }
+
+//     /**
+//      * @dev Load multiple values from pseudo-transient storage (batch operation)
+//      * @param slots Array of storage slots to read
+//      * @return values Array of loaded values
+//      *
+//      * Cost: ~2,100 gas per slot (cold) / ~100 gas (warm)
+//      */
+//     function tloadBatch(bytes32[] memory slots) internal view returns (uint256[] memory values) {
+//         values = new uint256[](slots.length);
+
+//         assembly {
+//             let len := mload(slots)
+//             let slotsPtr := add(slots, 0x20)
+//             let valuesPtr := add(values, 0x20)
+
+//             for { let i := 0 } lt(i, len) { i := add(i, 1) } {
+//                 let slot := mload(add(slotsPtr, mul(i, 0x20)))
+//                 let value := sload(slot)
+//                 mstore(add(valuesPtr, mul(i, 0x20)), value)
+//             }
+//         }
+//     }
+
+//     /**
+//      * @dev Clear multiple pseudo-transient storage slots (batch operation)
+//      * @param slots Array of storage slots to clear
+//      *
+//      * Cost: ~2,900 gas per slot
+//      * IMPORTANT: Call this to cleanup after batch operations!
+//      */
+//     function tclearBatch(bytes32[] memory slots) internal {
+//         assembly {
+//             let len := mload(slots)
+//             let slotsPtr := add(slots, 0x20)
+
+//             for { let i := 0 } lt(i, len) { i := add(i, 1) } {
+//                 let slot := mload(add(slotsPtr, mul(i, 0x20)))
+//                 sstore(slot, 0)
+//             }
+//         }
+//     }
+// }
+
+// /**
+//  * @title TransientReentrancyGuard
+//  * @notice Reentrancy guard using pseudo-transient storage (Paris EVM compatible)
+//  * @dev Uses regular storage with explicit cleanup
+//  *
+//  * Gas Comparison:
+//  * - First call: ~20,000 gas (cold sstore)
+//  * - Subsequent calls: ~3,000 gas (warm sstore + sload + clear)
+//  * - Higher than native transient storage but still functional
+//  */
+// abstract contract TransientReentrancyGuard {
+//     using TransientStorage for bytes32;
+
+//     // Change from state variable to constant hex value
+//     bytes32 private constant REENTRANCY_GUARD_SLOT = 0x0123456789012345678901234567890123456789012345678901234567890123;
+
+//     error ReentrancyGuardReentrantCall();
+
+//     modifier nonReentrant() {
+//         // Use hard-coded slot in assembly
+//         assembly {
+//             // Load current value
+//             let locked := sload(0x0123456789012345678901234567890123456789012345678901234567890123)
+            
+//             // Check if locked
+//             if eq(locked, 1) {
+//                 // Store error selector for ReentrancyGuardReentrantCall()
+//                 mstore(0x00, 0xf25965c4)
+//                 revert(0x00, 0x04)
+//             }
+            
+//             // Set lock
+//             sstore(0x0123456789012345678901234567890123456789012345678901234567890123, 1)
+//         }
+
+//         _;
+
+//         // Clear lock
+//         assembly {
+//             sstore(0x0123456789012345678901234567890123456789012345678901234567890123, 0)
+//         }
+//     }
+
+//     function _reentrancyGuardEntered() internal view returns (bool) {
+//         uint256 locked;
+//         assembly {
+//             locked := sload(0x0123456789012345678901234567890123456789012345678901234567890123)
+//         }
+//         return locked == 1;
+//     }
+// }
+// /**
+//  * @title TransientCache
+//  * @notice Helper contract for caching values in pseudo-transient storage
+//  * @dev Useful for expensive calculations used multiple times in a transaction
+//  *
+//  * IMPORTANT: Must manually clear cache after transaction to prevent stale data!
+//  *
+//  * Example Usage:
+//  * contract MyContract is TransientCache {
+//  *     bytes32 constant PRICE_CACHE = keccak256("price.cache");
+//  *     
+//  *     function operation() external transientContext {
+//  *         uint256 price1 = _getOrComputePrice(); // Computes and caches
+//  *         uint256 price2 = _getOrComputePrice(); // Returns cached value
+//  *         // ... use prices
+//  *         // Cache auto-cleared by transientContext modifier
+//  *     }
+//  * }
+//  */
+// abstract contract TransientCache {
+//     using TransientStorage for bytes32;
+
+//     // Track which slots were used for automatic cleanup
+//     bytes32[] private _usedCacheSlots;
+//     bool private _inTransientContext;
+
+//     /**
+//      * @dev Modifier that automatically clears all cached values after execution
+//      * Use this to wrap functions that use caching
+//      */
+//     modifier transientContext() {
+//         require(!_inTransientContext, "TransientCache: nested context not allowed");
+//         _inTransientContext = true;
+
+//         _;
+
+//         // Clear all cached values
+//         _clearAllCaches();
+//         _inTransientContext = false;
+//     }
+
+//     /**
+//      * @dev Get cached value or compute and cache it
+//      * @param cacheSlot The storage slot for this cache
+//      * @param value The value to cache if not already cached
+//      * @return The cached value
+//      *
+//      * Note: Caller must check if value exists and compute before calling
+//      */
+//     function _cacheValue(bytes32 cacheSlot, uint256 value) internal returns (uint256) {
+//         uint256 cached = cacheSlot.tload();
+        
+//         if (cached == 0 && value != 0) {
+//             cacheSlot.tstore(value);
+//             _trackCacheSlot(cacheSlot);
+//             return value;
+//         }
+        
+//         return cached != 0 ? cached : value;
+//     }
+
+//     /**
+//      * @dev Set cache value explicitly
+//      * @param cacheSlot The storage slot
+//      * @param value The value to cache
+//      */
+//     function _setCache(bytes32 cacheSlot, uint256 value) internal {
+//         cacheSlot.tstore(value);
+//         _trackCacheSlot(cacheSlot);
+//     }
+
+//     /**
+//      * @dev Get cached value
+//      * @param cacheSlot The storage slot
+//      * @return The cached value (0 if not set)
+//      */
+//     function _getCache(bytes32 cacheSlot) internal view returns (uint256) {
+//         return cacheSlot.tload();
+//     }
+
+//     /**
+//      * @dev Clear specific cache
+//      * @param cacheSlot The storage slot to clear
+//      */
+//     function _clearCache(bytes32 cacheSlot) internal {
+//         cacheSlot.tclear();
+//     }
+
+//     /**
+//      * @dev Track a cache slot for automatic cleanup
+//      * @param slot The slot to track
+//      */
+//     function _trackCacheSlot(bytes32 slot) private {
+//         // Check if already tracked to avoid duplicates
+//         for (uint256 i = 0; i < _usedCacheSlots.length; i++) {
+//             if (_usedCacheSlots[i] == slot) {
+//                 return;
+//             }
+//         }
+//         _usedCacheSlots.push(slot);
+//     }
+
+//     /**
+//      * @dev Clear all tracked caches
+//      */
+//     function _clearAllCaches() private {
+//         TransientStorage.tclearBatch(_usedCacheSlots);
+//         delete _usedCacheSlots;
+//     }
+// }
+
+// /**
+//  * @title TransientContext
+//  * @notice Advanced context manager with automatic cleanup
+//  * @dev Provides a safe way to use pseudo-transient storage with guaranteed cleanup
+//  *
+//  * Usage:
+//  * contract MyContract is TransientContext {
+//  *     function myFunction() external withTransientContext {
+//  *         bytes32 slot = _getContextSlot("mydata");
+//  *         _contextStore(slot, 12345);
+//  *         uint256 value = _contextLoad(slot);
+//  *         // Automatically cleaned up after function
+//  *     }
+//  * }
+//  */
+// abstract contract TransientContext {
+//     using TransientStorage for bytes32;
+
+//     bytes32[] private _contextSlots;
+//     bool private _locked;
+
+//     error TransientContextReentrant();
+//     error TransientContextNotActive();
+
+//     /**
+//      * @dev Modifier that provides automatic cleanup of all context storage
+//      */
+//     modifier withTransientContext() {
+//         if (_locked) revert TransientContextReentrant();
+//         _locked = true;
+
+//         _;
+
+//         _cleanupContext();
+//         _locked = false;
+//     }
+
+//     /**
+//      * @dev Generate a context-specific storage slot
+//      * @param key Identifier for this slot
+//      * @return slot The generated slot
+//      */
+//     function _getContextSlot(string memory key) internal pure returns (bytes32) {
+//         return keccak256(abi.encodePacked("TransientContext.", key));
+//     }
+
+//     /**
+//      * @dev Store value in context with automatic tracking
+//      * @param slot The storage slot
+//      * @param value The value to store
+//      */
+//     function _contextStore(bytes32 slot, uint256 value) internal {
+//         if (!_locked) revert TransientContextNotActive();
+        
+//         slot.tstore(value);
+//         _trackSlot(slot);
+//     }
+
+//     /**
+//      * @dev Load value from context
+//      * @param slot The storage slot
+//      * @return The stored value
+//      */
+//     function _contextLoad(bytes32 slot) internal view returns (uint256) {
+//         return slot.tload();
+//     }
+
+//     /**
+//      * @dev Track a slot for cleanup
+//      * @param slot The slot to track
+//      */
+//     function _trackSlot(bytes32 slot) private {
+//         for (uint256 i = 0; i < _contextSlots.length; i++) {
+//             if (_contextSlots[i] == slot) return;
+//         }
+//         _contextSlots.push(slot);
+//     }
+
+//     /**
+//      * @dev Cleanup all tracked context slots
+//      */
+//     function _cleanupContext() private {
+//         TransientStorage.tclearBatch(_contextSlots);
+//         delete _contextSlots;
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * @title TransientStorage
  * @notice Gas-optimized transient storage library using EIP-1153
@@ -305,57 +786,3 @@ abstract contract TransientCache {
         cacheSlot.tclear();
     }
 }
-
-/**
- * USAGE EXAMPLES:
- *
- * 1. Reentrancy Guard:
- *
- * contract MyContract is TransientReentrancyGuard {
- *     function sensitiveOperation() external nonReentrant {
- *         // Protected from reentrancy
- *         // Saves ~21,800 gas vs OpenZeppelin
- *     }
- * }
- *
- * 2. Temporary State:
- *
- * contract MyContract {
- *     using TransientStorage for bytes32;
- *
- *     bytes32 constant TEMP_SLOT = keccak256("my.temp.value");
- *
- *     function complexOperation() external {
- *         // Store intermediate result
- *         TEMP_SLOT.tstore(calculatedValue);
- *
- *         // Use in another function
- *         _helperFunction();
- *
- *         // Auto-cleared after transaction
- *     }
- *
- *     function _helperFunction() internal {
- *         uint256 temp = TEMP_SLOT.tload();
- *         // Use temp value
- *     }
- * }
- *
- * 3. Price Caching:
- *
- * contract MyProtocol is TransientCache {
- *     bytes32 constant PRICE_CACHE = keccak256("price.cache.eth");
- *
- *     function operation1() external {
- *         uint256 price = _getETHPrice();
- *         _setCache(PRICE_CACHE, price);
- *         // ... use price
- *     }
- *
- *     function operation2() external {
- *         // Reuse cached price (saves ~20,000 gas oracle call)
- *         uint256 price = PRICE_CACHE.tload();
- *         // ... use price
- *     }
- * }
- */

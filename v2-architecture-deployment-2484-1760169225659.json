@@ -1,0 +1,32 @@
+{
+  "network": {
+    "name": "nebulas",
+    "chainId": 2484
+  },
+  "deployer": "0x8d92fe104CCa6dcF0C448dEb531dfDD06236e22d",
+  "timestamp": "2025-10-11T07:53:45.659Z",
+  "addresses": {
+    "accessControlManager": "0x641A3EBE62647c3797136337f5CFDc7bdA8bA883",
+    "usdf": "0xa5d9a0ced03a91254a663A8Fb9a642fB3f6e5aC9",
+    "mockWETH": "0xC0fdc9e25f022a3120d40db14761F81470e2EA7F",
+    "mockWBTC": "0xC2e2F0CEf2609ecD9632a8f1B2D62211cF959a9e",
+    "priceOracle": "0x4a3ca6787a746C5600c046Ca985b1AA6cdff25F2",
+    "unifiedLiquidityPool": "0xe7d5853F8FB7FF098CfFD4bF7431a1742a181998",
+    "liquidityCore": "0xB734b23b748A27f4a03E977D541d243258807329",
+    "sortedTroves": "0x9FE69e80aED73246D32BE6f7aAf1b34feA1B21eD",
+    "borrowerOperationsV2": "0xF31311f85328643313CC6A559955a49fb3B30aCC",
+    "troveManagerV2": "0x6FA96501B5137B03F31f823f9B3D781eEdA30fE1"
+  },
+  "v2Architecture": {
+    "circularDependencyResolved": true,
+    "singleSourceOfTruth": "TroveManagerV2",
+    "userInterface": "BorrowerOperationsV2"
+  },
+  "configuration": {
+    "ethPrice": "2000.0",
+    "btcPrice": "40000.0",
+    "MCR": "1.1",
+    "CCR": "1.5",
+    "MIN_NET_DEBT": "2000.0"
+  }
+}

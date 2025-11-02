@@ -72,6 +72,12 @@ interface ILiquidityCore {
         uint256 newTotal
     );
 
+    event CollateralTransferred(
+        address indexed asset,
+        address indexed to,
+        uint256 amount
+    );
+
     event DebtMinted(
         address indexed asset,
         address indexed account,

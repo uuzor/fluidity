@@ -10,6 +10,8 @@ import "../interfaces/ILiquidityCore.sol";
 import "../interfaces/ISortedTroves.sol";
 import "../interfaces/IUSDF.sol";
 import "../interfaces/IPriceOracle.sol";
+import "../interfaces/IStabilityPool.sol";
+import "../interfaces/ICapitalEfficiencyEngine.sol";
 import "../libraries/TransientStorage.sol";
 import "../libraries/PackedTrove.sol";
 import "../libraries/GasOptimizedMath.sol";
@@ -95,6 +97,8 @@ contract TroveManagerV2 is OptimizedSecurityBase, ITroveManager {
     ISortedTroves public immutable sortedTroves;
     IUSDF public immutable usdfToken;
     IPriceOracle public immutable priceOracle;
+    IStabilityPool public stabilityPool;  // Set after deployment (circular dependency)
+    ICapitalEfficiencyEngine public capitalEfficiencyEngine;  // Set after deployment (circular dependency)
 
     // ============ State Variables (SINGLE SOURCE OF TRUTH) ============
 
@@ -328,6 +332,24 @@ contract TroveManagerV2 is OptimizedSecurityBase, ITroveManager {
         uint256 collGasCompensation = collateral / PERCENT_DIVISOR; // 0.5%
         uint256 collToLiquidate = collateral - collGasCompensation;
 
+        // FIX BUG #5: Ensure LiquidityCore has physical balance for liquidation
+        uint256 totalNeeded = collGasCompensation + collToLiquidate;
+        uint256 physicalBalance = IERC20(asset).balanceOf(address(liquidityCore));
+
+        if (physicalBalance < totalNeeded) {
+            uint256 shortage = totalNeeded - physicalBalance;
+
+            // Recall collateral from yield strategies if CapitalEfficiencyEngine is set
+            if (address(capitalEfficiencyEngine) != address(0)) {
+                capitalEfficiencyEngine.withdrawFromStrategies(
+                    asset,
+                    shortage,
+                    address(liquidityCore)
+                );
+            }
+            // If CapitalEfficiencyEngine not set, transferCollateral will revert with clear error
+        }
+
         // Remove from sorted troves
         sortedTroves.remove(asset, borrower);
 
@@ -343,8 +365,29 @@ contract TroveManagerV2 is OptimizedSecurityBase, ITroveManager {
         // Remove stake
         _removeStakeInternal(borrower, asset);
 
-        // Redistribute to other troves
-        _redistributeDebtAndColl(asset, debt, collToLiquidate);
+        // V2 STABILITY POOL INTEGRATION:
+        // Try Stability Pool first, fall back to redistribution if insufficient
+        if (address(stabilityPool) != address(0)) {
+            uint256 spDeposits = stabilityPool.getTotalDeposits();
+
+            if (spDeposits >= debt) {
+                // Stability Pool has enough funds - offset debt
+                _offsetWithStabilityPool(asset, debt, collToLiquidate);
+            } else if (spDeposits > 0) {
+                // Partial offset: use all SP funds, redistribute remainder
+                _offsetWithStabilityPool(asset, spDeposits, GasOptimizedMath.mulDiv(collToLiquidate, spDeposits, debt));
+
+                uint256 remainingDebt = debt - spDeposits;
+                uint256 remainingColl = collToLiquidate - GasOptimizedMath.mulDiv(collToLiquidate, spDeposits, debt);
+                _redistributeDebtAndColl(asset, remainingDebt, remainingColl);
+            } else {
+                // No SP funds - full redistribution
+                _redistributeDebtAndColl(asset, debt, collToLiquidate);
+            }
+        } else {
+            // No Stability Pool configured - fall back to redistribution
+            _redistributeDebtAndColl(asset, debt, collToLiquidate);
+        }
 
         // Send gas compensation to liquidator
         liquidityCore.transferCollateral(asset, msg.sender, collGasCompensation);
@@ -353,6 +396,24 @@ contract TroveManagerV2 is OptimizedSecurityBase, ITroveManager {
         liquidityCore.burnDebt(asset, borrower, debt);
 
         emit Liquidation(asset, debt, collToLiquidate, collGasCompensation, GAS_COMPENSATION);
+    }
+
+    /**
+     * @dev Offset debt and collateral with Stability Pool
+     * @param asset Collateral asset
+     * @param debtToOffset Amount of debt to absorb
+     * @param collToAdd Amount of collateral to distribute to depositors
+     */
+    function _offsetWithStabilityPool(
+        address asset,
+        uint256 debtToOffset,
+        uint256 collToAdd
+    ) internal {
+        // Transfer collateral to Stability Pool
+        liquidityCore.transferCollateral(asset, address(stabilityPool), collToAdd);
+
+        // Call Stability Pool to offset debt
+        stabilityPool.offset(asset, debtToOffset, collToAdd);
     }
 
     function _redistributeDebtAndColl(
@@ -743,5 +804,32 @@ contract TroveManagerV2 is OptimizedSecurityBase, ITroveManager {
 
     function _requireValidAsset(address asset) internal pure {
         if (asset == address(0)) revert InvalidAsset(asset);
+    }
+
+    // ============ Admin Functions ============
+
+    /**
+     * @notice Set Stability Pool address (one-time, for circular dependency resolution)
+     * @param _stabilityPool Stability Pool contract address
+     * @dev V2: Allows setting StabilityPool after deployment
+     */
+    function setStabilityPool(address _stabilityPool) external onlyValidRole(accessControl.ADMIN_ROLE()) {
+        require(_stabilityPool != address(0), "TM: Invalid StabilityPool");
+        require(address(stabilityPool) == address(0), "TM: StabilityPool already set");
+        stabilityPool = IStabilityPool(_stabilityPool);
+    }
+
+    /**
+     * @notice Set CapitalEfficiencyEngine address (one-time, for circular dependency resolution)
+     * @param _capitalEfficiencyEngine CapitalEfficiencyEngine contract address
+     * @dev Allows setting CapitalEfficiencyEngine after deployment for emergency withdrawals during liquidations
+     */
+    function setCapitalEfficiencyEngine(address _capitalEfficiencyEngine)
+        external
+        onlyValidRole(accessControl.ADMIN_ROLE())
+    {
+        require(_capitalEfficiencyEngine != address(0), "TM: Invalid CapitalEfficiencyEngine");
+        require(address(capitalEfficiencyEngine) == address(0), "TM: CapitalEfficiencyEngine already set");
+        capitalEfficiencyEngine = ICapitalEfficiencyEngine(_capitalEfficiencyEngine);
     }
 }

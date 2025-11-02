@@ -10,6 +10,7 @@ import "../interfaces/ILiquidityCore.sol";
 import "../interfaces/ISortedTroves.sol";
 import "../interfaces/IUSDF.sol";
 import "../interfaces/IPriceOracle.sol";
+import "../interfaces/ICapitalEfficiencyEngine.sol";
 import "../libraries/TransientStorage.sol";
 import "../libraries/GasOptimizedMath.sol";
 
@@ -104,6 +105,10 @@ contract BorrowerOperationsV2 is OptimizedSecurityBase, IBorrowerOperations {
     /// @dev V2: Changed from immutable to allow setting after deployment (circular dependency)
     ITroveManager public troveManager;
 
+    /// @notice CapitalEfficiencyEngine - Manages collateral allocation to yield strategies
+    /// @dev Set after deployment to resolve circular dependency
+    ICapitalEfficiencyEngine public capitalEfficiencyEngine;
+
     /// @notice V2: NO MORE _packedTroves - TroveManager owns that!
     /// @dev Only keep lightweight tracking for gas-efficient reads
 
@@ -188,6 +193,12 @@ contract BorrowerOperationsV2 is OptimizedSecurityBase, IBorrowerOperations {
         // === Total Debt ===
         vars.totalDebt = usdfAmount + vars.borrowingFee + GAS_COMPENSATION;
 
+        // FIX HIGH-3: Validate total debt including all fees
+        uint256 minimumTotalDebt = MIN_NET_DEBT + GAS_COMPENSATION;
+        if (vars.totalDebt < minimumTotalDebt) {
+            revert DebtBelowMinimum(vars.totalDebt, minimumTotalDebt);
+        }
+
         // === ICR Validation ===
         vars.icr = _calculateICR(collateralAmount, vars.totalDebt, vars.price);
         ICR_CACHE_SLOT.tstore(vars.icr);
@@ -242,6 +253,7 @@ contract BorrowerOperationsV2 is OptimizedSecurityBase, IBorrowerOperations {
      * @notice Close trove and repay all debt
      * @inheritdoc IBorrowerOperations
      * @dev V2: Calls TroveManager.closeTrove() to manage state
+     * @dev FIX HIGH-2: Ensures sufficient collateral before closing
      */
     function closeTrove(address asset) external override nonReentrant whenNotPaused {
         _requireValidAsset(asset);
@@ -253,6 +265,26 @@ contract BorrowerOperationsV2 is OptimizedSecurityBase, IBorrowerOperations {
 
         // V2: Read from TroveManager (single source of truth)
         (uint256 debt, uint256 collateral) = troveManager.getTroveDebtAndColl(msg.sender, asset);
+
+        // FIX BUG #1 & #2: Check PHYSICAL balance and recall from CapitalEfficiencyEngine if needed
+        uint256 physicalBalance = IERC20(asset).balanceOf(address(liquidityCore));
+        if (physicalBalance < collateral) {
+            // Recall collateral from yield strategies (AMM/Vaults/Staking)
+            uint256 shortage = collateral - physicalBalance;
+
+            // Ensure CapitalEfficiencyEngine is set
+            require(
+                address(capitalEfficiencyEngine) != address(0),
+                "BO: CapitalEfficiencyEngine not set"
+            );
+
+            // Withdraw from strategies (cascading: AMM → Vaults → Staking)
+            capitalEfficiencyEngine.withdrawFromStrategies(
+                asset,
+                shortage,
+                address(liquidityCore)
+            );
+        }
 
         // Burn USDF debt from user
         usdfToken.burnFrom(msg.sender, debt);
@@ -339,6 +371,25 @@ contract BorrowerOperationsV2 is OptimizedSecurityBase, IBorrowerOperations {
                 IERC20(vars.asset).safeTransferFrom(msg.sender, address(liquidityCore), collateralChange);
                 liquidityCore.depositCollateral(vars.asset, msg.sender, collateralChange);
             } else {
+                // FIX BUG #4: Check physical balance before withdrawal
+                uint256 physicalBalance = IERC20(vars.asset).balanceOf(address(liquidityCore));
+                if (physicalBalance < collateralChange) {
+                    uint256 shortage = collateralChange - physicalBalance;
+
+                    // Ensure CapitalEfficiencyEngine is set
+                    require(
+                        address(capitalEfficiencyEngine) != address(0),
+                        "BO: CapitalEfficiencyEngine not set"
+                    );
+
+                    // Withdraw from strategies (cascading: AMM → Vaults → Staking)
+                    capitalEfficiencyEngine.withdrawFromStrategies(
+                        vars.asset,
+                        shortage,
+                        address(liquidityCore)
+                    );
+                }
+
                 liquidityCore.withdrawCollateral(vars.asset, msg.sender, collateralChange);
                 liquidityCore.transferCollateral(vars.asset, msg.sender, collateralChange);
             }
@@ -585,6 +636,20 @@ contract BorrowerOperationsV2 is OptimizedSecurityBase, IBorrowerOperations {
         require(_troveManager != address(0), "BO: Invalid TroveManager");
         require(address(troveManager) == address(0), "BO: TroveManager already set");
         troveManager = ITroveManager(_troveManager);
+    }
+
+    /**
+     * @notice Set CapitalEfficiencyEngine address (one-time, for circular dependency resolution)
+     * @param _capitalEfficiencyEngine CapitalEfficiencyEngine contract address
+     * @dev Allows setting CapitalEfficiencyEngine after deployment to resolve circular dependency
+     */
+    function setCapitalEfficiencyEngine(address _capitalEfficiencyEngine)
+        external
+        onlyValidRole(accessControl.ADMIN_ROLE())
+    {
+        require(_capitalEfficiencyEngine != address(0), "BO: Invalid CapitalEfficiencyEngine");
+        require(address(capitalEfficiencyEngine) == address(0), "BO: CapitalEfficiencyEngine already set");
+        capitalEfficiencyEngine = ICapitalEfficiencyEngine(_capitalEfficiencyEngine);
     }
 
     /**

@@ -1,179 +1,118 @@
-import { ethers } from "hardhat";
-import * as fs from "fs";
-import * as path from "path";
+import { ethers, run } from "hardhat";
+import fs from "fs";
 
-/**
- * Deploy PriceOracle to testnet/mainnet
- *
- * Usage:
- * npx hardhat run scripts/deploy-price-oracle.ts --network sonic-testnet
- * npx hardhat run scripts/deploy-price-oracle.ts --network sonic-mainnet
- */
+interface OracleDeploymentAddresses {
+  accessControlManager: string;
+  priceOracle: string;
+  orochiAggregator: string;
+}
 
-// Chainlink Price Feed Addresses
-// UPDATE THESE WITH ACTUAL CHAINLINK FEED ADDRESSES FOR YOUR NETWORK
-const CHAINLINK_FEEDS = {
-  // Sonic Testnet (EXAMPLE - verify actual addresses)
-  "sonic-testnet": {
-    "S/USD": "0x0000000000000000000000000000000000000000", // Replace with actual feed
-    "ETH/USD": "0x0000000000000000000000000000000000000000", // Replace with actual feed
-    "BTC/USD": "0x0000000000000000000000000000000000000000", // Replace with actual feed
-  },
-
-  // Sonic Mainnet (EXAMPLE - verify actual addresses)
-  "sonic-mainnet": {
-    "S/USD": "0x0000000000000000000000000000000000000000", // Replace with actual feed
-    "ETH/USD": "0x0000000000000000000000000000000000000000", // Replace with actual feed
-    "BTC/USD": "0x0000000000000000000000000000000000000000", // Replace with actual feed
-  },
-
-  // Add other networks as needed
-};
-
-// Heartbeat values (seconds between price updates)
-const HEARTBEATS = {
-  "S/USD": 3600,    // 1 hour
-  "ETH/USD": 3600,  // 1 hour
-  "BTC/USD": 3600,  // 1 hour
-  "USDC/USD": 86400, // 24 hours (stablecoins update less frequently)
-};
+async function verifyContract(address: string, args: any[] = []): Promise<void> {
+  try {
+    console.log(`🔍 Verifying ${address}...`);
+    await run("verify:verify", { address, constructorArguments: args });
+    console.log(`✅ Verified`);
+  } catch (error: any) {
+    if (error.message.includes("Already Verified")) {
+      console.log(`✅ Already verified`);
+    } else {
+      console.log(`⚠️  Verification failed: ${error.message}`);
+    }
+  }
+}
 
 async function main() {
   const [deployer] = await ethers.getSigners();
-  const network = (await ethers.provider.getNetwork()).name;
-
-  console.log("\n" + "=".repeat(60));
-  console.log("🚀 DEPLOYING PRICE ORACLE");
-  console.log("=".repeat(60));
-  console.log(`\n📍 Network: ${network}`);
-  console.log(`💼 Deployer: ${deployer.address}`);
-
+  const network = await ethers.provider.getNetwork();
   const balance = await ethers.provider.getBalance(deployer.address);
+
+  console.log("\n" + "=".repeat(70));
+  console.log("🚀 DEPLOYING PRICE ORACLE WITH OROCHI INTEGRATION");
+  console.log("=".repeat(70));
+  console.log(`\n📍 Network: ${network.name} (Chain ID: ${network.chainId})`);
+  console.log(`💼 Deployer: ${deployer.address}`);
   console.log(`💰 Balance: ${ethers.formatEther(balance)} ETH\n`);
 
-  // Step 1: Deploy AccessControlManager (if not already deployed)
-  console.log("📦 Step 1: Deploying AccessControlManager...");
-  const AccessControlFactory = await ethers.getContractFactory("AccessControlManager");
-  const accessControl = await AccessControlFactory.deploy();
-  await accessControl.waitForDeployment();
-  const accessControlAddress = await accessControl.getAddress();
-  console.log(`✅ AccessControlManager deployed to: ${accessControlAddress}\n`);
+  const addresses: Partial<OracleDeploymentAddresses> = {};
 
-  // Grant admin role to deployer
-  const ADMIN_ROLE = await accessControl.ADMIN_ROLE();
-  await accessControl.grantRole(ADMIN_ROLE, deployer.address);
-  console.log(`✅ Granted ADMIN_ROLE to deployer\n`);
+  try {
+    // Deploy AccessControlManager
+    console.log("📦 [1/3] Deploying AccessControlManager...");
+    const AccessControlFactory = await ethers.getContractFactory("AccessControlManager");
+    const accessControl = await AccessControlFactory.deploy();
+    await accessControl.waitForDeployment();
+    addresses.accessControlManager = await accessControl.getAddress();
+    console.log(`   ✅ ${addresses.accessControlManager}`);
 
-  // Step 2: Deploy PriceOracle
-  console.log("📦 Step 2: Deploying PriceOracle...");
-  const PriceOracleFactory = await ethers.getContractFactory("PriceOracle");
-  const priceOracle = await PriceOracleFactory.deploy(accessControlAddress);
-  await priceOracle.waitForDeployment();
-  const priceOracleAddress = await priceOracle.getAddress();
-  console.log(`✅ PriceOracle deployed to: ${priceOracleAddress}\n`);
+    addresses.orochiAggregator = "0x70523434ee6a9870410960E2615406f8F9850676";
+    console.log(`   📍 Using Orochi Aggregator: ${addresses.orochiAggregator}`);
 
-  // Step 3: Register oracles (if Chainlink feeds are available)
-  console.log("📦 Step 3: Registering Chainlink oracles...");
+    // Deploy PriceOracle
+    console.log("\n📦 [2/3] Deploying PriceOracle...");
+    const PriceOracleFactory = await ethers.getContractFactory("PriceOracle");
+    const priceOracle = await PriceOracleFactory.deploy(
+      addresses.accessControlManager,
+      addresses.orochiAggregator
+    );
+    await priceOracle.waitForDeployment();
+    addresses.priceOracle = await priceOracle.getAddress();
+    console.log(`   ✅ ${addresses.priceOracle}`);
 
-  const feeds = CHAINLINK_FEEDS[network as keyof typeof CHAINLINK_FEEDS];
+    // Test oracle setup
+    console.log("\n📦 [3/3] Testing oracle setup...");
 
-  if (feeds) {
-    for (const [pair, feedAddress] of Object.entries(feeds)) {
-      if (feedAddress !== "0x0000000000000000000000000000000000000000") {
-        try {
-          const heartbeat = HEARTBEATS[pair as keyof typeof HEARTBEATS] || 3600;
+    // Register BTC with Chainlink + Orochi symbol
+    const mockBTCFeed = "0x70523434ee6a9870410960E2615406f8F9850676"; // Replace with actual Chainlink BTC feed
+    await priceOracle.registerOracleWithSymbol(
+      "0x70523434ee6a9870410960E2615406f8F9850676", // Replace with BTC token address
+      mockBTCFeed,
+      3600, // 1 hour heartbeat
+      ethers.zeroPadValue(ethers.toUtf8Bytes("BTC"), 20) // _getPrice(bytes20 identifier) // _getPrice(bytes20 identifier) 
+    );
+    console.log("   ✅ Registered BTC oracle");
 
-          console.log(`  📊 Registering ${pair}...`);
-          console.log(`     Feed: ${feedAddress}`);
-          console.log(`     Heartbeat: ${heartbeat}s`);
+    // Get price test
+    const btcPrice = await priceOracle.getPrice("0x70523434ee6a9870410960E2615406f8F9850676"); // Replace with BTC token address
+    console.log(`   📊 BTC Price: $${ethers.formatEther(btcPrice)}`);
 
-          // For testnet, use feed address as asset address (simplified)
-          // In production, use actual token addresses
-          const tx = await priceOracle.registerOracle(
-            feedAddress, // asset address (use actual token address in production)
-            feedAddress, // chainlink feed address
-            heartbeat
-          );
-          await tx.wait();
+    // Get price with status test
+    const priceResponse = await priceOracle.getPriceWithStatus("0x70523434ee6a9870410960E2615406f8F9850676"); 
+    console.log("   📊 Price Response:");
+    console.log(`      Price: $${ethers.formatEther(priceResponse.price)}`);
+    console.log(`      Is Valid: ${priceResponse.isValid}`);
+    console.log(`      Is Cached: ${priceResponse.isCached}`);
+    console.log(`      Timestamp: ${new Date(Number(priceResponse.timestamp) * 1000)}`);
 
-          console.log(`  ✅ Registered ${pair}\n`);
-        } catch (error) {
-          console.log(`  ⚠️  Failed to register ${pair}: ${error}\n`);
-        }
-      } else {
-        console.log(`  ⚠️  Skipping ${pair} (no feed address configured)\n`);
-      }
-    }
-  } else {
-    console.log(`⚠️  No Chainlink feeds configured for network: ${network}`);
-    console.log(`   Add feed addresses to CHAINLINK_FEEDS in this script\n`);
+    // Save deployment data
+    const deploymentData = {
+      network: {
+        name: network.name,
+        chainId: Number(network.chainId)
+      },
+      deployer: deployer.address,
+      timestamp: new Date().toISOString(),
+      addresses,
+    };
+
+    const filename = `price-oracle-deployment-${network.chainId}-${Date.now()}.json`;
+    fs.writeFileSync(filename, JSON.stringify(deploymentData, null, 2));
+    console.log(`\n💾 Deployment saved to: ${filename}`);
+
+    console.log("\n🚀 PRICE ORACLE DEPLOYMENT COMPLETE!");
+    console.log("\n📋 DEPLOYED CONTRACTS:");
+    console.log(`AccessControlManager: ${addresses.accessControlManager}`);
+    console.log(`PriceOracle:         ${addresses.priceOracle}`);
+    console.log(`Orochi Aggregator:   ${addresses.orochiAggregator}`);
+
+  } catch (error) {
+    console.error("\n❌ DEPLOYMENT FAILED:", error);
+    process.exit(1);
   }
-
-  // Step 4: Save deployment info
-  console.log("📦 Step 4: Saving deployment info...");
-
-  const deployment = {
-    network,
-    timestamp: new Date().toISOString(),
-    deployer: deployer.address,
-    contracts: {
-      AccessControlManager: accessControlAddress,
-      PriceOracle: priceOracleAddress,
-    },
-    chainlinkFeeds: feeds || {},
-  };
-
-  const deploymentPath = path.join(
-    __dirname,
-    "..",
-    `deployments-price-oracle-${network}-${Date.now()}.json`
-  );
-
-  fs.writeFileSync(deploymentPath, JSON.stringify(deployment, null, 2));
-  console.log(`✅ Deployment info saved to: ${deploymentPath}\n`);
-
-  // Step 5: Verification instructions
-  console.log("=".repeat(60));
-  console.log("📋 NEXT STEPS:");
-  console.log("=".repeat(60));
-  console.log("\n1️⃣  Verify contracts on block explorer:");
-  console.log(`   npx hardhat verify --network ${network} ${accessControlAddress}`);
-  console.log(`   npx hardhat verify --network ${network} ${priceOracleAddress} ${accessControlAddress}`);
-
-  console.log("\n2️⃣  Update Chainlink feed addresses:");
-  console.log("   - Get actual Chainlink feed addresses for your network");
-  console.log("   - Update CHAINLINK_FEEDS in this script");
-  console.log("   - Re-run to register oracles");
-
-  console.log("\n3️⃣  Test oracle functionality:");
-  console.log("   - Call getPrice() for each registered asset");
-  console.log("   - Verify prices are reasonable");
-  console.log("   - Check price staleness");
-
-  console.log("\n4️⃣  Integrate with BorrowerOperations:");
-  console.log("   - Deploy BorrowerOperations with PriceOracle address");
-  console.log("   - Update UnifiedLiquidityPool to use PriceOracle");
-
-  console.log("\n=".repeat(60));
-  console.log("✅ DEPLOYMENT COMPLETE!");
-  console.log("=".repeat(60) + "\n");
-
-  // Return deployment info for testing
-  return {
-    accessControl,
-    priceOracle,
-    deployment,
-  };
 }
 
-// Execute deployment
-if (require.main === module) {
-  main()
-    .then(() => process.exit(0))
-    .catch((error) => {
-      console.error(error);
-      process.exit(1);
-    });
-}
-
-export default main;
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });

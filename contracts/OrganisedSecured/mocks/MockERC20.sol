@@ -12,10 +12,12 @@ contract MockERC20 is ERC20 {
         _mint(to, amount);
     }
 
-    function burn(address from, uint256 amount) public {
-        _burn(from, amount);
+    // Burn from caller's balance (matches IUSDF interface)
+    function burn(uint256 amount) public {
+        _burn(msg.sender, amount);
     }
 
+    // Burn from specified address (requires approval)
     function burnFrom(address from, uint256 amount) public {
         _spendAllowance(from, msg.sender, amount);
         _burn(from, amount);

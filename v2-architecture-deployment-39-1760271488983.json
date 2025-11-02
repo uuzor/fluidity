@@ -1,0 +1,32 @@
+{
+  "network": {
+    "name": "solaris",
+    "chainId": 39
+  },
+  "deployer": "0x8AaEe2071A400cC60927e46D53f751e521ef4D35",
+  "timestamp": "2025-10-12T12:18:08.983Z",
+  "addresses": {
+    "accessControlManager": "0xdF216d8a65eecAcA7E96D57b8C51cD1713b2dFbA",
+    "usdf": "0x705B8432E246379ef88Ce2EDad961Cc36d9eCA05",
+    "mockWETH": "0x7Cf8b09c4949aD928C938f4d147368825dF32106",
+    "mockWBTC": "0xf88Bc787c1c74Df62cb3666DE1f209b088fc8BE9",
+    "priceOracle": "0x3C80e3c4Ad3425CE9106D42d8dC241AB23d0f649",
+    "unifiedLiquidityPool": "0x8AcefAE169a8507D6Ed9A8004812929B4D3eABa9",
+    "liquidityCore": "0xcC9610131efBF0fA943C3c0FB63B0e00a2c2eA5B",
+    "sortedTroves": "0x4e16A7a1c32AB270961F7796AdbB46452C9dE0eE",
+    "borrowerOperationsV2": "0x99D92781EA44EF74D8978a56A2cd18e420c941b2",
+    "troveManagerV2": "0xBE62747E099F4a361F291eb41c0eA1673C414322"
+  },
+  "v2Architecture": {
+    "circularDependencyResolved": true,
+    "singleSourceOfTruth": "TroveManagerV2",
+    "userInterface": "BorrowerOperationsV2"
+  },
+  "configuration": {
+    "ethPrice": "2000.0",
+    "btcPrice": "40000.0",
+    "MCR": "1.1",
+    "CCR": "1.5",
+    "MIN_NET_DEBT": "2000.0"
+  }
+}

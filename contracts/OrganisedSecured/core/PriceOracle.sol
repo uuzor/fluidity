@@ -4,6 +4,7 @@ pragma solidity ^0.8.24;
 import "../interfaces/IPriceOracle.sol";
 import "../utils/AccessControlManager.sol";
 import "../libraries/TransientStorage.sol";
+import "@orochi-network/contracts/IOrocleAggregatorV2.sol";
 
 
 interface AggregatorV3Interface {
@@ -90,6 +91,9 @@ contract PriceOracle is IPriceOracle {
 
     /// @notice Access control manager
     AccessControlManager public immutable accessControl;
+    
+    /// @notice Orochi Network oracle aggregator for fallback
+    IOrocleAggregatorV2 public immutable orochiOracle;
 
     // ============ Storage ============
 
@@ -102,6 +106,9 @@ contract PriceOracle is IPriceOracle {
 
     /// @notice List of all registered assets
     address[] private _registeredAssets;
+    
+    /// @notice Asset symbol mapping for Orochi oracle (asset address => bytes20 symbol)
+    mapping(address => bytes20) private _assetSymbols;
 
     // ============ Chainlink Interface ============
 
@@ -110,12 +117,15 @@ contract PriceOracle is IPriceOracle {
     // ============ Constructor ============
 
     /**
-     * @notice Initialize PriceOracle with access control
+     * @notice Initialize PriceOracle with access control and Orochi oracle
      * @param _accessControl Address of AccessControlManager
+     * @param _orochiOracle Address of Orochi Network oracle aggregator
      */
-    constructor(address _accessControl) {
+    constructor(address _accessControl, address _orochiOracle) {
         require(_accessControl != address(0), "Invalid access control");
+        require(_orochiOracle != address(0), "Invalid Orochi oracle");
         accessControl = AccessControlManager(_accessControl);
+        orochiOracle = IOrocleAggregatorV2(_orochiOracle);
     }
 
     // ============ Modifiers ============
@@ -150,9 +160,19 @@ contract PriceOracle is IPriceOracle {
 
         // Get current price from Chainlink
         (uint256 currentPrice, bool isValid) = _fetchChainlinkPrice(config);
-
-        // Return validated price or fallback
-        return isValid ? currentPrice : uint256(config.lastGoodPrice);
+        
+        if (isValid) {
+            return currentPrice;
+        }
+        
+        // Try Orochi fallback if Chainlink fails
+        (uint256 orochiPrice, bool orochiValid) = _fetchOrochiPrice(asset);
+        if (orochiValid) {
+            return orochiPrice;
+        }
+        
+        // Final fallback to last good price
+        return uint256(config.lastGoodPrice);
     }
 
     /**
@@ -196,11 +216,32 @@ contract PriceOracle is IPriceOracle {
 
         // Fetch current price
         (uint256 currentPrice, bool isValid) = _fetchChainlinkPrice(config);
-
+        
+        if (isValid) {
+            return PriceResponse({
+                price: currentPrice,
+                timestamp: block.timestamp,
+                isValid: true,
+                isCached: false
+            });
+        }
+        
+        // Try Orochi fallback
+        (uint256 orochiPrice, bool orochiValid) = _fetchOrochiPrice(asset);
+        if (orochiValid) {
+            return PriceResponse({
+                price: orochiPrice,
+                timestamp: block.timestamp,
+                isValid: true,
+                isCached: false
+            });
+        }
+        
+        // Final fallback
         return PriceResponse({
-            price: isValid ? currentPrice : uint256(config.lastGoodPrice),
-            timestamp: isValid ? block.timestamp : uint256(config.lastUpdateTime),
-            isValid: isValid,
+            price: uint256(config.lastGoodPrice),
+            timestamp: uint256(config.lastUpdateTime),
+            isValid: false,
             isCached: false
         });
     }
@@ -224,17 +265,24 @@ contract PriceOracle is IPriceOracle {
 
         // Fetch current price
         (uint256 currentPrice, bool isValid) = _fetchChainlinkPrice(config);
-
-        // Use last good price if current is invalid
-        price = isValid ? currentPrice : uint256(config.lastGoodPrice);
-
-        // Update stored last good price if valid
+        
         if (isValid) {
+            price = currentPrice;
             config.lastGoodPrice = uint128(currentPrice);
             config.lastUpdateTime = uint32(block.timestamp);
             emit PriceUpdated(asset, currentPrice, block.timestamp);
         } else {
-            emit FallbackTriggered(asset, uint256(config.lastGoodPrice), "Invalid current price");
+            // Try Orochi fallback
+            (uint256 orochiPrice, bool orochiValid) = _fetchOrochiPrice(asset);
+            if (orochiValid) {
+                price = orochiPrice;
+                config.lastGoodPrice = uint128(orochiPrice);
+                config.lastUpdateTime = uint32(block.timestamp);
+                emit PriceUpdated(asset, orochiPrice, block.timestamp);
+            } else {
+                price = uint256(config.lastGoodPrice);
+                emit FallbackTriggered(asset, uint256(config.lastGoodPrice), "Both Chainlink and Orochi failed");
+            }
         }
 
         // Cache in TransientStorage for gas savings
@@ -246,6 +294,23 @@ contract PriceOracle is IPriceOracle {
     // ============ Admin Functions ============
 
     /**
+     * @notice Register oracle with Orochi symbol mapping
+     * @param asset Asset address
+     * @param chainlinkFeed Chainlink feed address
+     * @param heartbeat Heartbeat in seconds
+     * @param orochiSymbol Asset symbol for Orochi oracle (e.g., "BTC", "ETH")
+     */
+    function registerOracleWithSymbol(
+        address asset,
+        address chainlinkFeed,
+        uint32 heartbeat,
+        bytes20 orochiSymbol
+    ) external onlyAdmin {
+        _assetSymbols[asset] = orochiSymbol;
+        _registerOracle(asset, chainlinkFeed, heartbeat);
+    }
+    
+    /**
      * @inheritdoc IPriceOracle
      */
     function registerOracle(
@@ -253,6 +318,14 @@ contract PriceOracle is IPriceOracle {
         address chainlinkFeed,
         uint32 heartbeat
     ) external override onlyAdmin {
+        _registerOracle(asset, chainlinkFeed, heartbeat);
+    }
+    
+    function _registerOracle(
+        address asset,
+        address chainlinkFeed,
+        uint32 heartbeat
+    ) internal {
         if (chainlinkFeed == address(0)) revert InvalidChainlinkFeed(chainlinkFeed);
         if (heartbeat == 0) revert InvalidHeartbeat(heartbeat);
 
@@ -289,7 +362,21 @@ contract PriceOracle is IPriceOracle {
 
             emit OracleRegistered(asset, chainlinkFeed, heartbeat, decimals);
         } catch {
-            revert InvalidChainlinkFeed(chainlinkFeed);
+            // revert InvalidChainlinkFeed(chainlinkFeed);
+             // Store oracle config (packed into 2 slots)
+            _oracles[asset] = OracleConfig({
+                chainlinkFeed: chainlinkFeed,
+                heartbeat: heartbeat,
+                decimals: 18,
+                isActive: true,
+                lastGoodPrice: uint128(0),
+                lastUpdateTime: uint32(block.timestamp)
+            });
+
+            // Add to registered assets list
+            if (!_isAssetRegistered(asset)) {
+                _registeredAssets.push(asset);
+            }
         }
     }
 
@@ -522,5 +609,30 @@ contract PriceOracle is IPriceOracle {
             }
         }
         return false;
+    }
+    
+    /**
+     * @dev Fetch price from Orochi Network oracle
+     * @param asset Asset address
+     * @return price Scaled price (18 decimals)
+     * @return isValid True if price is available
+     */
+    function _fetchOrochiPrice(address asset) internal view returns (uint256 price, bool isValid) {
+        bytes20 symbol = _assetSymbols[asset];
+        if (symbol == bytes20(0)) {
+            return (0, false); // No symbol mapping
+        }
+        
+        try orochiOracle.getLatestData(1, symbol) returns (bytes32 data) {
+            if (data.length >= 32) {
+                price = uint256(data);
+                // Orochi prices are in 18 decimals, so no scaling needed
+                return (price, price > 0);
+            }
+        } catch {
+            return (0, false);
+        }
+        
+        return (0, false);
     }
 }

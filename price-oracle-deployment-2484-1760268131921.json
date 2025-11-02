@@ -1,0 +1,13 @@
+{
+  "network": {
+    "name": "nebulas",
+    "chainId": 2484
+  },
+  "deployer": "0x8d92fe104CCa6dcF0C448dEb531dfDD06236e22d",
+  "timestamp": "2025-10-12T11:22:11.921Z",
+  "addresses": {
+    "accessControlManager": "0xB10785E9657eaF42daC5fab9bfdA32844594fD74",
+    "orochiAggregator": "0x70523434ee6a9870410960E2615406f8F9850676",
+    "priceOracle": "0xfBB61101B7505aa8A52278D93393b737271eFBbC"
+  }
+}

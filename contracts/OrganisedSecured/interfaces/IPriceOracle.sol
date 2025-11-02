@@ -144,6 +144,21 @@ interface IPriceOracle {
         address chainlinkFeed,
         uint32 heartbeat
     ) external;
+    
+    /**
+     * @notice Register oracle with Orochi symbol mapping for fallback
+     * @param asset Asset address
+     * @param chainlinkFeed Chainlink feed address
+     * @param heartbeat Heartbeat in seconds
+     * @param orochiSymbol Asset symbol for Orochi oracle (e.g., "BTC", "ETH")
+     * @dev Only callable by admin
+     */
+    function registerOracleWithSymbol(
+        address asset,
+        address chainlinkFeed,
+        uint32 heartbeat,
+        bytes20 orochiSymbol
+    ) external;
 
     /**
      * @notice Update existing oracle configuration

@@ -196,8 +196,16 @@ contract LiquidityCore is OptimizedSecurityBase, ILiquidityCore {
         activeAsset(asset)
         validAmount(amount)
     {
+        // FIX CRIT-1: Verify contract has sufficient balance before transfer
+        uint256 balance = IERC20(asset).balanceOf(address(this));
+        if (balance < amount) {
+            revert InsufficientCollateral(asset, amount, balance);
+        }
+
         // Transfer collateral tokens from this contract to recipient
-        IERC20(asset).transfer(to, amount);
+        IERC20(asset).safeTransfer(to, amount);
+
+        emit CollateralTransferred(asset, to, amount);
     }
 
     function getCollateralReserve(address asset) external view override returns (uint256) {

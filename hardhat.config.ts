@@ -17,7 +17,7 @@ const config: HardhatUserConfig = {
         enabled: true,
         runs: 200,
       },
-      
+      viaIR: true,
       evmVersion: "cancun", // Required for EIP-1153 transient storage
     },
   },
@@ -58,12 +58,12 @@ const config: HardhatUserConfig = {
     },
     solaris: {
       chainId: 39,
-      url: 'https://rpc-mainnet.u2u.xyz/',
+      url: 'https://rpc-mainnet.u2u.xyz',
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
     },
     nebulas: {
       chainId: 2484,
-      url: 'https://rpc-nebulas-testnet.u2u.xyz/',
+      url: 'https://rpc-nebulas-testnet.u2u.xyz',
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
       
     }
@@ -109,7 +109,7 @@ const config: HardhatUserConfig = {
         network: "solaris",
         chainId: 39,
         urls: {
-          apiURL: "https://u2uscan.xyz/api",
+          apiURL: "https://rpc-mainnet.u2u.xyz/api",
           browserURL: "https://u2uscan.xyz",
         },
       },
