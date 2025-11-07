@@ -65,7 +65,18 @@ const config: HardhatUserConfig = {
       chainId: 2484,
       url: 'https://rpc-nebulas-testnet.u2u.xyz',
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
-      
+    },
+    "polygon-amoy": {
+      url: "https://rpc-amoy.polygon.technology",
+      chainId: 80002,
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      gasPrice: 25000000000, // 1 gwei
+    },
+    "polygon-mainnet": {
+      url: "https://polygon-rpc.com",
+      chainId: 137,
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      gasPrice: 50000000000, // 50 gwei (adjust as needed)
     }
   },
   gasReporter: {
@@ -77,7 +88,8 @@ const config: HardhatUserConfig = {
       "core-testnet": process.env.CORE_API_KEY || "",
       "core-mainnet": process.env.CORE_API_KEY || "",
       "sonic-testnet": process.env.SONIC_API_KEY || "",
-
+      "polygon-amoy": process.env.POLYGONSCAN_API_KEY || "",
+      "polygon-mainnet": process.env.POLYGONSCAN_API_KEY || "",
     },
     customChains: [
       {

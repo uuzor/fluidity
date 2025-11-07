@@ -294,6 +294,2706 @@
         },
         "solcVersion": "0.8.24"
       },
+      "contracts/OrganisedSecured/core/LiquidityCore.sol:LiquidityCore": {
+        "src": "contracts\\OrganisedSecured\\core\\LiquidityCore.sol:35",
+        "version": {
+          "withMetadata": "53cfbf2e55815dee5daf890226707fa9bae82aa0677f00d88a1f28822309ec27",
+          "withoutMetadata": "a12a2b923edf48d256466696d104aae7625eb0c53283a03787bccadf61b88831",
+          "linkedWithoutMetadata": "a12a2b923edf48d256466696d104aae7625eb0c53283a03787bccadf61b88831"
+        },
+        "inherit": [
+          "contracts/OrganisedSecured/interfaces/ILiquidityCore.sol:ILiquidityCore",
+          "contracts/OrganisedSecured/utils/OptimizedSecurityBase.sol:OptimizedSecurityBase",
+          "@openzeppelin/contracts/utils/Pausable.sol:Pausable",
+          "@openzeppelin/contracts/utils/Context.sol:Context"
+        ],
+        "libraries": [
+          "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol:SafeERC20"
+        ],
+        "methods": [
+          "(address,address,address)",
+          "depositCollateral(address,address,uint256)",
+          "withdrawCollateral(address,address,uint256)",
+          "transferCollateral(address,address,uint256)",
+          "getCollateralReserve(address)",
+          "mintDebt(address,address,uint256)",
+          "burnDebt(address,address,uint256)",
+          "getDebtReserve(address)",
+          "borrowFromUnifiedPool(address,uint256)",
+          "returnToUnifiedPool(address,uint256)",
+          "getBorrowedFromUnified(address)",
+          "allocateRewards(address,uint256)",
+          "claimRewards(address,address,uint256)",
+          "getPendingRewards(address)",
+          "getAvailableLiquidity(address)",
+          "getUtilizationRate(address)",
+          "getLiquiditySnapshot(address)",
+          "getAssetLiquidity(address)",
+          "activateAsset(address)",
+          "deactivateAsset(address)",
+          "isAssetActive(address)",
+          "getActiveAssets()",
+          "provideEmergencyLiquidity(address,uint256)",
+          "pauseAsset(address)",
+          "unpauseAsset(address)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "LiquidityCore",
+            "src": "contracts\\OrganisedSecured\\core\\LiquidityCore.sol:60"
+          },
+          {
+            "kind": "state-variable-immutable",
+            "name": "unifiedPool",
+            "src": "contracts\\OrganisedSecured\\core\\LiquidityCore.sol:41"
+          },
+          {
+            "kind": "state-variable-immutable",
+            "name": "usdfToken",
+            "src": "contracts\\OrganisedSecured\\core\\LiquidityCore.sol:44"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_paused",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_bool",
+              "contract": "Pausable",
+              "src": "@openzeppelin\\contracts\\utils\\Pausable.sol:18"
+            },
+            {
+              "label": "liquidationsThisBlock",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_uint256,t_uint256)",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:30"
+            },
+            {
+              "label": "lastTVLSnapshot",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_uint256",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:31"
+            },
+            {
+              "label": "lastTVLUpdateBlock",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:32"
+            },
+            {
+              "label": "validStates",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_mapping(t_bytes32,t_bool)",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:35"
+            },
+            {
+              "label": "_assetLiquidity",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_mapping(t_address,t_struct(AssetLiquidity)7233_storage)",
+              "contract": "LiquidityCore",
+              "src": "contracts\\OrganisedSecured\\core\\LiquidityCore.sol:47"
+            },
+            {
+              "label": "_activeAssets",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_array(t_address)dyn_storage",
+              "contract": "LiquidityCore",
+              "src": "contracts\\OrganisedSecured\\core\\LiquidityCore.sol:50"
+            },
+            {
+              "label": "_isInActiveList",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_mapping(t_address,t_bool)",
+              "contract": "LiquidityCore",
+              "src": "contracts\\OrganisedSecured\\core\\LiquidityCore.sol:53"
+            },
+            {
+              "label": "_pausedAssets",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_mapping(t_address,t_bool)",
+              "contract": "LiquidityCore",
+              "src": "contracts\\OrganisedSecured\\core\\LiquidityCore.sol:56"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_array(t_address)dyn_storage": {
+              "label": "address[]",
+              "numberOfBytes": "32"
+            },
+            "t_bool": {
+              "label": "bool",
+              "numberOfBytes": "1"
+            },
+            "t_bytes32": {
+              "label": "bytes32",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_bool)": {
+              "label": "mapping(address => bool)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(AssetLiquidity)7233_storage)": {
+              "label": "mapping(address => struct ILiquidityCore.AssetLiquidity)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_bool)": {
+              "label": "mapping(bytes32 => bool)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_uint256,t_uint256)": {
+              "label": "mapping(uint256 => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(AssetLiquidity)7233_storage": {
+              "label": "struct ILiquidityCore.AssetLiquidity",
+              "members": [
+                {
+                  "label": "collateralReserve",
+                  "type": "t_uint128",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "debtReserve",
+                  "type": "t_uint128",
+                  "offset": 16,
+                  "slot": "0"
+                },
+                {
+                  "label": "pendingRewards",
+                  "type": "t_uint128",
+                  "offset": 0,
+                  "slot": "1"
+                },
+                {
+                  "label": "borrowedFromUnified",
+                  "type": "t_uint128",
+                  "offset": 16,
+                  "slot": "1"
+                },
+                {
+                  "label": "lastUpdateTime",
+                  "type": "t_uint32",
+                  "offset": 0,
+                  "slot": "2"
+                },
+                {
+                  "label": "isActive",
+                  "type": "t_bool",
+                  "offset": 4,
+                  "slot": "2"
+                }
+              ],
+              "numberOfBytes": "96"
+            },
+            "t_uint128": {
+              "label": "uint128",
+              "numberOfBytes": "16"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            },
+            "t_uint32": {
+              "label": "uint32",
+              "numberOfBytes": "4"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "contracts/OrganisedSecured/core/UnifiedLiquidityPool.sol:UnifiedLiquidityPool": {
+        "src": "contracts\\OrganisedSecured\\core\\UnifiedLiquidityPool.sol:15",
+        "version": {
+          "withMetadata": "df2bdf3fc60e6546d14cb980d01d4f31e403ec15af8a42ff2c1b663c3be64ced",
+          "withoutMetadata": "a2a1d37fb9ddff8414ea32762b76f052e14019b413c3e39fe859f5dac19c734c",
+          "linkedWithoutMetadata": "a2a1d37fb9ddff8414ea32762b76f052e14019b413c3e39fe859f5dac19c734c"
+        },
+        "inherit": [
+          "contracts/OrganisedSecured/interfaces/IUnifiedLiquidityPool.sol:IUnifiedLiquidityPool",
+          "contracts/OrganisedSecured/utils/OptimizedSecurityBase.sol:OptimizedSecurityBase",
+          "@openzeppelin/contracts/utils/Pausable.sol:Pausable",
+          "@openzeppelin/contracts/utils/Context.sol:Context"
+        ],
+        "libraries": [
+          "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol:SafeERC20"
+        ],
+        "methods": [
+          "(address,address)",
+          "deposit(address,uint256)",
+          "withdraw(address,uint256)",
+          "borrow(address,uint256,address)",
+          "repay(address,uint256)",
+          "addAsset(address,(address,uint256,uint256,uint256,uint256,uint256,uint256,bool,bool,bool))",
+          "allocateLiquidity(address,(uint256,uint256,uint256,uint256,uint256))",
+          "rebalanceLiquidity(address)",
+          "getAvailableLiquidity(address)",
+          "getTotalLiquidity(address)",
+          "updateAsset(address,(address,uint256,uint256,uint256,uint256,uint256,uint256,bool,bool,bool))",
+          "getAssetInfo(address)",
+          "getSupportedAssets()",
+          "getUtilizationRate(address)",
+          "getSupplyRate(address)",
+          "getBorrowRate(address)",
+          "getUserDeposits(address,address)",
+          "getUserBorrows(address,address)",
+          "getUserHealthFactor(address)",
+          "liquidate(address,address,address,uint256)",
+          "isLiquidatable(address)",
+          "borrowLiquidity(address,uint256)",
+          "returnLiquidity(address,uint256)",
+          "registerForSonicFeeM(uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "UnifiedLiquidityPool",
+            "src": "contracts\\OrganisedSecured\\core\\UnifiedLiquidityPool.sol:26"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_paused",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_bool",
+              "contract": "Pausable",
+              "src": "@openzeppelin\\contracts\\utils\\Pausable.sol:18"
+            },
+            {
+              "label": "liquidationsThisBlock",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_uint256,t_uint256)",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:30"
+            },
+            {
+              "label": "lastTVLSnapshot",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_uint256",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:31"
+            },
+            {
+              "label": "lastTVLUpdateBlock",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:32"
+            },
+            {
+              "label": "validStates",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_mapping(t_bytes32,t_bool)",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:35"
+            },
+            {
+              "label": "assets",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_mapping(t_address,t_struct(AssetInfo)7832_storage)",
+              "contract": "UnifiedLiquidityPool",
+              "src": "contracts\\OrganisedSecured\\core\\UnifiedLiquidityPool.sol:18"
+            },
+            {
+              "label": "userDeposits",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "UnifiedLiquidityPool",
+              "src": "contracts\\OrganisedSecured\\core\\UnifiedLiquidityPool.sol:19"
+            },
+            {
+              "label": "userBorrows",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "UnifiedLiquidityPool",
+              "src": "contracts\\OrganisedSecured\\core\\UnifiedLiquidityPool.sol:20"
+            },
+            {
+              "label": "allocations",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_mapping(t_address,t_struct(LiquidityAllocation)7843_storage)",
+              "contract": "UnifiedLiquidityPool",
+              "src": "contracts\\OrganisedSecured\\core\\UnifiedLiquidityPool.sol:21"
+            },
+            {
+              "label": "supportedAssets",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_array(t_address)dyn_storage",
+              "contract": "UnifiedLiquidityPool",
+              "src": "contracts\\OrganisedSecured\\core\\UnifiedLiquidityPool.sol:23"
+            },
+            {
+              "label": "priceOracle",
+              "offset": 0,
+              "slot": "10",
+              "type": "t_contract(IPriceOracle)7808",
+              "contract": "UnifiedLiquidityPool",
+              "src": "contracts\\OrganisedSecured\\core\\UnifiedLiquidityPool.sol:24"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_array(t_address)dyn_storage": {
+              "label": "address[]",
+              "numberOfBytes": "32"
+            },
+            "t_bool": {
+              "label": "bool",
+              "numberOfBytes": "1"
+            },
+            "t_bytes32": {
+              "label": "bytes32",
+              "numberOfBytes": "32"
+            },
+            "t_contract(IPriceOracle)7808": {
+              "label": "contract IPriceOracle",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(AssetInfo)7832_storage)": {
+              "label": "mapping(address => struct IUnifiedLiquidityPool.AssetInfo)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(LiquidityAllocation)7843_storage)": {
+              "label": "mapping(address => struct IUnifiedLiquidityPool.LiquidityAllocation)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_bool)": {
+              "label": "mapping(bytes32 => bool)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_uint256,t_uint256)": {
+              "label": "mapping(uint256 => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(AssetInfo)7832_storage": {
+              "label": "struct IUnifiedLiquidityPool.AssetInfo",
+              "members": [
+                {
+                  "label": "token",
+                  "type": "t_address",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "totalDeposits",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                },
+                {
+                  "label": "totalBorrows",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "2"
+                },
+                {
+                  "label": "reserveFactor",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "3"
+                },
+                {
+                  "label": "collateralFactor",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "4"
+                },
+                {
+                  "label": "liquidationThreshold",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "5"
+                },
+                {
+                  "label": "liquidationBonus",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "6"
+                },
+                {
+                  "label": "isActive",
+                  "type": "t_bool",
+                  "offset": 0,
+                  "slot": "7"
+                },
+                {
+                  "label": "canBorrow",
+                  "type": "t_bool",
+                  "offset": 1,
+                  "slot": "7"
+                },
+                {
+                  "label": "canCollateralize",
+                  "type": "t_bool",
+                  "offset": 2,
+                  "slot": "7"
+                }
+              ],
+              "numberOfBytes": "256"
+            },
+            "t_struct(LiquidityAllocation)7843_storage": {
+              "label": "struct IUnifiedLiquidityPool.LiquidityAllocation",
+              "members": [
+                {
+                  "label": "lendingPool",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "dexPool",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                },
+                {
+                  "label": "vaultStrategies",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "2"
+                },
+                {
+                  "label": "liquidStaking",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "3"
+                },
+                {
+                  "label": "reserves",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "4"
+                }
+              ],
+              "numberOfBytes": "160"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "contracts/OrganisedSecured/dex/FluidAMM.sol:FluidAMM": {
+        "src": "contracts\\OrganisedSecured\\dex\\FluidAMM.sol:37",
+        "version": {
+          "withMetadata": "5f9cee8bebd12fae2f472f93b0228d11589a75b3df1c36e1a84745ae4fb6d5e2",
+          "withoutMetadata": "1acc2b578a768a202a75b9c581cfab6780ccdec51e4355d3b2375b3f5e2cf0b0",
+          "linkedWithoutMetadata": "1acc2b578a768a202a75b9c581cfab6780ccdec51e4355d3b2375b3f5e2cf0b0"
+        },
+        "inherit": [
+          "contracts/OrganisedSecured/interfaces/IFluidAMM.sol:IFluidAMM",
+          "contracts/OrganisedSecured/utils/OptimizedSecurityBase.sol:OptimizedSecurityBase",
+          "@openzeppelin/contracts/utils/Pausable.sol:Pausable",
+          "@openzeppelin/contracts/utils/Context.sol:Context"
+        ],
+        "libraries": [
+          "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol:SafeERC20",
+          "contracts/OrganisedSecured/libraries/GasOptimizedMath.sol:GasOptimizedMath"
+        ],
+        "methods": [
+          "(address,address,address)",
+          "createPool(address,address,uint256,uint256,bool)",
+          "addLiquidity(address,address,uint256,uint256,uint256,uint256)",
+          "removeLiquidity(address,address,uint256,uint256,uint256)",
+          "swapExactTokensForTokens(address,address,uint256,uint256,address)",
+          "swapTokensForExactTokens(address,address,uint256,uint256,address)",
+          "getPool(address,address)",
+          "getPoolById(bytes32)",
+          "getReserves(address,address)",
+          "getAmountOut(uint256,uint256,uint256)",
+          "getAmountIn(uint256,uint256,uint256)",
+          "quote(address,address,uint256)",
+          "getSpotPrice(address,address)",
+          "getActivePools()",
+          "emergencyWithdrawLiquidity(address,uint256,address)",
+          "getAvailableLiquidity(address)",
+          "activatePool(bytes32)",
+          "deactivatePool(bytes32)",
+          "updatePoolParameters(bytes32,uint16,uint16)",
+          "collectProtocolFees(bytes32,address)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "FluidAMM",
+            "src": "contracts\\OrganisedSecured\\dex\\FluidAMM.sol:77"
+          },
+          {
+            "kind": "state-variable-immutable",
+            "name": "unifiedPool",
+            "src": "contracts\\OrganisedSecured\\dex\\FluidAMM.sol:52"
+          },
+          {
+            "kind": "state-variable-immutable",
+            "name": "priceOracle",
+            "src": "contracts\\OrganisedSecured\\dex\\FluidAMM.sol:55"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_paused",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_bool",
+              "contract": "Pausable",
+              "src": "@openzeppelin\\contracts\\utils\\Pausable.sol:18"
+            },
+            {
+              "label": "liquidationsThisBlock",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_uint256,t_uint256)",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:30"
+            },
+            {
+              "label": "lastTVLSnapshot",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_uint256",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:31"
+            },
+            {
+              "label": "lastTVLUpdateBlock",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:32"
+            },
+            {
+              "label": "validStates",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_mapping(t_bytes32,t_bool)",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:35"
+            },
+            {
+              "label": "_pools",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_mapping(t_bytes32,t_struct(Pool)6822_storage)",
+              "contract": "FluidAMM",
+              "src": "contracts\\OrganisedSecured\\dex\\FluidAMM.sol:58"
+            },
+            {
+              "label": "_poolIds",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_bytes32))",
+              "contract": "FluidAMM",
+              "src": "contracts\\OrganisedSecured\\dex\\FluidAMM.sol:61"
+            },
+            {
+              "label": "_activePoolIds",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_array(t_bytes32)dyn_storage",
+              "contract": "FluidAMM",
+              "src": "contracts\\OrganisedSecured\\dex\\FluidAMM.sol:64"
+            },
+            {
+              "label": "_isInActiveList",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_mapping(t_bytes32,t_bool)",
+              "contract": "FluidAMM",
+              "src": "contracts\\OrganisedSecured\\dex\\FluidAMM.sol:67"
+            },
+            {
+              "label": "_protocolFees",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_mapping(t_bytes32,t_mapping(t_address,t_uint256))",
+              "contract": "FluidAMM",
+              "src": "contracts\\OrganisedSecured\\dex\\FluidAMM.sol:70"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_array(t_bytes32)dyn_storage": {
+              "label": "bytes32[]",
+              "numberOfBytes": "32"
+            },
+            "t_bool": {
+              "label": "bool",
+              "numberOfBytes": "1"
+            },
+            "t_bytes32": {
+              "label": "bytes32",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_bytes32)": {
+              "label": "mapping(address => bytes32)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_bytes32))": {
+              "label": "mapping(address => mapping(address => bytes32))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_bool)": {
+              "label": "mapping(bytes32 => bool)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(bytes32 => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_struct(Pool)6822_storage)": {
+              "label": "mapping(bytes32 => struct IFluidAMM.Pool)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_uint256,t_uint256)": {
+              "label": "mapping(uint256 => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(Pool)6822_storage": {
+              "label": "struct IFluidAMM.Pool",
+              "members": [
+                {
+                  "label": "token0",
+                  "type": "t_address",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "token1",
+                  "type": "t_address",
+                  "offset": 0,
+                  "slot": "1"
+                },
+                {
+                  "label": "reserve0",
+                  "type": "t_uint128",
+                  "offset": 0,
+                  "slot": "2"
+                },
+                {
+                  "label": "reserve1",
+                  "type": "t_uint128",
+                  "offset": 16,
+                  "slot": "2"
+                },
+                {
+                  "label": "kLast",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "3"
+                },
+                {
+                  "label": "totalSupply",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "4"
+                },
+                {
+                  "label": "swapFee",
+                  "type": "t_uint16",
+                  "offset": 0,
+                  "slot": "5"
+                },
+                {
+                  "label": "protocolFeePct",
+                  "type": "t_uint16",
+                  "offset": 2,
+                  "slot": "5"
+                },
+                {
+                  "label": "isActive",
+                  "type": "t_bool",
+                  "offset": 4,
+                  "slot": "5"
+                },
+                {
+                  "label": "requireOracleValidation",
+                  "type": "t_bool",
+                  "offset": 5,
+                  "slot": "5"
+                },
+                {
+                  "label": "lastUpdateTime",
+                  "type": "t_uint32",
+                  "offset": 6,
+                  "slot": "5"
+                }
+              ],
+              "numberOfBytes": "192"
+            },
+            "t_uint128": {
+              "label": "uint128",
+              "numberOfBytes": "16"
+            },
+            "t_uint16": {
+              "label": "uint16",
+              "numberOfBytes": "2"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            },
+            "t_uint32": {
+              "label": "uint32",
+              "numberOfBytes": "4"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "contracts/OrganisedSecured/interfaces/IFluidAMM.sol:IFluidAMM": {
+        "src": "contracts\\OrganisedSecured\\interfaces\\IFluidAMM.sol:17",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "createPool(address,address,uint256,uint256,bool)",
+          "addLiquidity(address,address,uint256,uint256,uint256,uint256)",
+          "removeLiquidity(address,address,uint256,uint256,uint256)",
+          "swapExactTokensForTokens(address,address,uint256,uint256,address)",
+          "swapTokensForExactTokens(address,address,uint256,uint256,address)",
+          "getPool(address,address)",
+          "getPoolById(bytes32)",
+          "getReserves(address,address)",
+          "getAmountOut(uint256,uint256,uint256)",
+          "getAmountIn(uint256,uint256,uint256)",
+          "quote(address,address,uint256)",
+          "getSpotPrice(address,address)",
+          "getActivePools()",
+          "emergencyWithdrawLiquidity(address,uint256,address)",
+          "getAvailableLiquidity(address)",
+          "activatePool(bytes32)",
+          "deactivatePool(bytes32)",
+          "updatePoolParameters(bytes32,uint16,uint16)",
+          "collectProtocolFees(bytes32,address)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "contracts/OrganisedSecured/interfaces/ILiquidityCore.sol:ILiquidityCore": {
+        "src": "contracts\\OrganisedSecured\\interfaces\\ILiquidityCore.sol:21",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "depositCollateral(address,address,uint256)",
+          "withdrawCollateral(address,address,uint256)",
+          "transferCollateral(address,address,uint256)",
+          "getCollateralReserve(address)",
+          "mintDebt(address,address,uint256)",
+          "burnDebt(address,address,uint256)",
+          "getDebtReserve(address)",
+          "borrowFromUnifiedPool(address,uint256)",
+          "returnToUnifiedPool(address,uint256)",
+          "getBorrowedFromUnified(address)",
+          "allocateRewards(address,uint256)",
+          "claimRewards(address,address,uint256)",
+          "getPendingRewards(address)",
+          "getAvailableLiquidity(address)",
+          "getUtilizationRate(address)",
+          "getLiquiditySnapshot(address)",
+          "getAssetLiquidity(address)",
+          "activateAsset(address)",
+          "deactivateAsset(address)",
+          "isAssetActive(address)",
+          "getActiveAssets()",
+          "provideEmergencyLiquidity(address,uint256)",
+          "pauseAsset(address)",
+          "unpauseAsset(address)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "contracts/OrganisedSecured/interfaces/IPriceOracle.sol:IPriceOracle": {
+        "src": "contracts\\OrganisedSecured\\interfaces\\IPriceOracle.sol:20",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "getPrice(address)",
+          "getPriceWithStatus(address)",
+          "getCachedPrice(address)",
+          "updateAndCachePrice(address)",
+          "registerOracle(address,address,uint32)",
+          "registerOracleWithSymbol(address,address,uint32,bytes20)",
+          "updateOracle(address,address,uint32)",
+          "freezeOracle(address,string)",
+          "unfreezeOracle(address)",
+          "hasOracle(address)",
+          "isFrozen(address)",
+          "getOracleConfig(address)",
+          "getLastGoodPrice(address)",
+          "getTimeSinceLastUpdate(address)",
+          "getRegisteredAssets()"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "contracts/OrganisedSecured/interfaces/IUnifiedLiquidityPool.sol:IUnifiedLiquidityPool": {
+        "src": "contracts\\OrganisedSecured\\interfaces\\IUnifiedLiquidityPool.sol:8",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "deposit(address,uint256)",
+          "withdraw(address,uint256)",
+          "borrow(address,uint256,address)",
+          "repay(address,uint256)",
+          "allocateLiquidity(address,(uint256,uint256,uint256,uint256,uint256))",
+          "rebalanceLiquidity(address)",
+          "getAvailableLiquidity(address)",
+          "getTotalLiquidity(address)",
+          "addAsset(address,(address,uint256,uint256,uint256,uint256,uint256,uint256,bool,bool,bool))",
+          "updateAsset(address,(address,uint256,uint256,uint256,uint256,uint256,uint256,bool,bool,bool))",
+          "getAssetInfo(address)",
+          "getSupportedAssets()",
+          "getUtilizationRate(address)",
+          "getSupplyRate(address)",
+          "getBorrowRate(address)",
+          "getUserDeposits(address,address)",
+          "getUserBorrows(address,address)",
+          "getUserHealthFactor(address)",
+          "liquidate(address,address,address,uint256)",
+          "isLiquidatable(address)",
+          "borrowLiquidity(address,uint256)",
+          "returnLiquidity(address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "contracts/OrganisedSecured/libraries/GasOptimizedMath.sol:GasOptimizedMath": {
+        "src": "contracts\\OrganisedSecured\\libraries\\GasOptimizedMath.sol:23",
+        "version": {
+          "withMetadata": "c9ff39aa8fc24536b5867814ddf6d1e68c5ef0870e239ccc6b3806044bdc94f2",
+          "withoutMetadata": "95d40a2c1c3f26a6a79fd4d364874e56c7fd721151816483687512865903c157",
+          "linkedWithoutMetadata": "95d40a2c1c3f26a6a79fd4d364874e56c7fd721151816483687512865903c157"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "contracts/OrganisedSecured/libraries/TransientStorage.sol:TransientCache": {
+        "src": "contracts\\OrganisedSecured\\libraries\\TransientStorage.sol:747",
+        "inherit": [],
+        "libraries": [
+          "contracts/OrganisedSecured/libraries/TransientStorage.sol:TransientStorage"
+        ],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "contracts/OrganisedSecured/libraries/TransientStorage.sol:TransientReentrancyGuard": {
+        "src": "contracts\\OrganisedSecured\\libraries\\TransientStorage.sol:701",
+        "inherit": [],
+        "libraries": [
+          "contracts/OrganisedSecured/libraries/TransientStorage.sol:TransientStorage"
+        ],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "contracts/OrganisedSecured/libraries/TransientStorage.sol:TransientStorage": {
+        "src": "contracts\\OrganisedSecured\\libraries\\TransientStorage.sol:502",
+        "version": {
+          "withMetadata": "bd3d98d2d8b2f1d51582818126173f90a02d9a37afcd7f5e6d93e52cb8d76ec9",
+          "withoutMetadata": "95d40a2c1c3f26a6a79fd4d364874e56c7fd721151816483687512865903c157",
+          "linkedWithoutMetadata": "95d40a2c1c3f26a6a79fd4d364874e56c7fd721151816483687512865903c157"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "contracts/OrganisedSecured/utils/AccessControlManager.sol:AccessControlManager": {
+        "src": "contracts\\OrganisedSecured\\utils\\AccessControlManager.sol:12",
+        "version": {
+          "withMetadata": "eaca190c8c9ae4b187cd74356a278ba954df987f2f4e031cc3d57f96ce74a9eb",
+          "withoutMetadata": "eaca190c8c9ae4b187cd74356a278ba954df987f2f4e031cc3d57f96ce74a9eb",
+          "linkedWithoutMetadata": "eaca190c8c9ae4b187cd74356a278ba954df987f2f4e031cc3d57f96ce74a9eb"
+        },
+        "inherit": [
+          "@openzeppelin/contracts/utils/ReentrancyGuard.sol:ReentrancyGuard",
+          "@openzeppelin/contracts/utils/Pausable.sol:Pausable",
+          "@openzeppelin/contracts/access/AccessControl.sol:AccessControl",
+          "@openzeppelin/contracts/utils/introspection/ERC165.sol:ERC165",
+          "@openzeppelin/contracts/utils/introspection/IERC165.sol:IERC165",
+          "@openzeppelin/contracts/access/IAccessControl.sol:IAccessControl",
+          "@openzeppelin/contracts/utils/Context.sol:Context"
+        ],
+        "libraries": [],
+        "methods": [
+          "()",
+          "grantRoleWithExpiry(bytes32,address,uint256)",
+          "hasValidRole(bytes32,address)",
+          "emergencyPause(address)",
+          "emergencyUnpause(address)",
+          "setFunctionCooldown(bytes4,uint256)",
+          "batchGrantRoles(bytes32[],address[])",
+          "batchRevokeRoles(bytes32[],address[])",
+          "pause()",
+          "unpause()",
+          "getFeeRecipient()",
+          "setFeeRecipient(address)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "AccessControlManager",
+            "src": "contracts\\OrganisedSecured\\utils\\AccessControlManager.sol:43"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_roles",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_mapping(t_bytes32,t_struct(RoleData)22_storage)",
+              "contract": "AccessControl",
+              "src": "@openzeppelin\\contracts\\access\\AccessControl.sol:55"
+            },
+            {
+              "label": "_paused",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_bool",
+              "contract": "Pausable",
+              "src": "@openzeppelin\\contracts\\utils\\Pausable.sol:18"
+            },
+            {
+              "label": "_status",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_uint256",
+              "contract": "ReentrancyGuard",
+              "src": "@openzeppelin\\contracts\\utils\\ReentrancyGuard.sol:40"
+            },
+            {
+              "label": "contractPaused",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_mapping(t_address,t_bool)",
+              "contract": "AccessControlManager",
+              "src": "contracts\\OrganisedSecured\\utils\\AccessControlManager.sol:26"
+            },
+            {
+              "label": "lastEmergencyAction",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "AccessControlManager",
+              "src": "contracts\\OrganisedSecured\\utils\\AccessControlManager.sol:27"
+            },
+            {
+              "label": "lastFunctionCall",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_mapping(t_address,t_mapping(t_bytes4,t_uint256))",
+              "contract": "AccessControlManager",
+              "src": "contracts\\OrganisedSecured\\utils\\AccessControlManager.sol:30"
+            },
+            {
+              "label": "functionCooldown",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_mapping(t_bytes4,t_uint256)",
+              "contract": "AccessControlManager",
+              "src": "contracts\\OrganisedSecured\\utils\\AccessControlManager.sol:31"
+            },
+            {
+              "label": "feeRecipient",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_address",
+              "contract": "AccessControlManager",
+              "src": "contracts\\OrganisedSecured\\utils\\AccessControlManager.sol:34"
+            },
+            {
+              "label": "roleExpiry",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_mapping(t_bytes32,t_mapping(t_address,t_uint256))",
+              "contract": "AccessControlManager",
+              "src": "contracts\\OrganisedSecured\\utils\\AccessControlManager.sol:61"
+            },
+            {
+              "label": "lastActionBlock",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "AccessControlManager",
+              "src": "contracts\\OrganisedSecured\\utils\\AccessControlManager.sol:117"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_bool": {
+              "label": "bool",
+              "numberOfBytes": "1"
+            },
+            "t_bytes32": {
+              "label": "bytes32",
+              "numberOfBytes": "32"
+            },
+            "t_bytes4": {
+              "label": "bytes4",
+              "numberOfBytes": "4"
+            },
+            "t_mapping(t_address,t_bool)": {
+              "label": "mapping(address => bool)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_mapping(t_bytes4,t_uint256))": {
+              "label": "mapping(address => mapping(bytes4 => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(bytes32 => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_struct(RoleData)22_storage)": {
+              "label": "mapping(bytes32 => struct AccessControl.RoleData)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes4,t_uint256)": {
+              "label": "mapping(bytes4 => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(RoleData)22_storage": {
+              "label": "struct AccessControl.RoleData",
+              "members": [
+                {
+                  "label": "hasRole",
+                  "type": "t_mapping(t_address,t_bool)",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "adminRole",
+                  "type": "t_bytes32",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "contracts/OrganisedSecured/utils/OptimizedSecurityBase.sol:OptimizedSecurityBase": {
+        "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:17",
+        "inherit": [
+          "@openzeppelin/contracts/utils/Pausable.sol:Pausable",
+          "@openzeppelin/contracts/utils/Context.sol:Context"
+        ],
+        "libraries": [
+          "contracts/OrganisedSecured/libraries/TransientStorage.sol:TransientStorage"
+        ],
+        "methods": [
+          "emergencyWithdraw(address,uint256)",
+          "emergencyPause()",
+          "emergencyUnpause()"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "OptimizedSecurityBase",
+            "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:42"
+          },
+          {
+            "kind": "state-variable-immutable",
+            "name": "accessControl",
+            "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:20"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_paused",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_bool",
+              "contract": "Pausable",
+              "src": "@openzeppelin\\contracts\\utils\\Pausable.sol:18"
+            },
+            {
+              "label": "liquidationsThisBlock",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_uint256,t_uint256)",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:30"
+            },
+            {
+              "label": "lastTVLSnapshot",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_uint256",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:31"
+            },
+            {
+              "label": "lastTVLUpdateBlock",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:32"
+            },
+            {
+              "label": "validStates",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_mapping(t_bytes32,t_bool)",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:35"
+            }
+          ],
+          "types": {
+            "t_bool": {
+              "label": "bool",
+              "numberOfBytes": "1"
+            },
+            "t_bytes32": {
+              "label": "bytes32",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_bool)": {
+              "label": "mapping(bytes32 => bool)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_uint256,t_uint256)": {
+              "label": "mapping(uint256 => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      }
+    },
+    {
+      "@openzeppelin/contracts/access/AccessControl.sol:AccessControl": {
+        "src": "@openzeppelin\\contracts\\access\\AccessControl.sol:49",
+        "inherit": [
+          "@openzeppelin/contracts/utils/introspection/ERC165.sol:ERC165",
+          "@openzeppelin/contracts/utils/introspection/IERC165.sol:IERC165",
+          "@openzeppelin/contracts/access/IAccessControl.sol:IAccessControl",
+          "@openzeppelin/contracts/utils/Context.sol:Context"
+        ],
+        "libraries": [],
+        "methods": [
+          "supportsInterface(bytes4)",
+          "hasRole(bytes32,address)",
+          "getRoleAdmin(bytes32)",
+          "grantRole(bytes32,address)",
+          "revokeRole(bytes32,address)",
+          "renounceRole(bytes32,address)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [
+            {
+              "label": "_roles",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_mapping(t_bytes32,t_struct(RoleData)22_storage)",
+              "contract": "AccessControl",
+              "src": "@openzeppelin\\contracts\\access\\AccessControl.sol:55"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_bool": {
+              "label": "bool",
+              "numberOfBytes": "1"
+            },
+            "t_bytes32": {
+              "label": "bytes32",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_bool)": {
+              "label": "mapping(address => bool)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_struct(RoleData)22_storage)": {
+              "label": "mapping(bytes32 => struct AccessControl.RoleData)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(RoleData)22_storage": {
+              "label": "struct AccessControl.RoleData",
+              "members": [
+                {
+                  "label": "hasRole",
+                  "type": "t_mapping(t_address,t_bool)",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "adminRole",
+                  "type": "t_bytes32",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "@openzeppelin/contracts/access/IAccessControl.sol:IAccessControl": {
+        "src": "@openzeppelin\\contracts\\access\\IAccessControl.sol:9",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "hasRole(bytes32,address)",
+          "getRoleAdmin(bytes32)",
+          "grantRole(bytes32,address)",
+          "revokeRole(bytes32,address)",
+          "renounceRole(bytes32,address)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "@openzeppelin/contracts/interfaces/IERC1363.sol:IERC1363": {
+        "src": "@openzeppelin\\contracts\\interfaces\\IERC1363.sol:16",
+        "inherit": [
+          "@openzeppelin/contracts/utils/introspection/IERC165.sol:IERC165",
+          "@openzeppelin/contracts/token/ERC20/IERC20.sol:IERC20"
+        ],
+        "libraries": [],
+        "methods": [
+          "transferAndCall(address,uint256)",
+          "transferAndCall(address,uint256,bytes)",
+          "transferFromAndCall(address,address,uint256)",
+          "transferFromAndCall(address,address,uint256,bytes)",
+          "approveAndCall(address,uint256)",
+          "approveAndCall(address,uint256,bytes)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "@openzeppelin/contracts/token/ERC20/IERC20.sol:IERC20": {
+        "src": "@openzeppelin\\contracts\\token\\ERC20\\IERC20.sol:9",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "totalSupply()",
+          "balanceOf(address)",
+          "transfer(address,uint256)",
+          "allowance(address,address)",
+          "approve(address,uint256)",
+          "transferFrom(address,address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol:SafeERC20": {
+        "src": "@openzeppelin\\contracts\\token\\ERC20\\utils\\SafeERC20.sol:18",
+        "version": {
+          "withMetadata": "c96615c5f4b8e153a9fbc737821eb913af8c07e58265488d5a0c57490533c4fd",
+          "withoutMetadata": "95d40a2c1c3f26a6a79fd4d364874e56c7fd721151816483687512865903c157",
+          "linkedWithoutMetadata": "95d40a2c1c3f26a6a79fd4d364874e56c7fd721151816483687512865903c157"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "@openzeppelin/contracts/utils/Context.sol:Context": {
+        "src": "@openzeppelin\\contracts\\utils\\Context.sol:16",
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "@openzeppelin/contracts/utils/Pausable.sol:Pausable": {
+        "src": "@openzeppelin\\contracts\\utils\\Pausable.sol:17",
+        "inherit": [
+          "@openzeppelin/contracts/utils/Context.sol:Context"
+        ],
+        "libraries": [],
+        "methods": [
+          "paused()"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [
+            {
+              "label": "_paused",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_bool",
+              "contract": "Pausable",
+              "src": "@openzeppelin\\contracts\\utils\\Pausable.sol:18"
+            }
+          ],
+          "types": {
+            "t_bool": {
+              "label": "bool",
+              "numberOfBytes": "1"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "@openzeppelin/contracts/utils/ReentrancyGuard.sol:ReentrancyGuard": {
+        "src": "@openzeppelin\\contracts\\utils\\ReentrancyGuard.sol:25",
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "ReentrancyGuard",
+            "src": "@openzeppelin\\contracts\\utils\\ReentrancyGuard.sol:47"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_status",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_uint256",
+              "contract": "ReentrancyGuard",
+              "src": "@openzeppelin\\contracts\\utils\\ReentrancyGuard.sol:40"
+            }
+          ],
+          "types": {
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "@openzeppelin/contracts/utils/introspection/ERC165.sol:ERC165": {
+        "src": "@openzeppelin\\contracts\\utils\\introspection\\ERC165.sol:20",
+        "inherit": [
+          "@openzeppelin/contracts/utils/introspection/IERC165.sol:IERC165"
+        ],
+        "libraries": [],
+        "methods": [
+          "supportsInterface(bytes4)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "@openzeppelin/contracts/utils/introspection/IERC165.sol:IERC165": {
+        "src": "@openzeppelin\\contracts\\utils\\introspection\\IERC165.sol:15",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "supportsInterface(bytes4)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "contracts/OrganisedSecured/core/UnifiedLiquidityPool.sol:UnifiedLiquidityPool": {
+        "src": "contracts\\OrganisedSecured\\core\\UnifiedLiquidityPool.sol:15",
+        "version": {
+          "withMetadata": "8d090287c2d84b122c28b96e5cb53fb02fc1d97a4daf8cf13e730717912bf197",
+          "withoutMetadata": "8cd46007b321c657909aa701b2c9b09e6853d4fea480a5d639e92ae779893bbb",
+          "linkedWithoutMetadata": "8cd46007b321c657909aa701b2c9b09e6853d4fea480a5d639e92ae779893bbb"
+        },
+        "inherit": [
+          "contracts/OrganisedSecured/interfaces/IUnifiedLiquidityPool.sol:IUnifiedLiquidityPool",
+          "contracts/OrganisedSecured/utils/OptimizedSecurityBase.sol:OptimizedSecurityBase",
+          "@openzeppelin/contracts/utils/Pausable.sol:Pausable",
+          "@openzeppelin/contracts/utils/Context.sol:Context"
+        ],
+        "libraries": [
+          "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol:SafeERC20"
+        ],
+        "methods": [
+          "(address,address)",
+          "deposit(address,uint256)",
+          "withdraw(address,uint256)",
+          "borrow(address,uint256,address)",
+          "repay(address,uint256)",
+          "addAsset(address,(address,uint256,uint256,uint256,uint256,uint256,uint256,bool,bool,bool))",
+          "allocateLiquidity(address,(uint256,uint256,uint256,uint256,uint256))",
+          "rebalanceLiquidity(address)",
+          "getAvailableLiquidity(address)",
+          "getTotalLiquidity(address)",
+          "updateAsset(address,(address,uint256,uint256,uint256,uint256,uint256,uint256,bool,bool,bool))",
+          "getAssetInfo(address)",
+          "getSupportedAssets()",
+          "getUtilizationRate(address)",
+          "getSupplyRate(address)",
+          "getBorrowRate(address)",
+          "getUserDeposits(address,address)",
+          "getUserBorrows(address,address)",
+          "getUserHealthFactor(address)",
+          "liquidate(address,address,address,uint256)",
+          "isLiquidatable(address)",
+          "borrowLiquidity(address,uint256)",
+          "returnLiquidity(address,uint256)",
+          "registerForSonicFeeM(uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "UnifiedLiquidityPool",
+            "src": "contracts\\OrganisedSecured\\core\\UnifiedLiquidityPool.sol:26"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_paused",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_bool",
+              "contract": "Pausable",
+              "src": "@openzeppelin\\contracts\\utils\\Pausable.sol:18"
+            },
+            {
+              "label": "liquidationsThisBlock",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_uint256,t_uint256)",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:30"
+            },
+            {
+              "label": "lastTVLSnapshot",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_uint256",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:31"
+            },
+            {
+              "label": "lastTVLUpdateBlock",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:32"
+            },
+            {
+              "label": "validStates",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_mapping(t_bytes32,t_bool)",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:35"
+            },
+            {
+              "label": "assets",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_mapping(t_address,t_struct(AssetInfo)2615_storage)",
+              "contract": "UnifiedLiquidityPool",
+              "src": "contracts\\OrganisedSecured\\core\\UnifiedLiquidityPool.sol:18"
+            },
+            {
+              "label": "userDeposits",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "UnifiedLiquidityPool",
+              "src": "contracts\\OrganisedSecured\\core\\UnifiedLiquidityPool.sol:19"
+            },
+            {
+              "label": "userBorrows",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "UnifiedLiquidityPool",
+              "src": "contracts\\OrganisedSecured\\core\\UnifiedLiquidityPool.sol:20"
+            },
+            {
+              "label": "allocations",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_mapping(t_address,t_struct(LiquidityAllocation)2626_storage)",
+              "contract": "UnifiedLiquidityPool",
+              "src": "contracts\\OrganisedSecured\\core\\UnifiedLiquidityPool.sol:21"
+            },
+            {
+              "label": "supportedAssets",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_array(t_address)dyn_storage",
+              "contract": "UnifiedLiquidityPool",
+              "src": "contracts\\OrganisedSecured\\core\\UnifiedLiquidityPool.sol:23"
+            },
+            {
+              "label": "priceOracle",
+              "offset": 0,
+              "slot": "10",
+              "type": "t_contract(IPriceOracle)2591",
+              "contract": "UnifiedLiquidityPool",
+              "src": "contracts\\OrganisedSecured\\core\\UnifiedLiquidityPool.sol:24"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_array(t_address)dyn_storage": {
+              "label": "address[]",
+              "numberOfBytes": "32"
+            },
+            "t_bool": {
+              "label": "bool",
+              "numberOfBytes": "1"
+            },
+            "t_bytes32": {
+              "label": "bytes32",
+              "numberOfBytes": "32"
+            },
+            "t_contract(IPriceOracle)2591": {
+              "label": "contract IPriceOracle",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(AssetInfo)2615_storage)": {
+              "label": "mapping(address => struct IUnifiedLiquidityPool.AssetInfo)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_struct(LiquidityAllocation)2626_storage)": {
+              "label": "mapping(address => struct IUnifiedLiquidityPool.LiquidityAllocation)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_bool)": {
+              "label": "mapping(bytes32 => bool)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_uint256,t_uint256)": {
+              "label": "mapping(uint256 => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(AssetInfo)2615_storage": {
+              "label": "struct IUnifiedLiquidityPool.AssetInfo",
+              "members": [
+                {
+                  "label": "token",
+                  "type": "t_address",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "totalDeposits",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                },
+                {
+                  "label": "totalBorrows",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "2"
+                },
+                {
+                  "label": "reserveFactor",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "3"
+                },
+                {
+                  "label": "collateralFactor",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "4"
+                },
+                {
+                  "label": "liquidationThreshold",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "5"
+                },
+                {
+                  "label": "liquidationBonus",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "6"
+                },
+                {
+                  "label": "isActive",
+                  "type": "t_bool",
+                  "offset": 0,
+                  "slot": "7"
+                },
+                {
+                  "label": "canBorrow",
+                  "type": "t_bool",
+                  "offset": 1,
+                  "slot": "7"
+                },
+                {
+                  "label": "canCollateralize",
+                  "type": "t_bool",
+                  "offset": 2,
+                  "slot": "7"
+                }
+              ],
+              "numberOfBytes": "256"
+            },
+            "t_struct(LiquidityAllocation)2626_storage": {
+              "label": "struct IUnifiedLiquidityPool.LiquidityAllocation",
+              "members": [
+                {
+                  "label": "lendingPool",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "dexPool",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                },
+                {
+                  "label": "vaultStrategies",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "2"
+                },
+                {
+                  "label": "liquidStaking",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "3"
+                },
+                {
+                  "label": "reserves",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "4"
+                }
+              ],
+              "numberOfBytes": "160"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "contracts/OrganisedSecured/interfaces/IPriceOracle.sol:IPriceOracle": {
+        "src": "contracts\\OrganisedSecured\\interfaces\\IPriceOracle.sol:20",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "getPrice(address)",
+          "getPriceWithStatus(address)",
+          "getCachedPrice(address)",
+          "updateAndCachePrice(address)",
+          "registerOracle(address,address,uint32)",
+          "registerOracleWithSymbol(address,address,uint32,bytes20)",
+          "updateOracle(address,address,uint32)",
+          "freezeOracle(address,string)",
+          "unfreezeOracle(address)",
+          "hasOracle(address)",
+          "isFrozen(address)",
+          "getOracleConfig(address)",
+          "getLastGoodPrice(address)",
+          "getTimeSinceLastUpdate(address)",
+          "getRegisteredAssets()"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "contracts/OrganisedSecured/interfaces/IUnifiedLiquidityPool.sol:IUnifiedLiquidityPool": {
+        "src": "contracts\\OrganisedSecured\\interfaces\\IUnifiedLiquidityPool.sol:8",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "deposit(address,uint256)",
+          "withdraw(address,uint256)",
+          "borrow(address,uint256,address)",
+          "repay(address,uint256)",
+          "allocateLiquidity(address,(uint256,uint256,uint256,uint256,uint256))",
+          "rebalanceLiquidity(address)",
+          "getAvailableLiquidity(address)",
+          "getTotalLiquidity(address)",
+          "addAsset(address,(address,uint256,uint256,uint256,uint256,uint256,uint256,bool,bool,bool))",
+          "updateAsset(address,(address,uint256,uint256,uint256,uint256,uint256,uint256,bool,bool,bool))",
+          "getAssetInfo(address)",
+          "getSupportedAssets()",
+          "getUtilizationRate(address)",
+          "getSupplyRate(address)",
+          "getBorrowRate(address)",
+          "getUserDeposits(address,address)",
+          "getUserBorrows(address,address)",
+          "getUserHealthFactor(address)",
+          "liquidate(address,address,address,uint256)",
+          "isLiquidatable(address)",
+          "borrowLiquidity(address,uint256)",
+          "returnLiquidity(address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "contracts/OrganisedSecured/libraries/TransientStorage.sol:TransientCache": {
+        "src": "contracts\\OrganisedSecured\\libraries\\TransientStorage.sol:747",
+        "inherit": [],
+        "libraries": [
+          "contracts/OrganisedSecured/libraries/TransientStorage.sol:TransientStorage"
+        ],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "contracts/OrganisedSecured/libraries/TransientStorage.sol:TransientReentrancyGuard": {
+        "src": "contracts\\OrganisedSecured\\libraries\\TransientStorage.sol:701",
+        "inherit": [],
+        "libraries": [
+          "contracts/OrganisedSecured/libraries/TransientStorage.sol:TransientStorage"
+        ],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "contracts/OrganisedSecured/libraries/TransientStorage.sol:TransientStorage": {
+        "src": "contracts\\OrganisedSecured\\libraries\\TransientStorage.sol:502",
+        "version": {
+          "withMetadata": "bd3d98d2d8b2f1d51582818126173f90a02d9a37afcd7f5e6d93e52cb8d76ec9",
+          "withoutMetadata": "95d40a2c1c3f26a6a79fd4d364874e56c7fd721151816483687512865903c157",
+          "linkedWithoutMetadata": "95d40a2c1c3f26a6a79fd4d364874e56c7fd721151816483687512865903c157"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "contracts/OrganisedSecured/utils/AccessControlManager.sol:AccessControlManager": {
+        "src": "contracts\\OrganisedSecured\\utils\\AccessControlManager.sol:12",
+        "version": {
+          "withMetadata": "eaca190c8c9ae4b187cd74356a278ba954df987f2f4e031cc3d57f96ce74a9eb",
+          "withoutMetadata": "eaca190c8c9ae4b187cd74356a278ba954df987f2f4e031cc3d57f96ce74a9eb",
+          "linkedWithoutMetadata": "eaca190c8c9ae4b187cd74356a278ba954df987f2f4e031cc3d57f96ce74a9eb"
+        },
+        "inherit": [
+          "@openzeppelin/contracts/utils/ReentrancyGuard.sol:ReentrancyGuard",
+          "@openzeppelin/contracts/utils/Pausable.sol:Pausable",
+          "@openzeppelin/contracts/access/AccessControl.sol:AccessControl",
+          "@openzeppelin/contracts/utils/introspection/ERC165.sol:ERC165",
+          "@openzeppelin/contracts/utils/introspection/IERC165.sol:IERC165",
+          "@openzeppelin/contracts/access/IAccessControl.sol:IAccessControl",
+          "@openzeppelin/contracts/utils/Context.sol:Context"
+        ],
+        "libraries": [],
+        "methods": [
+          "()",
+          "grantRoleWithExpiry(bytes32,address,uint256)",
+          "hasValidRole(bytes32,address)",
+          "emergencyPause(address)",
+          "emergencyUnpause(address)",
+          "setFunctionCooldown(bytes4,uint256)",
+          "batchGrantRoles(bytes32[],address[])",
+          "batchRevokeRoles(bytes32[],address[])",
+          "pause()",
+          "unpause()",
+          "getFeeRecipient()",
+          "setFeeRecipient(address)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "AccessControlManager",
+            "src": "contracts\\OrganisedSecured\\utils\\AccessControlManager.sol:43"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_roles",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_mapping(t_bytes32,t_struct(RoleData)22_storage)",
+              "contract": "AccessControl",
+              "src": "@openzeppelin\\contracts\\access\\AccessControl.sol:55"
+            },
+            {
+              "label": "_paused",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_bool",
+              "contract": "Pausable",
+              "src": "@openzeppelin\\contracts\\utils\\Pausable.sol:18"
+            },
+            {
+              "label": "_status",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_uint256",
+              "contract": "ReentrancyGuard",
+              "src": "@openzeppelin\\contracts\\utils\\ReentrancyGuard.sol:40"
+            },
+            {
+              "label": "contractPaused",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_mapping(t_address,t_bool)",
+              "contract": "AccessControlManager",
+              "src": "contracts\\OrganisedSecured\\utils\\AccessControlManager.sol:26"
+            },
+            {
+              "label": "lastEmergencyAction",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "AccessControlManager",
+              "src": "contracts\\OrganisedSecured\\utils\\AccessControlManager.sol:27"
+            },
+            {
+              "label": "lastFunctionCall",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_mapping(t_address,t_mapping(t_bytes4,t_uint256))",
+              "contract": "AccessControlManager",
+              "src": "contracts\\OrganisedSecured\\utils\\AccessControlManager.sol:30"
+            },
+            {
+              "label": "functionCooldown",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_mapping(t_bytes4,t_uint256)",
+              "contract": "AccessControlManager",
+              "src": "contracts\\OrganisedSecured\\utils\\AccessControlManager.sol:31"
+            },
+            {
+              "label": "feeRecipient",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_address",
+              "contract": "AccessControlManager",
+              "src": "contracts\\OrganisedSecured\\utils\\AccessControlManager.sol:34"
+            },
+            {
+              "label": "roleExpiry",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_mapping(t_bytes32,t_mapping(t_address,t_uint256))",
+              "contract": "AccessControlManager",
+              "src": "contracts\\OrganisedSecured\\utils\\AccessControlManager.sol:61"
+            },
+            {
+              "label": "lastActionBlock",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "AccessControlManager",
+              "src": "contracts\\OrganisedSecured\\utils\\AccessControlManager.sol:117"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_bool": {
+              "label": "bool",
+              "numberOfBytes": "1"
+            },
+            "t_bytes32": {
+              "label": "bytes32",
+              "numberOfBytes": "32"
+            },
+            "t_bytes4": {
+              "label": "bytes4",
+              "numberOfBytes": "4"
+            },
+            "t_mapping(t_address,t_bool)": {
+              "label": "mapping(address => bool)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_mapping(t_bytes4,t_uint256))": {
+              "label": "mapping(address => mapping(bytes4 => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(bytes32 => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_struct(RoleData)22_storage)": {
+              "label": "mapping(bytes32 => struct AccessControl.RoleData)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes4,t_uint256)": {
+              "label": "mapping(bytes4 => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(RoleData)22_storage": {
+              "label": "struct AccessControl.RoleData",
+              "members": [
+                {
+                  "label": "hasRole",
+                  "type": "t_mapping(t_address,t_bool)",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "adminRole",
+                  "type": "t_bytes32",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "contracts/OrganisedSecured/utils/OptimizedSecurityBase.sol:OptimizedSecurityBase": {
+        "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:17",
+        "inherit": [
+          "@openzeppelin/contracts/utils/Pausable.sol:Pausable",
+          "@openzeppelin/contracts/utils/Context.sol:Context"
+        ],
+        "libraries": [
+          "contracts/OrganisedSecured/libraries/TransientStorage.sol:TransientStorage"
+        ],
+        "methods": [
+          "emergencyWithdraw(address,uint256)",
+          "emergencyPause()",
+          "emergencyUnpause()"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "OptimizedSecurityBase",
+            "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:42"
+          },
+          {
+            "kind": "state-variable-immutable",
+            "name": "accessControl",
+            "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:20"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_paused",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_bool",
+              "contract": "Pausable",
+              "src": "@openzeppelin\\contracts\\utils\\Pausable.sol:18"
+            },
+            {
+              "label": "liquidationsThisBlock",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_mapping(t_uint256,t_uint256)",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:30"
+            },
+            {
+              "label": "lastTVLSnapshot",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_uint256",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:31"
+            },
+            {
+              "label": "lastTVLUpdateBlock",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_uint256",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:32"
+            },
+            {
+              "label": "validStates",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_mapping(t_bytes32,t_bool)",
+              "contract": "OptimizedSecurityBase",
+              "src": "contracts\\OrganisedSecured\\utils\\OptimizedSecurityBase.sol:35"
+            }
+          ],
+          "types": {
+            "t_bool": {
+              "label": "bool",
+              "numberOfBytes": "1"
+            },
+            "t_bytes32": {
+              "label": "bytes32",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_bool)": {
+              "label": "mapping(bytes32 => bool)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_uint256,t_uint256)": {
+              "label": "mapping(uint256 => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      }
+    },
+    {
+      "contracts/OrganisedSecured/mocks/MockOrochiOracle.sol:IOrocleAggregatorV2": {
+        "src": "contracts\\OrganisedSecured\\mocks\\MockOrochiOracle.sol:9",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "getLatestData(uint256,bytes32)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "contracts/OrganisedSecured/mocks/MockOrochiOracle.sol:MockOrochiOracle": {
+        "src": "contracts\\OrganisedSecured\\mocks\\MockOrochiOracle.sol:13",
+        "version": {
+          "withMetadata": "d21a6e777895e9974b43aa3611dea39a47865cda8b1f84482c29ffef3fe6836e",
+          "withoutMetadata": "1948262d92097fb94d26298fe754536cd07953337451739172b0e8f224159cc5",
+          "linkedWithoutMetadata": "1948262d92097fb94d26298fe754536cd07953337451739172b0e8f224159cc5"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "getLatestData(uint256,bytes32)",
+          "setLatestData(uint256,bytes32,bytes32)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [
+            {
+              "label": "latestData",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_mapping(t_uint256,t_mapping(t_bytes32,t_bytes32))",
+              "contract": "MockOrochiOracle",
+              "src": "contracts\\OrganisedSecured\\mocks\\MockOrochiOracle.sol:15"
+            }
+          ],
+          "types": {
+            "t_bytes32": {
+              "label": "bytes32",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_bytes32)": {
+              "label": "mapping(bytes32 => bytes32)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_uint256,t_mapping(t_bytes32,t_bytes32))": {
+              "label": "mapping(uint256 => mapping(bytes32 => bytes32))",
+              "numberOfBytes": "32"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      }
+    },
+    {
+      "@openzeppelin/contracts/access/AccessControl.sol:AccessControl": {
+        "src": "@openzeppelin\\contracts\\access\\AccessControl.sol:49",
+        "inherit": [
+          "@openzeppelin/contracts/utils/introspection/ERC165.sol:ERC165",
+          "@openzeppelin/contracts/utils/introspection/IERC165.sol:IERC165",
+          "@openzeppelin/contracts/access/IAccessControl.sol:IAccessControl",
+          "@openzeppelin/contracts/utils/Context.sol:Context"
+        ],
+        "libraries": [],
+        "methods": [
+          "supportsInterface(bytes4)",
+          "hasRole(bytes32,address)",
+          "getRoleAdmin(bytes32)",
+          "grantRole(bytes32,address)",
+          "revokeRole(bytes32,address)",
+          "renounceRole(bytes32,address)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [
+            {
+              "label": "_roles",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_mapping(t_bytes32,t_struct(RoleData)22_storage)",
+              "contract": "AccessControl",
+              "src": "@openzeppelin\\contracts\\access\\AccessControl.sol:55"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_bool": {
+              "label": "bool",
+              "numberOfBytes": "1"
+            },
+            "t_bytes32": {
+              "label": "bytes32",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_bool)": {
+              "label": "mapping(address => bool)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_bytes32,t_struct(RoleData)22_storage)": {
+              "label": "mapping(bytes32 => struct AccessControl.RoleData)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(RoleData)22_storage": {
+              "label": "struct AccessControl.RoleData",
+              "members": [
+                {
+                  "label": "hasRole",
+                  "type": "t_mapping(t_address,t_bool)",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "adminRole",
+                  "type": "t_bytes32",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "@openzeppelin/contracts/access/IAccessControl.sol:IAccessControl": {
+        "src": "@openzeppelin\\contracts\\access\\IAccessControl.sol:9",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "hasRole(bytes32,address)",
+          "getRoleAdmin(bytes32)",
+          "grantRole(bytes32,address)",
+          "revokeRole(bytes32,address)",
+          "renounceRole(bytes32,address)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "@openzeppelin/contracts/interfaces/IERC1363.sol:IERC1363": {
+        "src": "@openzeppelin\\contracts\\interfaces\\IERC1363.sol:16",
+        "inherit": [
+          "@openzeppelin/contracts/utils/introspection/IERC165.sol:IERC165",
+          "@openzeppelin/contracts/token/ERC20/IERC20.sol:IERC20"
+        ],
+        "libraries": [],
+        "methods": [
+          "transferAndCall(address,uint256)",
+          "transferAndCall(address,uint256,bytes)",
+          "transferFromAndCall(address,address,uint256)",
+          "transferFromAndCall(address,address,uint256,bytes)",
+          "approveAndCall(address,uint256)",
+          "approveAndCall(address,uint256,bytes)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "@openzeppelin/contracts/token/ERC20/IERC20.sol:IERC20": {
+        "src": "@openzeppelin\\contracts\\token\\ERC20\\IERC20.sol:9",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "totalSupply()",
+          "balanceOf(address)",
+          "transfer(address,uint256)",
+          "allowance(address,address)",
+          "approve(address,uint256)",
+          "transferFrom(address,address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol:SafeERC20": {
+        "src": "@openzeppelin\\contracts\\token\\ERC20\\utils\\SafeERC20.sol:18",
+        "version": {
+          "withMetadata": "c96615c5f4b8e153a9fbc737821eb913af8c07e58265488d5a0c57490533c4fd",
+          "withoutMetadata": "95d40a2c1c3f26a6a79fd4d364874e56c7fd721151816483687512865903c157",
+          "linkedWithoutMetadata": "95d40a2c1c3f26a6a79fd4d364874e56c7fd721151816483687512865903c157"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "@openzeppelin/contracts/utils/Context.sol:Context": {
+        "src": "@openzeppelin\\contracts\\utils\\Context.sol:16",
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "@openzeppelin/contracts/utils/Pausable.sol:Pausable": {
+        "src": "@openzeppelin\\contracts\\utils\\Pausable.sol:17",
+        "inherit": [
+          "@openzeppelin/contracts/utils/Context.sol:Context"
+        ],
+        "libraries": [],
+        "methods": [
+          "paused()"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [
+            {
+              "label": "_paused",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_bool",
+              "contract": "Pausable",
+              "src": "@openzeppelin\\contracts\\utils\\Pausable.sol:18"
+            }
+          ],
+          "types": {
+            "t_bool": {
+              "label": "bool",
+              "numberOfBytes": "1"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "@openzeppelin/contracts/utils/ReentrancyGuard.sol:ReentrancyGuard": {
+        "src": "@openzeppelin\\contracts\\utils\\ReentrancyGuard.sol:25",
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "ReentrancyGuard",
+            "src": "@openzeppelin\\contracts\\utils\\ReentrancyGuard.sol:47"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "_status",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_uint256",
+              "contract": "ReentrancyGuard",
+              "src": "@openzeppelin\\contracts\\utils\\ReentrancyGuard.sol:40"
+            }
+          ],
+          "types": {
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "@openzeppelin/contracts/utils/introspection/ERC165.sol:ERC165": {
+        "src": "@openzeppelin\\contracts\\utils\\introspection\\ERC165.sol:20",
+        "inherit": [
+          "@openzeppelin/contracts/utils/introspection/IERC165.sol:IERC165"
+        ],
+        "libraries": [],
+        "methods": [
+          "supportsInterface(bytes4)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
+      "@openzeppelin/contracts/utils/introspection/IERC165.sol:IERC165": {
+        "src": "@openzeppelin\\contracts\\utils\\introspection\\IERC165.sol:15",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "supportsInterface(bytes4)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.24"
+      },
       "contracts/OrganisedSecured/core/TroveManagerV2.sol:TroveManagerV2": {
         "src": "contracts\\OrganisedSecured\\core\\TroveManagerV2.sol:45",
         "version": {

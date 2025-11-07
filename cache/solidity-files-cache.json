@@ -2107,8 +2107,8 @@
       ]
     },
     "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\interfaces\\IUnifiedLiquidityPool.sol": {
-      "lastModificationDate": 1757910333468,
-      "contentHash": "1cab5dc7ab9b5b8e2f31f7275648d603",
+      "lastModificationDate": 1762504209656,
+      "contentHash": "0814a830891ec9836da6a8e86fcd8ac3",
       "sourceName": "contracts/OrganisedSecured/interfaces/IUnifiedLiquidityPool.sol",
       "solcConfig": {
         "version": "0.8.24",
@@ -2145,8 +2145,8 @@
       ]
     },
     "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\core\\UnifiedLiquidityPool.sol": {
-      "lastModificationDate": 1759588010414,
-      "contentHash": "6633c20dfb8ff0714e1203b731446516",
+      "lastModificationDate": 1762504192374,
+      "contentHash": "aa1bda0b12d4387b869e7391781a936d",
       "sourceName": "contracts/OrganisedSecured/core/UnifiedLiquidityPool.sol",
       "solcConfig": {
         "version": "0.8.24",
@@ -2178,7 +2178,8 @@
         "@openzeppelin/contracts/token/ERC20/IERC20.sol",
         "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
         "../utils/OptimizedSecurityBase.sol",
-        "../interfaces/IUnifiedLiquidityPool.sol"
+        "../interfaces/IUnifiedLiquidityPool.sol",
+        "../interfaces/IPriceOracle.sol"
       ],
       "versionPragmas": [
         "^0.8.24"
@@ -2594,6 +2595,45 @@
       ],
       "artifacts": [
         "CapitalEfficiencyEngine"
+      ]
+    },
+    "C:\\Users\\ASUS FX95G\\Documents\\apps\\fluid-fork\\fluid-protocol\\solidity\\contracts\\OrganisedSecured\\mocks\\MockOrochiOracle.sol": {
+      "lastModificationDate": 1762416404603,
+      "contentHash": "ab6d31c350653efe329a397a49b69c4e",
+      "sourceName": "contracts/OrganisedSecured/mocks/MockOrochiOracle.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "viaIR": true,
+          "evmVersion": "cancun",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IOrocleAggregatorV2",
+        "MockOrochiOracle"
       ]
     }
   }

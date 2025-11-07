@@ -34,6 +34,13 @@ interface IUnifiedLiquidityPool {
     event LiquidityWithdrawn(address indexed user, address indexed token, uint256 amount);
     event LiquidityAllocated(address indexed token, LiquidityAllocation allocation);
     event RebalanceExecuted(address indexed token, uint256 timestamp);
+    event Liquidation(
+        address indexed user,
+        address indexed debtToken,
+        uint256 debtAmount,
+        address indexed collateralToken,
+        uint256 collateralSeized
+    );
 
     // Core Functions
     function deposit(address token, uint256 amount) external returns (uint256 shares);
